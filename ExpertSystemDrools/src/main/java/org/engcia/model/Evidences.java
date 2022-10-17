@@ -1,6 +1,9 @@
 package org.engcia.model;
 
 public class Evidences {
+    private BudgetType BudgetType;
+    private Finality Finality;
+
     private java.lang.String bloodEar;
     private java.lang.String earAche;
     private java.lang.String deafness;
@@ -143,5 +146,52 @@ public class Evidences {
         this.bloodCoffee = bloodCoffee;
         this.headAche = headAche;
         this.bloodVagina = bloodVagina;
+    }
+
+    public enum Finality{
+        /* Trabalho Simples */
+        EDICAO_DE_TEXTO("Edição de texto"),
+        NAVEGACAO_WEB("Navegação Web"),
+        APLICATIVOS_OFFICE_USO_PARTICULAR("Aplicativos Office - Utilização particular"),
+
+        /* Trabalho Médio/Normal */
+        NAVEGACAO_WEB_MULTIPLAS_JANELAS("Navegação Web com múltiplas janelas"),
+        APLICATIVOS_OFFICE_USO_PROFISSIONAL("Aplicativos Office - Utilização profissional"),
+        APLICACOES_PROFISSIONAIS("Aplicações profissionais"),
+        JOGOS_BASICOS("Jogos básicos"),
+
+        /* Trabalho Complexo */
+        PROGRAMA_MODELACAO_3D("Programa de modelação 3D"),
+        PROGRAMA_DESIGN_GRAFICO("Programa de design gráfico"),
+        PROGRAMA_CALCULO_MATEMATICO("Programa de cálculo matemático"),
+        GAMING("Gaming"),
+        TRATAMENTO_DE_IMAGEM("Tratamento de imagem"),
+        EDICAO_VIDEO_4K_E_8K("Edição de video 4K e 8K ");
+
+        private final String name;
+
+        private Finality(final String name){
+            this.name = name;
+        }
+
+        public String ToString(){
+            return this.name;
+        }
+    }
+
+    public enum BudgetType {
+        BAIXO_ORCAMENTO("Baixo orçamento"),
+        ORCAMENTO_NORMAL("Orçamento normal"),
+        SEM_LIMITE_ORCAMENTO("Sem limite de orçamento");
+
+        private final String name;
+
+        private BudgetType(final String name) {
+            this.name = name;
+        }
+
+        public String ToString() {
+            return this.name;
+        }
     }
 }
