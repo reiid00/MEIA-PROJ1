@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ExpertSystemDrools/Haemorrhage.iml" filepath="$PROJECT_DIR$/ExpertSystemDrools/Haemorrhage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ExpertSystemDrools/ExpertSystemDrools.iml" filepath="$PROJECT_DIR$/ExpertSystemDrools/ExpertSystemDrools.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/SistemaPericial.iml" filepath="$PROJECT_DIR$/.idea/SistemaPericial.iml" />
     </modules>
   </component>

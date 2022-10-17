@@ -1,0 +1,13 @@
+
+^
+java:S34578"AFormat specifiers should be used instead of string concatenation.(¹ğú›8Ş÷Î‰Ò.
+G
+java:S1181M"%Catch Exception instead of Throwable.(•”ø¾øÿÿÿÿ8æúˆÒ.
+y
+java:S26298"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¹ğú›8Ş÷Î‰Ò.
+
+java:S11861"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¡¯¿8æúˆÒ.
+]	java:S125I"<This block of commented-out lines of code should be removed.(Æ¢Ùúÿÿÿÿ8æúˆÒ.
+£
+java:S1186@"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÔÖ¼şÿÿÿÿ8æúˆÒ.
+X	java:S1257"<This block of commented-out lines of code should be removed.(¹ù»¦8á’Ï‰Ò.

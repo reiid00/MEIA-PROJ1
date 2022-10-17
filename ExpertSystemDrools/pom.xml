@@ -2,18 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.CoaFEldMAS</groupId>
-  <artifactId>MEIAExpertSystem</artifactId>
+  <groupId>org.engcia</groupId>
+  <artifactId>ExpertSystemDrools</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>kjar</packaging>
 
-  <name>MEIAExpertSystem</name>
+  <name>ExpertSystemDrools</name>
+  <url>http://drools.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <drools-version>8.27.0.Beta</drools-version>
-    <slf4j-version>1.7.30</slf4j-version>
-    <junit-version>4.13.1</junit-version>
+    <drools-version>7.44.0.Final</drools-version>
+    <slf4j-version>1.7.26</slf4j-version>
+    <junit-version>4.12</junit-version>
   </properties>
 
   <dependencyManagement>
@@ -31,21 +32,34 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-engine-classic</artifactId>
-    </dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-compiler</artifactId>
+        <scope>compile</scope>
+      </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit-version}</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j-version}</version>
-      <scope>test</scope>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-api</artifactId>
+      <version>${drools-version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-api</artifactId>
+      <version>7.44.0.Final</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 

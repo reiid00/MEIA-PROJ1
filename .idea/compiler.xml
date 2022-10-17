@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Haemorrhage" />
+        <module name="ExpertSystemDrools" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Haemorrhage" target="1.8" />
+      <module name="ExpertSystemDrools" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
