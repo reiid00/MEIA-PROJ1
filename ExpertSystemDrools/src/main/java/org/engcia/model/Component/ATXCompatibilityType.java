@@ -1,6 +1,6 @@
 package org.engcia.model.Component;
 
-public enum ATXType {
+public enum ATXCompatibilityType {
     NA,
     ATX,
     MINI_ATX,

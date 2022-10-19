@@ -3,7 +3,7 @@ package org.engcia.model.Component;
 public class PowerSupply extends Component {
     public int Capacity = 0; // W
     public EnergyEfficiency MemoryType = EnergyEfficiency.NA;
-    public ATXType ATXType;
+    public ATXCompatibilityType ATXType = ATXCompatibilityType.NA;
 
     public PowerSupply(){
         super();
