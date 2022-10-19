@@ -3,6 +3,7 @@ package org.engcia.model.Component;
 import java.util.Date;
 
 public class Component {
+    public String ID = "";
     public String Manufacturer = "";
     public String Name = "";
     public float BasePrice = 0;
@@ -13,6 +14,6 @@ public class Component {
 
     public String toString()
     {
-        return Manufacturer + ", " + Name + ", " + BasePrice + ", " + LaunchDate.toString();
+        return ID + ", " + Manufacturer + ", " + Name + ", " + BasePrice + ", " + LaunchDate.toString();
     }
 }
