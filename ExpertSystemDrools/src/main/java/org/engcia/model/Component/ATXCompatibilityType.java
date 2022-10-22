@@ -4,6 +4,6 @@ public enum ATXCompatibilityType {
     NA,
     EATX,
     ATX,
-    MINI_ATX,
     MICRO_ATX,
+    MINI_ATX,
 }
