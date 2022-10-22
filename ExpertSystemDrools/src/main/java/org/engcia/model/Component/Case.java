@@ -6,6 +6,7 @@ import java.util.List;
 public class Case extends Component {
     public TowerSizeType SizeType = TowerSizeType.NA;
     public List<ATXCompatibilityType> ATXCompatibilityList = new ArrayList<>();
+    public String Color = "";
 
     public Case(){
         super();

@@ -5,9 +5,9 @@ import java.util.List;
 
 public class CPUCooler extends Component {
 
-    public boolean isWaterCooled = false;
-    public boolean isFanless = false;
-    public List<SocketType> socketCompatabilityList = new ArrayList<>();
+    public boolean IsWaterCooled = false;
+    public boolean IsFanless = false;
+    public List<SocketType> SocketCompatabilityList = new ArrayList<>();
 
     public CPUCooler(){
         super();
@@ -20,15 +20,15 @@ public class CPUCooler extends Component {
     }
 
     public boolean isCompatible (SocketType socket){
-        return socketCompatabilityList.contains(socket);
+        return SocketCompatabilityList.contains(socket);
     }
 
     public boolean isWaterCooled(){
-        return isWaterCooled;
+        return IsWaterCooled;
     }
 
     public boolean isFanless(){
-        return isFanless;
+        return IsWaterCooled;
     }
 
 }

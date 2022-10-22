@@ -2,10 +2,10 @@ package org.engcia.model.Component;
 
 public class RAM extends Component{
 
-    public int speed = 0;
-    public int capacity = 0;
-    public int slotsCount = 0;
-    public int voltage = 0;
+    public int Speed = 0; // MHz
+    public int Capacity = 0;
+    public int SlotsCount = 0;
+    public int Voltage = 0; // W
 
     public RAM(){
         super();

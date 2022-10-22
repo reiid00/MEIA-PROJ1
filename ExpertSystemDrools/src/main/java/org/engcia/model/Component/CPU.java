@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CPU extends Component {
-    public String brand = "";
-    public int coreCount = 0;
-    public int threadsCount = 0;
-    public int boosClock = 0; // MHz
-    public float voltage = 0; // W
-    public int benchmark = 0;
-    public SocketType socket = SocketType.NA;
+    public String Brand = "";
+    public int CoreCount = 0;
+    public int ThreadsCount = 0;
+    public int BoostClock = 0; // MHz
+    public float Voltage = 0; // W
+    public int BenchmarkScore = 0; // Points
+    public SocketType Socket = SocketType.NA;
 
     public CPU(){
         super();
@@ -23,11 +23,11 @@ public class CPU extends Component {
     }
 
     public boolean isAMD(){
-        return this.brand.toUpperCase().equals("AMD");
+        return this.Brand.toUpperCase().equals("AMD");
     }
 
     public boolean isIntel(){
-        return this.brand.toUpperCase().equals("Intel");
+        return this.Brand.toUpperCase().equals("INTEL");
     }
 
 }
