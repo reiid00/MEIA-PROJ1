@@ -2,6 +2,7 @@
 
 --id;manufacturer,name;basePrice;launchDate;sizeType;atxCompatibilityList;color
 
+
 --Micro ATX Tower
 
 CA-MESH-C-MINI-BKO;Fractal Design;Meshify C Mini;115;;MICRO_ATX_TOWER;[MICRO_ATX,MINI_ATX];Black

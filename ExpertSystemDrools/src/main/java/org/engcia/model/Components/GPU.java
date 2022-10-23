@@ -35,7 +35,8 @@ public class GPU extends Component {
         NA,
         GDDR4,
         GDDR5,
-        GDDR6
+        GDDR6,
+        GDDR6X
     }
 
     public enum GPUBrand{
