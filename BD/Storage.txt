@@ -2,15 +2,15 @@
 
 --ID;Manufacturer;Designation;Price;LaunchDate;isSSD;Capacity;Cache;Benchmark
 
-MZ-V8P1T0BW;Samsung;Samsung 980 Pro 1 TB M.2-2280 PCIe 4.0 X4 NVME Solid State Drive;true;1TB;1024MB;2,571MB/s
-MTFDHAL7T6TDP-1AT1ZABYY;Micron;Micron 9300 Pro 7.68 TB 2.5" Solid State Drive;$2985.00;23/04/2019;true;7.68TB;NA;267 MB/s
-WD10EZEX;Western Digital;Western Digital Caviar Blue 1 TB 3.5" 7200 RPM Internal Hard Drive;$37.49;01/04/2011;false;1TB;64MB;NA
+MZ-V8P1T0BW;Samsung;Samsung 980 Pro 1 TB M.2-2280 PCIe 4.0 X4 NVME Solid State Drive;2985.00;23/04/2019;true;1000;1024MB;2;571MB/s
+MTFDHAL7T6TDP-1AT1ZABYY;Micron;Micron 9300 Pro 7.68 TB 2.5" Solid State Drive;2985.00;23/04/2019;true;7680;NA;267 MB/s
+WD10EZEX;Western Digital;Western Digital Caviar Blue 1 TB 3.5" 7200 RPM Internal Hard Drive;37.49;01/04/2011;false;1000;64MB;NA
 
 --240GB ssd
-SA400S37;Kingston;Kingston A400 240 GB 2.5" Solid State Drive;$19.98;11/01/2018;true;240GB;NA;293 MB/s
-CT240BX500SSD1;Crucial;Crucial BX500 240 GB240 GB 2.5" Solid State Drive;$24.99;01/09/2018;true;240 GB;NA;310 MB/s
+SA400S37;Kingston;Kingston A400 240 GB 2.5" Solid State Drive;19.98;11/01/2018;true;240;NA;293 MB/s
+CT240BX500SSD1;Crucial;Crucial BX500 240 GB240 GB 2.5" Solid State Drive;24.99;01/09/2018;true;240;NA;310 MB/s
 
 
 --500GB ssd
-MZ-V7E500BW;Samsung;Samsung 970 Evo 500 GB M.2-2280 PCIe 3.0 X4 NVME Solid State Drive;$119.78;01/02/2019;true;500GB;512MB;1,771 MB/s
-SSD7CS900-500-RB;PNY;PNY CS900 500 GB 2.5" Solid State Drive;$30.99;01/09/2019;true;500GB;NA;286 MB/s
+MZ-V7E500BW;Samsung;Samsung 970 Evo 500 GB M.2-2280 PCIe 3.0 X4 NVME Solid State Drive;119.78;01/02/2019;true;500;512MB;1,771 MB/s
+SSD7CS900-500-RB;PNY;PNY CS900 500 GB 2.5" Solid State Drive;30.99;01/09/2019;true;500;NA;286 MB/s

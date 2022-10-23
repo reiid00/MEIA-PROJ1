@@ -21,8 +21,8 @@ public class Boostrap {
         loadMotherboards();
         loadRAMs();
         loadPowerSupplies();
-        /*loadStorages();
-        loadCases();*/
+        loadStorages();
+        loadCases();
     }
 
     public static void loadGPUs() throws IOException {
@@ -38,8 +38,10 @@ public class Boostrap {
                 gpu.manufacturer = lineArray.get(1);
                 gpu.name = lineArray.get(2);
                 gpu.basePrice = Float.parseFloat(lineArray.get(3));
-                String[] date = lineArray.get(4).split("/");
-                gpu.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                if(!lineArray.get(4).isEmpty()){
+                    String[] date = lineArray.get(4).split("/");
+                    gpu.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                }
                 gpu.brand = GPU.GPUBrand.valueOf(lineArray.get(5));
                 gpu.memory = Integer.parseInt(lineArray.get(6));
                 gpu.memoryType = GPU.GPUMemoryType.valueOf(lineArray.get(7));
@@ -74,8 +76,10 @@ public class Boostrap {
                 cpu.manufacturer = lineArray.get(1);
                 cpu.name = lineArray.get(2);
                 cpu.basePrice = Integer.parseInt(lineArray.get(3));
-                String[] date = lineArray.get(4).split("/");
-                cpu.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                if(!lineArray.get(4).isEmpty()){
+                    String[] date = lineArray.get(4).split("/");
+                    cpu.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                }
                 cpu.coreCount = Integer.parseInt(lineArray.get(5));
                 cpu.threadsCount = Integer.parseInt(lineArray.get(6));
                 cpu.boostClock = Float.parseFloat(lineArray.get(7));
@@ -105,8 +109,10 @@ public class Boostrap {
                 cpuCooler.manufacturer = lineArray.get(1);
                 cpuCooler.name = lineArray.get(2);
                 cpuCooler.basePrice = Integer.parseInt(lineArray.get(3));
-                String[] date = lineArray.get(4).split("/");
-                cpuCooler.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                if(!lineArray.get(4).isEmpty()){
+                    String[] date = lineArray.get(4).split("/");
+                    cpuCooler.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                }
                 cpuCooler.isWaterCooled = Boolean.getBoolean(lineArray.get(5));
                 cpuCooler.isFanless = Boolean.getBoolean(lineArray.get(6));
                 List<String> socketList = Arrays.asList(lineArray.get(7).split("\\[")[1].split("]")[0].split(","));
@@ -135,8 +141,10 @@ public class Boostrap {
                 motherboard.manufacturer = lineArray.get(1);
                 motherboard.name = lineArray.get(2);
                 motherboard.basePrice = Float.parseFloat(lineArray.get(3));
-                String[] date = lineArray.get(4).split("/");
-                motherboard.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                if(!lineArray.get(4).isEmpty()){
+                    String[] date = lineArray.get(4).split("/");
+                    motherboard.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                }
                 List<String> socketList = Arrays.asList(lineArray.get(5).split("\\[")[1].split("]")[0].split(","));
                 for(String socket : socketList)
                 {
@@ -170,8 +178,10 @@ public class Boostrap {
                 ram.manufacturer = lineArray.get(1);
                 ram.name = lineArray.get(2);
                 ram.basePrice = Float.parseFloat(lineArray.get(3));
-                String[] date = lineArray.get(4).split("/");
-                ram.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                if(!lineArray.get(4).isEmpty()){
+                    String[] date = lineArray.get(4).split("/");
+                    ram.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                }
                 ram.speed = Integer.parseInt(lineArray.get(5));
                 ram.capacity = Integer.parseInt(lineArray.get(6));
                 ram.slotsCount =Integer.parseInt(lineArray.get(7));
@@ -219,48 +229,62 @@ public class Boostrap {
         }
     }
 
-    private void loadStorages() throws IOException {
+    private static void loadStorages() throws IOException {
         List<Storage> listStorages = new ArrayList<Storage>();
         // Load Storages...
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("Storage.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/Storage.txt"));
         String line = bufReader.readLine();
         while (line != null) {
             if (!(line.contains("--") || line.trim().isEmpty())) {
+                List<String> lineArray = Arrays.asList(line.split(";"));
                 Storage storage = new Storage();
-                storage.id = "";
-                storage.manufacturer = "";
-                storage.name = "";
-                storage.basePrice = 0;
-//                storage.launchDate = 0;
-//                storage.isSSD = 0;
-                storage.cacheGB = 0;
-                storage.capacityGB = 0;
-                storage.benchmark = 0;
+                storage.id = lineArray.get(0);
+                storage.manufacturer = lineArray.get(1);
+                storage.name = lineArray.get(2);
+                storage.basePrice = Float.parseFloat(lineArray.get(3));
+                if(!lineArray.get(4).isEmpty()){
+                    String[] date = lineArray.get(4).split("/");
+                    storage.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                }
+                storage.isSSD = Boolean.getBoolean(lineArray.get(5));
+                storage.capacityGB = lineArray.get(6);
+                storage.cacheGB = lineArray.get(7);
+                storage.benchmark = lineArray.get(8);
 
+                System.out.println(storage);
                 listStorages.add(storage);
             }
             line = bufReader.readLine();
         }
     }
 
-    private void loadCases() throws IOException {
+    private static void loadCases() throws IOException {
         List<Case> listCases= new ArrayList<Case>();
         // Load Cases...
-        BufferedReader bufReader = new BufferedReader(new FileReader("Cases.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/Cases.txt"));
         String line = bufReader.readLine();
         while (line != null) {
             if (!(line.contains("--") || line.trim().isEmpty())) {
+                List<String> lineArray = Arrays.asList(line.split(";"));
                 Case cases = new Case();
-                cases.id = "";
-                cases.manufacturer = "";
-                cases.name = "";
-                cases.basePrice = 0;
-//                cases.launchDate = 0;
-//                cases.sizeType = 0;
-//                cases.atxCompatibilityList = 0;
-                cases.color = "";
+                cases.id = lineArray.get(0);
+                cases.manufacturer = lineArray.get(1);
+                cases.name = lineArray.get(2);
+                cases.basePrice = Float.parseFloat(lineArray.get(3));
+                if(!lineArray.get(4).isEmpty()){
+                    String[] date = lineArray.get(4).split("/");
+                    cases.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                }
+                cases.sizeType = Case.TowerSizeType.valueOf(lineArray.get(5));
+                List<String> atxListString = Arrays.asList(lineArray.get(6).split("\\[")[1].split("]")[0].split(","));
+                for(String atx : atxListString)
+                {
+                    cases.atxCompatibilityList.add(ATXCompatibilityType.valueOf(atx));
+                }
+                cases.color = lineArray.get(7);
 
+                System.out.println(cases);
                 listCases.add(cases);
             }
             line = bufReader.readLine();
