@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GPU extends Component {
-    public String brand = "";
+    public GPUBrand brand = GPUBrand.NA;
     public int memory = 0; // GB
     public GPUMemoryType memorytype = GPUMemoryType.NA;
     public int maxClock = 0; // MHz
@@ -24,11 +24,11 @@ public class GPU extends Component {
     }
 
     public boolean isAMD(){
-        return this.brand.toUpperCase().equals("AMD");
+        return this.brand.equals(GPUBrand.AMD);
     }
 
     public boolean isNVIDIA(){
-        return this.brand.toUpperCase().equals("NVIDIA");
+        return this.brand.equals(GPUBrand.NVIDIA);
     }
 
     public enum GPUMemoryType{
@@ -36,6 +36,12 @@ public class GPU extends Component {
         GDDR4,
         GDDR5,
         GDDR6
+    }
+
+    public enum GPUBrand{
+        NA,
+        NVIDIA,
+        AMD,
     }
 }
 
