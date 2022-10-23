@@ -1,13 +1,14 @@
 package org.engcia.model.Components;
 
 public class CPU extends Component {
-    public String Brand = "";
-    public int CoreCount = 0;
-    public int ThreadsCount = 0;
-    public int BoostClock = 0; // MHz
-    public float Voltage = 0; // W
-    public int BenchmarkScore = 0; // Points
-    public SocketType Socket = SocketType.NA;
+
+    public int coreCount = 0;
+    public int threadsCount = 0;
+    public int boostClock = 0; // MHz
+    public float voltage = 0; // W
+    public int benchmarkScore = 0; // Points
+    public SocketType socket = SocketType.NA;
+    public boolean hasIntegratedGPU=false;
 
     public CPU(){
         super();
@@ -20,11 +21,11 @@ public class CPU extends Component {
     }
 
     public boolean isAMD(){
-        return this.Brand.toUpperCase().equals("AMD");
+        return this.manufacturer.toUpperCase().equals("AMD");
     }
 
     public boolean isIntel(){
-        return this.Brand.toUpperCase().equals("INTEL");
+        return this.manufacturer.toUpperCase().equals("INTEL");
     }
 
 }

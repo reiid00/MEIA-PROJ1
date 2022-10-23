@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Case extends Component {
-    public TowerSizeType SizeType = TowerSizeType.NA;
-    public List<ATXCompatibilityType> ATXCompatibilityList = new ArrayList<>();
-    public String Color = "";
+    public TowerSizeType sizeType = TowerSizeType.NA;
+    public List<ATXCompatibilityType> atxCompatibilityList = new ArrayList<>();
+    public String color = "";
 
     public Case(){
         super();
