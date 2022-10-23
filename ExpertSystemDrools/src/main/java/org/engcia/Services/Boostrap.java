@@ -2,6 +2,7 @@ package org.engcia.Services;
 
 import org.engcia.model.Components.*;
 
+import java.lang.management.MemoryType;
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,8 +20,8 @@ public class Boostrap {
         loadCPUCoolers();
         loadMotherboards();
         loadRAMs();
-        /*loadPowerSupplies();
-        loadStorages();
+        loadPowerSupplies();
+        /*loadStorages();
         loadCases();*/
     }
 
@@ -184,25 +185,34 @@ public class Boostrap {
         }
     }
 
-    private void loadPowerSupplies() throws IOException {
+    private static void loadPowerSupplies() throws IOException {
         List<PowerSupply> listPowerSupplies = new ArrayList<PowerSupply>();
         // Load Power Supplies...
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("PowerSupplies.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/PowerSupplies.txt"));
         String line = bufReader.readLine();
         while (line != null) {
             if (!(line.contains("--") || line.trim().isEmpty())) {
+                List<String> lineArray = Arrays.asList(line.split(";"));
                 PowerSupply powerSupply = new PowerSupply();
-                powerSupply.id = "";
-                powerSupply.manufacturer = "";
-                powerSupply.name = "";
-                powerSupply.basePrice = 0;
-//                powerSupply.launchDate = 0;
-                powerSupply.capacity = 0;
-//                powerSupply.modular = 0;
-//                powerSupply.atxCompatibilityTypes = 0;
-//                powerSupply.memoryType = 0;
+                powerSupply.id = lineArray.get(0);
+                powerSupply.manufacturer = lineArray.get(1);
+                powerSupply.name = lineArray.get(2);
+                powerSupply.basePrice = Float.parseFloat(lineArray.get(3));
+                if(!lineArray.get(4).isEmpty()){
+                    String[] date = lineArray.get(4).split("/");
+                    powerSupply.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                }
+                powerSupply.capacity = Integer.parseInt(lineArray.get(5));
+                powerSupply.memoryType = PowerSupply.EnergyEfficiency.valueOf(lineArray.get(6));
+                powerSupply.modular = PowerSupply.ModularType.valueOf(lineArray.get(7));
+                List<String> atxListString = Arrays.asList(lineArray.get(8).split("\\[")[1].split("]")[0].split(","));
+                for(String atx : atxListString)
+                {
+                    powerSupply.atxCompatibilityTypes.add(ATXCompatibilityType.valueOf(atx));
+                }
 
+                System.out.println(powerSupply);
                 listPowerSupplies.add(powerSupply);
             }
             line = bufReader.readLine();
