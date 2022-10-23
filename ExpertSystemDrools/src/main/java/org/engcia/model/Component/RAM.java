@@ -5,7 +5,8 @@ public class RAM extends Component{
     public int Speed = 0; // MHz
     public int Capacity = 0;
     public int SlotsCount = 0;
-    public int Voltage = 0; // W
+    public RAMType RamType = RAMType.NA;
+    public float Voltage = 0; // W
 
     public RAM(){
         super();
@@ -17,4 +18,5 @@ public class RAM extends Component{
     {
         return super.toString();
     }
+
 }
