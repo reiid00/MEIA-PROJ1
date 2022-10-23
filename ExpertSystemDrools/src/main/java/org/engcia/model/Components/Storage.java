@@ -4,9 +4,9 @@ package org.engcia.model.Components;
 
 public class Storage extends Component{
     public boolean isSSD = false;
-    public int CapacityGB = 0; // GB
-    public int CacheGB = 0; // GB
-    public int Benchmark = 0; // Mb/s
+    public int capacityGB = 0; // GB
+    public int cacheGB = 0; // GB
+    public int benchmark = 0; // Mb/s
 
     public Storage(){
         super();
@@ -23,27 +23,27 @@ public class Storage extends Component{
     }
 
     public int getCacheGB() {
-        return CacheGB;
+        return cacheGB;
     }
 
     public int getCapacityGB() {
-        return CapacityGB;
+        return capacityGB;
     }
 
     public int getBenchmark() {
-        return Benchmark;
+        return benchmark;
     }
 
     public void setBenchmark(int benchmark) {
-        Benchmark = benchmark;
+        benchmark = benchmark;
     }
 
     public void setCacheGB(int cacheGB) {
-        CacheGB = cacheGB;
+        cacheGB = cacheGB;
     }
 
     public void setCapacityGB(int capacityGB) {
-        CapacityGB = capacityGB;
+        capacityGB = capacityGB;
     }
 
     public void setSSD(boolean SSD) {
