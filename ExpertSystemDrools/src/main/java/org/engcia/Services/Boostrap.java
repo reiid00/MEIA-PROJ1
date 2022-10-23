@@ -18,8 +18,8 @@ public class Boostrap {
         loadCPUs();
         loadCPUCoolers();
         loadMotherboards();
-        /*loadRAMs();
-        loadPowerSupplies();
+        loadRAMs();
+        /*loadPowerSupplies();
         loadStorages();
         loadCases();*/
     }
@@ -155,26 +155,29 @@ public class Boostrap {
         }
     }
 
-    private void loadRAMs() throws IOException {
+    private static void loadRAMs() throws IOException {
         List<RAM> listRAMs = new ArrayList<RAM>();
         // Load RAMs...
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("RAMs.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/RAMs.txt"));
         String line = bufReader.readLine();
         while (line != null) {
             if (!(line.contains("--") || line.trim().isEmpty())) {
+                List<String> lineArray = Arrays.asList(line.split(";"));
                 RAM ram = new RAM();
-                ram.id = "";
-                ram.manufacturer = "";
-                ram.name = "";
-                ram.basePrice = 0;
-//                ram.launchDate = 0;
-                ram.speed = 0;
-                ram.capacity = 0;
-                ram.slotsCount = 0;
-//                ram.ramType = 0;
-                ram.voltage = 0;
+                ram.id = lineArray.get(0);
+                ram.manufacturer = lineArray.get(1);
+                ram.name = lineArray.get(2);
+                ram.basePrice = Float.parseFloat(lineArray.get(3));
+                String[] date = lineArray.get(4).split("/");
+                ram.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                ram.speed = Integer.parseInt(lineArray.get(5));
+                ram.capacity = Integer.parseInt(lineArray.get(6));
+                ram.slotsCount =Integer.parseInt(lineArray.get(7));
+                ram.ramType = RAMType.valueOf(lineArray.get(8));
+                ram.voltage = Float.parseFloat(lineArray.get(9));
 
+                System.out.println(ram);
                 listRAMs.add(ram);
             }
             line = bufReader.readLine();
