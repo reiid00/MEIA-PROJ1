@@ -1,4 +1,4 @@
-package org.engcia.model.Component;
+package org.engcia.model.Components;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,4 @@
-package org.engcia.model.Component;
-
-import java.util.ArrayList;
-import java.util.List;
+package org.engcia.model.Components;
 
 public class CPU extends Component {
     public String Brand = "";

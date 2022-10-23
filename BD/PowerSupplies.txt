@@ -1,6 +1,6 @@
 --Cases
 
---id;manufacturer,name;basePrice;launchDate;capacity;energyEfficiency;Modular;ATXCompatibilityList
+--id;manufacturer,name;basePrice;launchDate;capacity;energyEfficiency;modular;ATXCompatibilityList
 
 
 --ATX (80+)
