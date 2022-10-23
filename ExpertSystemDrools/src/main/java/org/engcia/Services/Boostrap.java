@@ -14,11 +14,11 @@ import java.util.List;
 public class Boostrap {
 
     public static void loadDatabase() throws IOException {
-        loadGPUs();
-        /*loadCPUs();
+        //loadGPUs();
+        loadCPUs();
         loadCPUCoolers();
         loadMotherboards();
-        loadRAMs();
+        /*loadRAMs();
         loadPowerSupplies();
         loadStorages();
         loadCases();*/
@@ -60,79 +60,98 @@ public class Boostrap {
         // Load GPUs...
     }
 
-    private void loadCPUs() throws IOException {
-        List<CPU> listCPUs = new ArrayList<CPU>();
+    private static void loadCPUs() throws IOException {
+        List<CPU> listCPUs = new ArrayList<>();
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("CPUs.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/CPUs.txt"));
         String line = bufReader.readLine();
         while (line != null) {
-            if (!line.contains("//") || line.trim().length() > 0) {
+            if (!(line.contains("--") || line.trim().isEmpty())) {
+                List<String> lineArray = Arrays.asList(line.split(";"));
                 CPU cpu = new CPU();
-                cpu.id = "";
-                cpu.manufacturer = "";
-                cpu.name = "";
-                cpu.basePrice = 0;
-//                cpu.launchDate = "";
-                cpu.coreCount = 0;
-                cpu.threadsCount = 0;
-                cpu.boostClock = 0;
-                cpu.voltage = 0;
-                cpu.benchmarkScore = 0;
-//                cpu.socket = "";
+                cpu.id = lineArray.get(0);
+                cpu.manufacturer = lineArray.get(1);
+                cpu.name = lineArray.get(2);
+                cpu.basePrice = Integer.parseInt(lineArray.get(3));
+                String[] date = lineArray.get(4).split("/");
+                cpu.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                cpu.coreCount = Integer.parseInt(lineArray.get(5));
+                cpu.threadsCount = Integer.parseInt(lineArray.get(6));
+                cpu.boostClock = Float.parseFloat(lineArray.get(7));
+                cpu.voltage = Integer.parseInt(lineArray.get(8));
+                cpu.benchmarkScore = Integer.parseInt(lineArray.get(9));
+                cpu.socket = SocketType.valueOf(lineArray.get(10));
 
+                System.out.println(cpu);
                 listCPUs.add(cpu);
             }
+            line = bufReader.readLine();
         }
         // Load CPUs...
     }
 
-    private void loadCPUCoolers() throws IOException {
+    private static void loadCPUCoolers() throws IOException {
         List<CPUCooler> listCPUCoolers = new ArrayList<CPUCooler>();
         // Load CPU Coolers...
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("CPUCoolers.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/CPUCoolers.txt"));
         String line = bufReader.readLine();
         while (line != null) {
-            if (!line.contains("//") || line.trim().length() > 0) {
+            if (!(line.contains("--") || line.trim().isEmpty())) {
+                List<String> lineArray = Arrays.asList(line.split(";"));
                 CPUCooler cpuCooler = new CPUCooler();
-                cpuCooler.id = "";
-                cpuCooler.manufacturer = "";
-                cpuCooler.name = "";
-                cpuCooler.basePrice = 0;
-//                cpuCooler.launchDate = "";
-//                cpuCooler.isWaterCooled = 0;
-//                cpuCooler.isFanless = 0;
-//                cpuCooler.socketCompatabilityList = "";
-
+                cpuCooler.id = lineArray.get(0);
+                cpuCooler.manufacturer = lineArray.get(1);
+                cpuCooler.name = lineArray.get(2);
+                cpuCooler.basePrice = Integer.parseInt(lineArray.get(3));
+                String[] date = lineArray.get(4).split("/");
+                cpuCooler.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                cpuCooler.isWaterCooled = Boolean.getBoolean(lineArray.get(5));
+                cpuCooler.isFanless = Boolean.getBoolean(lineArray.get(6));
+                List<String> socketList = Arrays.asList(lineArray.get(7).split("\\[")[1].split("]")[0].split(","));
+                for(String socket : socketList)
+                {
+                    cpuCooler.socketCompatabilityList.add(SocketType.valueOf(socket));
+                }
                 listCPUCoolers.add(cpuCooler);
             }
+            line = bufReader.readLine();
         }
     }
 
 
-    private void loadMotherboards() throws IOException {
+    private static void loadMotherboards() throws IOException {
         List<Motherboard> listMotherboards = new ArrayList<Motherboard>();
         // Load Motherboards...
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("MotherBoards.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/MotherBoards.txt"));
         String line = bufReader.readLine();
         while (line != null) {
-            if (!line.contains("//") || line.trim().length() > 0) {
+            if (!(line.contains("--") || line.trim().isEmpty())) {
+                List<String> lineArray = Arrays.asList(line.split(";"));
                 Motherboard motherboard = new Motherboard();
-                motherboard.id = "";
-                motherboard.manufacturer = "";
-                motherboard.name = "";
-                motherboard.basePrice = 0;
-//                motherboard.launchDate = 0;
-//                motherboard.atxType = 0;
-                motherboard.maxMemoryRam = 0;
-//                motherboard.ramType = 0;
-                motherboard.ramSlots = 0;
-//                motherboard.ramSpeedList = 0;
-//                motherboard.socketCompatabilityList = "";
+                motherboard.id = lineArray.get(0);
+                motherboard.manufacturer = lineArray.get(1);
+                motherboard.name = lineArray.get(2);
+                motherboard.basePrice = Float.parseFloat(lineArray.get(3));
+                String[] date = lineArray.get(4).split("/");
+                motherboard.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                List<String> socketList = Arrays.asList(lineArray.get(5).split("\\[")[1].split("]")[0].split(","));
+                for(String socket : socketList)
+                {
+                    motherboard.socketCompatabilityList.add(SocketType.valueOf(socket));
+                }
 
+                motherboard.atxType = ATXCompatibilityType.valueOf(lineArray.get(6));
+                motherboard.maxMemoryRam = Integer.parseInt(lineArray.get(7));
+                motherboard.ramType = RAMType.valueOf(lineArray.get(8));
+                motherboard.ramSlots = Integer.parseInt(lineArray.get(9));
+                motherboard.ramSpeedList =Arrays.asList(lineArray.get(10).split("\\[")[1].split("]")[0].split(","));;
+
+                System.out.println(motherboard);
                 listMotherboards.add(motherboard);
             }
+            line = bufReader.readLine();
         }
     }
 
@@ -143,7 +162,7 @@ public class Boostrap {
         BufferedReader bufReader = new BufferedReader(new FileReader("RAMs.txt"));
         String line = bufReader.readLine();
         while (line != null) {
-            if (!line.contains("//") || line.trim().length() > 0) {
+            if (!(line.contains("--") || line.trim().isEmpty())) {
                 RAM ram = new RAM();
                 ram.id = "";
                 ram.manufacturer = "";
@@ -158,6 +177,7 @@ public class Boostrap {
 
                 listRAMs.add(ram);
             }
+            line = bufReader.readLine();
         }
     }
 
@@ -168,7 +188,7 @@ public class Boostrap {
         BufferedReader bufReader = new BufferedReader(new FileReader("PowerSupplies.txt"));
         String line = bufReader.readLine();
         while (line != null) {
-            if (!line.contains("//") || line.trim().length() > 0) {
+            if (!(line.contains("--") || line.trim().isEmpty())) {
                 PowerSupply powerSupply = new PowerSupply();
                 powerSupply.id = "";
                 powerSupply.manufacturer = "";
@@ -182,6 +202,7 @@ public class Boostrap {
 
                 listPowerSupplies.add(powerSupply);
             }
+            line = bufReader.readLine();
         }
     }
 
@@ -192,7 +213,7 @@ public class Boostrap {
         BufferedReader bufReader = new BufferedReader(new FileReader("Storage.txt"));
         String line = bufReader.readLine();
         while (line != null) {
-            if (!line.contains("//") || line.trim().length() > 0) {
+            if (!(line.contains("--") || line.trim().isEmpty())) {
                 Storage storage = new Storage();
                 storage.id = "";
                 storage.manufacturer = "";
@@ -206,6 +227,7 @@ public class Boostrap {
 
                 listStorages.add(storage);
             }
+            line = bufReader.readLine();
         }
     }
 
@@ -215,7 +237,7 @@ public class Boostrap {
         BufferedReader bufReader = new BufferedReader(new FileReader("Cases.txt"));
         String line = bufReader.readLine();
         while (line != null) {
-            if (!line.contains("//") || line.trim().length() > 0) {
+            if (!(line.contains("--") || line.trim().isEmpty())) {
                 Case cases = new Case();
                 cases.id = "";
                 cases.manufacturer = "";
@@ -228,6 +250,7 @@ public class Boostrap {
 
                 listCases.add(cases);
             }
+            line = bufReader.readLine();
         }
     }
 }
