@@ -6,7 +6,7 @@ import java.util.List;
 public class GPU extends Component {
     public GPUBrand brand = GPUBrand.NA;
     public int memory = 0; // GB
-    public GPUMemoryType memorytype = GPUMemoryType.NA;
+    public GPUMemoryType memoryType = GPUMemoryType.NA;
     public int maxClock = 0; // MHz
     public int voltage = 0; // W
     public int fansCount = 0;

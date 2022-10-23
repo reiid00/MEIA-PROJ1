@@ -1,17 +1,11 @@
 package org.engcia.Services;
 
-import org.drools.compiler.compiler.io.File;
-import org.drools.compiler.shade.org.eclipse.jdt.internal.compiler.parser.Scanner;
 import org.engcia.model.Components.*;
 
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,35 +13,48 @@ import java.util.List;
 
 public class Boostrap {
 
-    private void loadDatabase() throws IOException {
+    public static void loadDatabase() throws IOException {
         loadGPUs();
-        loadCPUs();
+        /*loadCPUs();
         loadCPUCoolers();
         loadMotherboards();
         loadRAMs();
         loadPowerSupplies();
         loadStorages();
-        loadCases();
+        loadCases();*/
     }
 
-    public void loadGPUs() throws IOException {
-        List<GPU> listGPUs = new ArrayList<GPU>();
+    public static void loadGPUs() throws IOException {
+        List<GPU> listGPUs = new ArrayList<>();
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("GPUs.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/GPUs.txt"));
         String line = bufReader.readLine();
-        line.split(";");
         while (line != null) {
-            if (!line.contains("//") || line.trim().length() > 0) {
+            if (!(line.contains("--") || line.trim().isEmpty())) {
+                List<String> lineArray = Arrays.asList(line.split(";"));
                 GPU gpu = new GPU();
-                gpu.id = "";
-                gpu.manufacturer = "";
-                gpu.name = "";
-                gpu.basePrice = 0;
-//                gpu.launchDate = "";
-//                gpu.atxCompatibilityTypes = "";
-
+                gpu.id = lineArray.get(0);
+                gpu.manufacturer = lineArray.get(1);
+                gpu.name = lineArray.get(2);
+                gpu.basePrice = Float.parseFloat(lineArray.get(3));
+                String[] date = lineArray.get(4).split("/");
+                gpu.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
+                gpu.brand = GPU.GPUBrand.valueOf(lineArray.get(5));
+                gpu.memory = Integer.parseInt(lineArray.get(6));
+                gpu.memoryType = GPU.GPUMemoryType.valueOf(lineArray.get(7));
+                gpu.maxClock = Integer.parseInt(lineArray.get(8));
+                gpu.voltage = Integer.parseInt(lineArray.get(9));
+                gpu.fansCount = Integer.parseInt(lineArray.get(10));
+                List<String> atxListString = Arrays.asList(lineArray.get(11).split("\\[")[1].split("]")[0].split(","));
+                for(String atx : atxListString)
+                {
+                    gpu.atxCompatibilityTypes.add(ATXCompatibilityType.valueOf(atx));
+                }
+                gpu.benchmarkScore = Integer.parseInt(lineArray.get(12));
+                System.out.println(gpu);
                 listGPUs.add(gpu);
             }
+            line = bufReader.readLine();
         }
 
         // Load GPUs...

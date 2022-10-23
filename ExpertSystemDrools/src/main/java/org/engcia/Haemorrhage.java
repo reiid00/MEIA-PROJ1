@@ -1,5 +1,6 @@
 package org.engcia;
 
+import org.engcia.Services.Boostrap;
 import org.engcia.model.Evidences;
 import org.engcia.model.Conclusion;
 
@@ -13,11 +14,13 @@ import org.kie.api.runtime.rule.ViewChangedEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 public class Haemorrhage {
     static final Logger LOG = LoggerFactory.getLogger(Haemorrhage.class);
 
-    public static final void main(String[] args) {
-        Evidences evidences = new Evidences();
+    public static final void main(String[] args) throws IOException {
+       /* Evidences evidences = new Evidences();
         evidences.setBloodAnus("no");
         evidences.setBloodBrown("no");
         evidences.setBloodCoffee("no");
@@ -32,7 +35,8 @@ public class Haemorrhage {
         evidences.setHeadAche("no");
         evidences.setVomiting("no");
 
-        runEngine(evidences);
+        runEngine(evidences);*/
+        Boostrap.loadDatabase();
     }
 
     private static void runEngine(Evidences evidences) {
