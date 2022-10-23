@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Motherboard  extends Component {
-    public List<SocketType> SocketCompatabilityList = new ArrayList<>();
-    public ATXCompatibilityType ATXType;
-    public int MaxMemoryRam =0;//GB
+    public List<SocketType> socketCompatabilityList = new ArrayList<>();
+    public ATXCompatibilityType atxType;
+    public int maxMemoryRam =0;//GB
     public RAMType ramType;
 
     public Motherboard(){
@@ -23,15 +23,15 @@ public class Motherboard  extends Component {
     }
 
     public List<SocketType> getSocketCompatabilityList() {
-        return SocketCompatabilityList;
+        return socketCompatabilityList;
     }
 
     public ATXCompatibilityType getATXType() {
-        return ATXType;
+        return atxType;
     }
 
     public int getMaxMemoryRam() {
-        return MaxMemoryRam;
+        return maxMemoryRam;
     }
 
     public RAMType getRamType() {
@@ -47,15 +47,15 @@ public class Motherboard  extends Component {
     }
 
     public void setSocketCompatabilityList(List<SocketType> socketCompatabilityList) {
-        SocketCompatabilityList = socketCompatabilityList;
+        socketCompatabilityList = socketCompatabilityList;
     }
 
     public void setATXType(ATXCompatibilityType ATXType) {
-        this.ATXType = ATXType;
+        this.atxType = ATXType;
     }
 
     public void setMaxMemoryRam(int maxMemoryRam) {
-        MaxMemoryRam = maxMemoryRam;
+        maxMemoryRam = maxMemoryRam;
     }
 
     public void setRamType(RAMType ramType) {
