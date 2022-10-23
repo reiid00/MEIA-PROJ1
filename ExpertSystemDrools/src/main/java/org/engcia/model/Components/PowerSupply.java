@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PowerSupply extends Component {
-    public int Capacity = 0; // W
-    public EnergyEfficiency MemoryType = EnergyEfficiency.NA;
-    public ModularType Modular = ModularType.NA;
-    public List<ATXCompatibilityType> ATXCompatibilityList = new ArrayList<>();
+    public int capacity = 0; // W
+    public EnergyEfficiency memoryType = EnergyEfficiency.NA;
+    public ModularType modular = ModularType.NA;
+    public List<ATXCompatibilityType> atxCompatibilityTypes = new ArrayList<>();
 
     public PowerSupply(){
         super();

@@ -17,36 +17,4 @@ public class Storage extends Component{
     {
         return super.toString();
     }
-
-    public boolean isSSD() {
-        return isSSD;
-    }
-
-    public int getCacheGB() {
-        return cacheGB;
-    }
-
-    public int getCapacityGB() {
-        return capacityGB;
-    }
-
-    public int getBenchmark() {
-        return benchmark;
-    }
-
-    public void setBenchmark(int benchmark) {
-        benchmark = benchmark;
-    }
-
-    public void setCacheGB(int cacheGB) {
-        cacheGB = cacheGB;
-    }
-
-    public void setCapacityGB(int capacityGB) {
-        capacityGB = capacityGB;
-    }
-
-    public void setSSD(boolean SSD) {
-        isSSD = SSD;
-    }
 }

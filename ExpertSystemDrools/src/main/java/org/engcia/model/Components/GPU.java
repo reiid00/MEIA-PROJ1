@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GPU extends Component {
-    public GPUBrand Brand = GPUBrand.NA;
-    public int Memory = 0; // GB
-    public GPUMemoryType MemoryType = GPUMemoryType.NA;
-    public int MaxClock = 0; // MHz
-    public int Voltage = 0; // W
-    public int FansCount = 0;
-    public List<ATXCompatibilityType> ATXCompatibilityList = new ArrayList<>();
-    public int BenchmarkScore = 0; // Avg. FPS --> 3D DX9
+    public String brand = "";
+    public int memory = 0; // GB
+    public GPUMemoryType memorytype = GPUMemoryType.NA;
+    public int maxClock = 0; // MHz
+    public int voltage = 0; // W
+    public int fansCount = 0;
+    public List<ATXCompatibilityType> atxCompatibilityTypes = new ArrayList<>();
+    public int benchmarkScore = 0; // Points
 
     public GPU(){
         super();
@@ -24,25 +24,18 @@ public class GPU extends Component {
     }
 
     public boolean isAMD(){
-        return this.Brand.equals(GPUBrand.AMD);
+        return this.brand.toUpperCase().equals("AMD");
     }
 
     public boolean isNVIDIA(){
-        return this.Brand.equals(GPUBrand.NVIDIA);
+        return this.brand.toUpperCase().equals("NVIDIA");
     }
 
     public enum GPUMemoryType{
         NA,
-        GDDR2,
-        GDDR3,
+        GDDR4,
         GDDR5,
         GDDR6
-    }
-
-    public enum GPUBrand{
-        NA,
-        NVIDIA,
-        AMD,
     }
 }
 
