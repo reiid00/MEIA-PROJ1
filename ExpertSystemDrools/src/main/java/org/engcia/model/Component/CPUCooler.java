@@ -28,7 +28,7 @@ public class CPUCooler extends Component {
     }
 
     public boolean isFanless(){
-        return IsWaterCooled;
+        return IsFanless;
     }
 
 }
