@@ -8,6 +8,7 @@ public class CPU extends Component {
     public float voltage = 0; // W
     public int benchmarkScore = 0; // Points
     public SocketType socket = SocketType.NA;
+    public boolean hasIntegratedGPU=false;
 
     public CPU(){
         super();
