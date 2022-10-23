@@ -1,7 +1,7 @@
 package org.engcia.model.Components;
 
 public class CPU extends Component {
-    public String Brand = "";
+
     public int CoreCount = 0;
     public int ThreadsCount = 0;
     public int BoostClock = 0; // MHz
@@ -20,11 +20,11 @@ public class CPU extends Component {
     }
 
     public boolean isAMD(){
-        return this.Brand.toUpperCase().equals("AMD");
+        return this.Manufacturer.toUpperCase().equals("AMD");
     }
 
     public boolean isIntel(){
-        return this.Brand.toUpperCase().equals("INTEL");
+        return this.Manufacturer.toUpperCase().equals("INTEL");
     }
 
 }
