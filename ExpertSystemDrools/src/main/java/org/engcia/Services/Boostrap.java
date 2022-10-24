@@ -42,16 +42,16 @@ public class Boostrap {
                     String[] date = lineArray.get(4).split("/");
                     gpu.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
                 }
-                gpu.brand = GPU.GPUBrand.valueOf(lineArray.get(5));
+                gpu.brand = GPU.GPUBrand.valueOf(lineArray.get(5).toUpperCase());
                 gpu.memory = Integer.parseInt(lineArray.get(6));
-                gpu.memoryType = GPU.GPUMemoryType.valueOf(lineArray.get(7));
+                gpu.memoryType = GPU.GPUMemoryType.valueOf(lineArray.get(7).toUpperCase());
                 gpu.maxClock = Integer.parseInt(lineArray.get(8));
                 gpu.voltage = Integer.parseInt(lineArray.get(9));
                 gpu.fansCount = Integer.parseInt(lineArray.get(10));
                 List<String> atxListString = Arrays.asList(lineArray.get(11).split("\\[")[1].split("]")[0].split(","));
                 for(String atx : atxListString)
                 {
-                    gpu.atxCompatibilityTypes.add(ATXCompatibilityType.valueOf(atx));
+                    gpu.atxCompatibilityTypes.add(ATXCompatibilityType.valueOf(atx.toUpperCase()));
                 }
                 gpu.benchmarkScore = Integer.parseInt(lineArray.get(12));
                 System.out.println(gpu);
@@ -85,7 +85,7 @@ public class Boostrap {
                 cpu.boostClock = Float.parseFloat(lineArray.get(7));
                 cpu.voltage = Integer.parseInt(lineArray.get(8));
                 cpu.benchmarkScore = Integer.parseInt(lineArray.get(9));
-                cpu.socket = SocketType.valueOf(lineArray.get(10));
+                cpu.socket = SocketType.valueOf(lineArray.get(10).toUpperCase());
 
                 System.out.println(cpu);
                 listCPUs.add(cpu);
@@ -118,7 +118,7 @@ public class Boostrap {
                 List<String> socketList = Arrays.asList(lineArray.get(7).split("\\[")[1].split("]")[0].split(","));
                 for(String socket : socketList)
                 {
-                    cpuCooler.socketCompatabilityList.add(SocketType.valueOf(socket));
+                    cpuCooler.socketCompatabilityList.add(SocketType.valueOf(socket.toUpperCase()));
                 }
                 listCPUCoolers.add(cpuCooler);
             }
@@ -148,12 +148,12 @@ public class Boostrap {
                 List<String> socketList = Arrays.asList(lineArray.get(5).split("\\[")[1].split("]")[0].split(","));
                 for(String socket : socketList)
                 {
-                    motherboard.socketCompatabilityList.add(SocketType.valueOf(socket));
+                    motherboard.socketCompatabilityList.add(SocketType.valueOf(socket.toUpperCase()));
                 }
 
-                motherboard.atxType = ATXCompatibilityType.valueOf(lineArray.get(6));
+                motherboard.atxType = ATXCompatibilityType.valueOf(lineArray.get(6).toUpperCase());
                 motherboard.maxMemoryRam = Integer.parseInt(lineArray.get(7));
-                motherboard.ramType = RAMType.valueOf(lineArray.get(8));
+                motherboard.ramType = RAMType.valueOf(lineArray.get(8).toUpperCase());
                 motherboard.ramSlots = Integer.parseInt(lineArray.get(9));
                 motherboard.ramSpeedList =Arrays.asList(lineArray.get(10).split("\\[")[1].split("]")[0].split(","));;
 
@@ -185,7 +185,7 @@ public class Boostrap {
                 ram.speed = Integer.parseInt(lineArray.get(5));
                 ram.capacity = Integer.parseInt(lineArray.get(6));
                 ram.slotsCount =Integer.parseInt(lineArray.get(7));
-                ram.ramType = RAMType.valueOf(lineArray.get(8));
+                ram.ramType = RAMType.valueOf(lineArray.get(8).toUpperCase());
                 ram.voltage = Float.parseFloat(lineArray.get(9));
 
                 System.out.println(ram);
@@ -214,12 +214,12 @@ public class Boostrap {
                     powerSupply.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
                 }
                 powerSupply.capacity = Integer.parseInt(lineArray.get(5));
-                powerSupply.memoryType = PowerSupply.EnergyEfficiency.valueOf(lineArray.get(6));
+                powerSupply.memoryType = PowerSupply.EnergyEfficiency.valueOf(lineArray.get(6).toUpperCase());
                 powerSupply.modular = PowerSupply.ModularType.valueOf(lineArray.get(7));
                 List<String> atxListString = Arrays.asList(lineArray.get(8).split("\\[")[1].split("]")[0].split(","));
                 for(String atx : atxListString)
                 {
-                    powerSupply.atxCompatibilityTypes.add(ATXCompatibilityType.valueOf(atx));
+                    powerSupply.atxCompatibilityTypes.add(ATXCompatibilityType.valueOf(atx.toUpperCase()));
                 }
 
                 System.out.println(powerSupply);
@@ -280,7 +280,7 @@ public class Boostrap {
                 List<String> atxListString = Arrays.asList(lineArray.get(6).split("\\[")[1].split("]")[0].split(","));
                 for(String atx : atxListString)
                 {
-                    cases.atxCompatibilityList.add(ATXCompatibilityType.valueOf(atx));
+                    cases.atxCompatibilityList.add(ATXCompatibilityType.valueOf(atx.toUpperCase()));
                 }
                 cases.color = lineArray.get(7);
 
