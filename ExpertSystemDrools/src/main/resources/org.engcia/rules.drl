@@ -21,6 +21,7 @@ import org.engcia.model.Evidences;
 import org.engcia.model.Hypothesis;
 import org.engcia.model.Conclusion;
 
+
 //declare any global variables here
 
 query "Conclusions"
