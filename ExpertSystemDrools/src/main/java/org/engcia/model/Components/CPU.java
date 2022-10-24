@@ -4,7 +4,7 @@ public class CPU extends Component {
 
     public int coreCount = 0;
     public int threadsCount = 0;
-    public int boostClock = 0; // MHz
+    public float boostClock = 0; // MHz
     public float voltage = 0; // W
     public int benchmarkScore = 0; // Points
     public SocketType socket = SocketType.NA;
