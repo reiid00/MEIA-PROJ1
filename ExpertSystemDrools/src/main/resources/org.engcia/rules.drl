@@ -17,13 +17,9 @@ package org.engcia;
 // package must be defined in packages from kmodule.xml file
 
 //list any import classes here.
-import org.engcia.model.Evidences;
-import org.engcia.model.Hypothesis;
-import org.engcia.model.Conclusion
-import org.engcia.model.BaseConhecimento.Conclusion
-import org.engcia.model.BaseConhecimento.Hypothesis
-import org.engcia.BaseConhecimento.Hypothesis
+import org.engcia.BaseConhecimento.Hypothesis;
 import org.engcia.BaseConhecimento.Conclusion;
+import org.engcia.BaseConhecimento.Evidences;
 
 
 //declare any global variables here
