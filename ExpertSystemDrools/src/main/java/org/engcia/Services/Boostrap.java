@@ -15,7 +15,7 @@ import java.util.List;
 public class Boostrap {
 
     public static void loadDatabase() throws IOException {
-        //loadGPUs();
+        loadGPUs();
         loadCPUs();
         loadCPUCoolers();
         loadMotherboards();
