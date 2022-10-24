@@ -19,7 +19,11 @@ package org.engcia;
 //list any import classes here.
 import org.engcia.model.Evidences;
 import org.engcia.model.Hypothesis;
-import org.engcia.model.Conclusion;
+import org.engcia.model.Conclusion
+import org.engcia.model.BaseConhecimento.Conclusion
+import org.engcia.model.BaseConhecimento.Hypothesis
+import org.engcia.BaseConhecimento.Hypothesis
+import org.engcia.BaseConhecimento.Conclusion;
 
 
 //declare any global variables here

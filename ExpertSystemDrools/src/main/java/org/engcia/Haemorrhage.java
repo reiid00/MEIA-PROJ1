@@ -1,8 +1,8 @@
 package org.engcia;
 
 import org.engcia.Services.Boostrap;
-import org.engcia.model.Evidences;
-import org.engcia.model.Conclusion;
+import org.engcia.BaseConhecimento.Evidences;
+import org.engcia.BaseConhecimento.Conclusion;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
