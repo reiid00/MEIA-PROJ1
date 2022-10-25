@@ -4,7 +4,11 @@
 
 MZ-V8P1T0BW;Samsung;Samsung 980 Pro 1 TB M.2-2280 PCIe 4.0 X4 NVME Solid State Drive;2985.00;23/04/2019;true;1000;1024MB;2;571MB/s
 MTFDHAL7T6TDP-1AT1ZABYY;Micron;Micron 9300 Pro 7.68 TB 2.5" Solid State Drive;2985.00;23/04/2019;true;7680;NA;267 MB/s
+
+--Hard drive
 WD10EZEX;Western Digital;Western Digital Caviar Blue 1 TB 3.5" 7200 RPM Internal Hard Drive;37.49;01/04/2011;false;1000;64MB;NA
+WD20EZBX;Western Digital;Western Digital Blue 2 TB 3.5" 7200 RPM Internal Hard Drive;49.87;27/01/2021;false;2000;256MB;NA
+ST2000DM008;Seagate;Seagate Barracuda Compute 2 TB 3.5" 7200 RPM Internal Hard Drive;63.94;26/10/2017;false;2000;256MB;NA
 
 --240GB ssd
 SA400S37;Kingston;Kingston A400 240 GB 2.5" Solid State Drive;19.98;11/01/2018;true;240;NA;293 MB/s
