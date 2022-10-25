@@ -6,7 +6,7 @@ public class Storage extends Component{
     public boolean isSSD = false;
     public String capacityGB = ""; // GB
     public String cacheGB = ""; // GB
-    public String benchmark = ""; // Mb/s
+    public String benchmarkScore = ""; // Mb/s
 
     public Storage(){
         super();
