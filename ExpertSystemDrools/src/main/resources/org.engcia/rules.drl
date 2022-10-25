@@ -172,23 +172,72 @@ rule "r10"
         update($hypothesis);
      end
 
+rule "r11"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_SIMPLES)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 8;
+        update($hypothesis);
+     end
 
+rule "r12"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_COMPLEXO)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 16;
+        update($hypothesis);
+     end
 
+rule "r13"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_BASICO)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 8;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
+        System.out.println("1. Word/excel/PowerPoint \n");
+        System.out.println("2. Imagens ");
+        int choice = Integer.parseInt(br.readLine());
+        if(choice == 1) $hypothesis.storage.capacityGB = "240";
+        else if(choice==2) $hypothesis.storage.capacityGB = "480";
+        update($hypothesis);
+     end
 
+rule "r12"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_PROFISSIONAL)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 16;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
+        System.out.println("1. Word/excel/PowerPoint \n");
+        System.out.println("2. Imagens ");
+        int choice = Integer.parseInt(br.readLine());
+        if(choice == 1) $hypothesis.storage.capacityGB = "240";
+        else if(choice==2) $hypothesis.storage.capacityGB = "480";
+        update($hypothesis);
+     end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+rule "r13"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS || Finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 480;
+        update($hypothesis);
+     end
 
 
 rule "r8"
@@ -214,6 +263,8 @@ rule "r9"
 		$hypothesis.durationDayChoice = 2;
         update($hypothesis);
 end
+
+
 
 rule "r10"
 	when

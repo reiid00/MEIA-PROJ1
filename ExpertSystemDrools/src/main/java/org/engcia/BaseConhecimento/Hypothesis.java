@@ -16,7 +16,6 @@ public class Hypothesis {
     public int finalityEstimatedDurationTime = 0;
     public int minRAM = 0;
     public int minRAMPreferred = 0;
-    public int speedRAM = 0;
 
     public boolean needsDedicatedGPU = false;
     public boolean prefersDedicatedGPU = false;
