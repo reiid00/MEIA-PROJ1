@@ -249,7 +249,7 @@ public class Boostrap {
                 storage.isSSD = Boolean.getBoolean(lineArray.get(5));
                 storage.capacityGB = lineArray.get(6);
                 storage.cacheGB = lineArray.get(7);
-                storage.benchmark = lineArray.get(8);
+                storage.benchmarkScore = lineArray.get(8);
 
                 System.out.println(storage);
                 listStorages.add(storage);

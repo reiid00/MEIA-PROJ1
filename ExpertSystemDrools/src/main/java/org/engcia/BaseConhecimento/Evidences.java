@@ -5,5 +5,12 @@ public class Evidences {
     private int maxBudget = 0;
 
     public Evidences() {
+
+    }
+    public int getMaxBudget() {
+        return this.maxBudget;
+    }
+    public int getMinBudget() {
+        return this.minBudget;
     }
 }
