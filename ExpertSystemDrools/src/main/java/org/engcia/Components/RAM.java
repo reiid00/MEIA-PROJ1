@@ -16,7 +16,7 @@ public class RAM extends Component{
     @Override
     public String toString()
     {
-        return super.toString();
+        return ramType + " " + capacity + " GB " + speed + "MHz";
     }
 
 }
