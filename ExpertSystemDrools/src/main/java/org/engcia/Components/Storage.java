@@ -15,6 +15,7 @@ public class Storage extends Component{
     @Override
     public String toString()
     {
-        return super.toString();
+        if (isSSD) return "SSD " + capacityGB;
+        return "HDD " + capacityGB;
     }
 }

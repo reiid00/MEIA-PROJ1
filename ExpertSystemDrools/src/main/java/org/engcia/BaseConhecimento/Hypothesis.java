@@ -1,10 +1,16 @@
 package org.engcia.BaseConhecimento;
 
 import org.engcia.Components.GPU.GPUBrand;
+import org.engcia.Components.Storage;
 
 public class Hypothesis {
-    private BudgetType budgetType;
-    private Finality finality;
+    public BudgetType budgetType;
+    public Finality finality;
+
+    public int durationDayChoice = 0;
+
+    public Storage storage = new Storage();
+    public Storage scndStorage = new Storage();
     private int finalityEstimatedDurationTime = 0;
     private int minRAM = 0;
     private int minRAMPreferred = 0;

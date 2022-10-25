@@ -19,7 +19,12 @@ package org.engcia;
 //list any import classes here.
 import org.engcia.BaseConhecimento.Hypothesis;
 import org.engcia.BaseConhecimento.Conclusion;
-import org.engcia.BaseConhecimento.Evidences;
+import org.engcia.BaseConhecimento.Evidences
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import org.engcia.Components.Storage
+import org.engcia.Services.Questions
+import java.util.List;
 
 
 //declare any global variables here
@@ -30,96 +35,120 @@ end
 
 rule "r1"
 	when
-		Evidences(bloodEar == "yes" )
+		Evidences(  300 < maxBudget < 600 )
 	then
-		Hypothesis h = new Hypothesis("upper type");
+		Hypothesis h = new Hypothesis();
+		h.budgetType = Hypothesis.BudgetType.BAIXO;
 		insert(h);
 end
 
 rule "r2"
 	when
-		Evidences(bloodEar == "no" )
+		Evidences(  600 < maxBudget < 1000 )
 	then
-		Hypothesis h = new Hypothesis("lower type");
-		insert(h);
+		Hypothesis h = new Hypothesis();
+        h.budgetType = Hypothesis.BudgetType.MEDIO_BAIXO;
+        insert(h);
 end
 
 rule "r3"
 	when
-		Hypothesis( description == "upper type")
-		Evidences(earAche == "yes")
+		Evidences(  1000 < maxBudget < 1500 )
 	then
-		Conclusion c = new Conclusion(Conclusion.OTORRHAGIA);
-		insert(c);
+		Hypothesis h = new Hypothesis();
+        h.budgetType = Hypothesis.BudgetType.MEDIO;
+        insert(h);
 end
 
 rule "r4"
 	when
-		Hypothesis( description == "upper type")
-		Evidences(deafness == "yes")
+		Evidences(  1500 < maxBudget < 2000 )
 	then
-		Conclusion c = new Conclusion(Conclusion.OTORRHAGIA);
-		insert(c);
+		Hypothesis h = new Hypothesis();
+        h.budgetType = Hypothesis.BudgetType.MEDIO_ALTO;
+        insert(h);
 end
 
 rule "r5"
 	when
-		Hypothesis( description == "upper type")
-		Evidences(cerebrospinal == "yes")
+		Evidences(  2000 < maxBudget )
 	then
-		Conclusion c = new Conclusion(Conclusion.SKULL_FRACTURE);
-		insert(c);
+		Hypothesis h = new Hypothesis();
+        h.budgetType = Hypothesis.BudgetType.ALTO;
+        insert(h);
 end
 
 rule "r6"
 	when
-		Hypothesis( description == "lower type")
-		Evidences(bloodNose == "yes")
+		$hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
 	then
-		Conclusion c = new Conclusion(Conclusion.EPISTAXE);
-		insert(c);
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    System.out.println("Escolha a finalidade: \n");
+	    System.out.println("-" + Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES  + "\n  -" + Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO +
+	    "\n -" + Hypothesis.Finality.APLICACOES_OFFICE_BASICO + "\n -" + Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL +
+	     "\n -" + Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS + "\n -" + Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS);
+        String finality = br.readLine();
+        $hypothesis.finality = Hypothesis.Finality.valueOf(finality.toUpperCase());
+		update($hypothesis);
 end
 
 rule "r7"
 	when
-		Hypothesis( description == "lower type")
-		Evidences(bloodMouth == "yes", bloodBrown == "yes", vomiting == "yes")
+		$hypothesis : Hypothesis( budgetType != BudgetType.BAIXO)
 	then
-		Conclusion c = new Conclusion(Conclusion.HEMATHESE);
-		insert(c);
+		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+         System.out.println("Escolha a finalidade: \n");
+         for ( Hypothesis.Finality fnlt: Hypothesis.Finality.values() ) {
+            System.out.println("-" + fnlt);
+         }
+         String finality = br.readLine();
+         $hypothesis.finality = Hypothesis.Finality.valueOf(finality.toUpperCase());
+         update($hypothesis);
 end
 
 rule "r8"
 	when
-		Hypothesis( description == "lower type")
-		Evidences(bloodMouth == "yes", bloodBrown == "no", vomiting == "no")
+		$hypothesis : Hypothesis( finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO ||
+		 finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
 	then
-		Conclusion c = new Conclusion(Conclusion.MOUTH_HAEMORRHAGE);
-		insert(c);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Quando tempo irá utilizar o computador por dia? \n");
+        System.out.println("1. 2 a 4 horas \n");
+        System.out.println("2. Mais de 4 horas \n");
+        int choice = Integer.parseInt(br.readLine());
+        $hypothesis.durationDayChoice = choice;
+        update($hypothesis);
+
 end
 
 rule "r9"
 	when
-		Hypothesis( description == "lower type")
-		Evidences(bloodVagina == "yes")
+		$hypothesis : Hypothesis( finality != Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES && finality != Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO &&
+		 finality != Hypothesis.Finality.APLICACOES_OFFICE_BASICO && finality != Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
 	then
-		Conclusion c = new Conclusion(Conclusion.METRORRHAGIA);
-		insert(c);
+		$hypothesis.durationDayChoice = 2;
+        update($hypothesis);
 end
 
 rule "r10"
 	when
-		Hypothesis( description == "lower type")
-		Evidences(bloodPenis == "yes")
+		$hypothesis : Hypothesis (finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO)
 	then
-		Conclusion c = new Conclusion(Conclusion.HEMATURIA);
-		insert(c);
+	    Storage storage = new Storage();
+	    storage.isSSD = true;
+	    storage.capacityGB = "240 GB";
+        List<Storage> storageList = Questions.questionStorage(storage);
+        if(storageList.size() == 2){
+            $hypothesis.scndStorage = storageList.get(1);
+        }
+        $hypothesis.storage = storageList.get(0);
+        update($hypothesis);
 end
 
 rule "r11"
 	when
-		Hypothesis( description == "lower type")
-		Evidences(bloodAnus == "yes", bloodCoffee == "yes")
+		//Hypothesis( description == "lower type")
+		//Evidences(bloodAnus == "yes", bloodCoffee == "yes")
 	then
 		Conclusion c = new Conclusion(Conclusion.MELENA);
 		insert(c);
@@ -127,8 +156,8 @@ end
 
 rule "r12"
 	when
-		Hypothesis( description == "lower type")
-		Evidences(bloodAnus == "yes", bloodCoffee == "no")
+		//Hypothesis( description == "lower type")
+		//Evidences(bloodAnus == "yes", bloodCoffee == "no")
 	then
 		Conclusion c = new Conclusion(Conclusion.RECTAL_BLEEDING);
 		insert(c);
