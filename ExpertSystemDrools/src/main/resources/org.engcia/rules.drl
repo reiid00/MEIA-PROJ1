@@ -121,8 +121,8 @@ rule "r8"
     then
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Pretende ter uma utilização com muitas ou poucas janelas?");
-        System.out.println("1. Muitas janelas.");
-        System.out.println("2. Poucas janelas.");
+        System.out.println("1. Poucas janelas.");
+        System.out.println("2. Muitas janelas.");
         Integer finality = Integer.parseInt(br.readLine());
         if (finality == 1) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
         else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO;
