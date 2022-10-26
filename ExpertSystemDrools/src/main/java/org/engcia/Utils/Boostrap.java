@@ -87,7 +87,6 @@ public class Boostrap {
                 cpu.benchmarkScore = Integer.parseInt(lineArray.get(9));
                 cpu.socket = SocketType.valueOf(lineArray.get(10).toUpperCase());
 
-                System.out.println(cpu);
                 listCPUs.add(cpu);
             }
             line = bufReader.readLine();

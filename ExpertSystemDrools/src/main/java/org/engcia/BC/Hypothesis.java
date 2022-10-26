@@ -5,8 +5,8 @@ import org.engcia.BD.Storage;
 
 public class Hypothesis {
 
-    private int minBudget = 0; // opcional
-    private int maxBudget = 0;
+    public int minBudget = 0; // opcional
+    public int maxBudget = 0;
     public BudgetType budgetType;
     public Finality finality;
 
