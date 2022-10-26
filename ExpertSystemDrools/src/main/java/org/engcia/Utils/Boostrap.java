@@ -154,7 +154,6 @@ public class Boostrap {
                 motherboard.ramSlots = Integer.parseInt(lineArray.get(9));
                 motherboard.ramSpeedList =Arrays.asList(lineArray.get(10).split("\\[")[1].split("]")[0].split(","));;
 
-                System.out.println(motherboard);
                 listMotherboards.add(motherboard);
             }
             line = bufReader.readLine();

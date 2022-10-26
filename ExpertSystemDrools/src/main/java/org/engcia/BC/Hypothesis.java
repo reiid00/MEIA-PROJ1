@@ -7,10 +7,10 @@ public class Hypothesis {
 
     public int minBudget = 0; // opcional
     public int maxBudget = 0;
-    public BudgetType budgetType;
-    public Finality finality;
+    public BudgetType budgetType = BudgetType.NA;
+    public Finality finality = Finality.NA;
 
-    public Semi_Finality semi_finality;
+    public Semi_Finality semi_finality = Semi_Finality.NA;
 
     public int durationDayChoice = 0;
 
@@ -30,6 +30,7 @@ public class Hypothesis {
     }
 
     public enum Semi_Finality{
+        NA,
         NAVEGACAO_WEB,
         APLICACOES_OFFICE,
         APLICACOES_PROFISSIONAIS,
@@ -45,6 +46,7 @@ public class Hypothesis {
         EDIÇAO_DE_VIDEO_4k_8K
     }
     public enum Finality{
+        NA,
         NAVEGACAO_WEB_SIMPLES,
         NAVEGACAO_WEB_COMPLEXO,
         APLICACOES_OFFICE_BASICO,
@@ -68,6 +70,7 @@ public class Hypothesis {
     }
 
     public enum BudgetType {
+        NA,
         BAIXO,
         MEDIO_BAIXO,
         MEDIO,

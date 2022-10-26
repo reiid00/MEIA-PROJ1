@@ -21,7 +21,6 @@ import org.engcia.View.UI;
 
 public class Main {
     public static KieSession KS;
-    public static BufferedReader BR;
     public static TrackingAgendaEventListener agendaEventListener;
     public static Map<Integer, Justification> justifications;
 
@@ -77,7 +76,7 @@ public class Main {
             LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
 
             kSession.fireAllRules();
-            // kSession.fireUntilHalt();
+//            kSession.fireUntilHalt();
 
             query.close();
 
