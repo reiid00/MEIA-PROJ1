@@ -26,7 +26,11 @@ import org.engcia.BD.Storage
 import org.engcia.Utils.Questions
 import java.util.List
 import org.engcia.BD.RAM
-import org.engcia.BD.RAMType;
+import org.engcia.BD.RAMType
+import org.engcia.BC.Hypothesis.BudgetType
+import org.engcia.BC.Hypothesis.Finality
+import org.engcia.BC.Hypothesis.Semi_Finality
+
 
 
 //declare any global variables here
@@ -39,7 +43,7 @@ rule "r1"
 	when
 		$hypothesis : Hypothesis( maxBudget >= 300, maxBudget < 600 )
 	then
-		$hypothesis.budgetType = Hypothesis.BudgetType.BAIXO;
+		$hypothesis.budgetType = BudgetType.BAIXO;
 		update($hypothesis);
 end
 
@@ -47,7 +51,7 @@ rule "r2"
 	when
 		$hypothesis: Hypothesis( maxBudget >= 600, maxBudget < 1000 )
 	then
-        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_BAIXO;
+        $hypothesis.budgetType = BudgetType.MEDIO_BAIXO;
         update($hypothesis);
 end
 
@@ -55,7 +59,7 @@ rule "r3"
 	when
 		$hypothesis: Hypothesis( maxBudget >= 1000, maxBudget < 1500 )
 	then
-        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO;
+        $hypothesis.budgetType = BudgetType.MEDIO;
         update($hypothesis);
 end
 
@@ -63,7 +67,7 @@ rule "r4"
 	when
 		$hypothesis: Hypothesis( maxBudget >= 1500, maxBudget < 2000 )
 	then
-        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_ALTO;
+        $hypothesis.budgetType = BudgetType.MEDIO_ALTO;
         update($hypothesis);
 end
 
@@ -71,7 +75,7 @@ rule "r5"
 	when
 		$hypothesis: Hypothesis( maxBudget >= 2000 )
 	then
-        $hypothesis.budgetType = Hypothesis.BudgetType.ALTO;
+        $hypothesis.budgetType = BudgetType.ALTO;
         update($hypothesis);
 end
 

@@ -76,7 +76,7 @@ public class Main {
             LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
 
             kSession.fireAllRules();
-//            kSession.fireUntilHalt();
+     //      kSession.fireUntilHalt();
 
             query.close();
 
