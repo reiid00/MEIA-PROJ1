@@ -64,6 +64,50 @@ public class UI {
             return false;
         }
     }
+    public static boolean compare(String evidenceValue,int value){
+        if(value < Integer.valueOf(evidenceValue)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static boolean answerBudget(String ev, int intValue) {
+        @SuppressWarnings("unchecked")
+        Collection<Evidence> evidences = (Collection<Evidence>) Main.KS.getObjects(new ClassObjectFilter(Evidence.class));
+        boolean questionFound = false;
+        Evidence evidence = null;
+        for (Evidence e: evidences) {
+            if (e.getEvidence().compareTo(ev) == 0) {
+                questionFound = true;
+                evidence = e;
+                break;
+            }
+        }
+        if (questionFound) {
+            if (compare(evidence.getValue(),intValue)) {
+                Main.agendaEventListener.addLhs(evidence);
+                return true;
+            } else {
+                // Clear LHS conditions set if a condition is false (conjunctive rules)
+                Main.agendaEventListener.resetLhs();
+                return false;
+            }
+        }
+        System.out.print(ev + "? ");
+        String value = readLine();
+
+        Evidence e = new Evidence(ev, value);
+        Main.KS.insert(e);
+
+        if (compare( value,intValue)) {
+            Main.agendaEventListener.addLhs(e);
+            return true;
+        } else {
+            // Clear LHS conditions set if a condition is false (conjunctive rules)
+            Main.agendaEventListener.resetLhs();
+            return false;
+        }
+    }
 
     private static String readLine() {
         String input = "";
