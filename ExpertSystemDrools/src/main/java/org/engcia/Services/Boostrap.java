@@ -14,7 +14,7 @@ import java.util.List;
 public class Boostrap {
 
     public static void loadDatabase() throws IOException {
-        //loadGPUs();
+        loadGPUs();
         loadCPUs();
         loadCPUCoolers();
         loadMotherboards();
@@ -95,8 +95,7 @@ public class Boostrap {
     }
 
     private static void loadCPUCoolers() throws IOException {
-        List<CPUCooler> listCPUCoolers = new ArrayList<CPUCooler>();
-        // Load CPU Coolers...
+        List<CPUCooler> listCPUCoolers = new ArrayList<>();
 
         BufferedReader bufReader = new BufferedReader(new FileReader("BD/CPUCoolers.txt"));
         String line = bufReader.readLine();
@@ -127,10 +126,9 @@ public class Boostrap {
 
 
     private static void loadMotherboards() throws IOException {
-        List<Motherboard> listMotherboards = new ArrayList<Motherboard>();
-        // Load Motherboards...
+        List<Motherboard> listMotherboards = new ArrayList<>();
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("BD/MotherBoards.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/Motherboards.txt"));
         String line = bufReader.readLine();
         while (line != null) {
             if (!(line.contains("--") || line.trim().isEmpty())) {
@@ -164,8 +162,7 @@ public class Boostrap {
     }
 
     private static void loadRAMs() throws IOException {
-        List<RAM> listRAMs = new ArrayList<RAM>();
-        // Load RAMs...
+        List<RAM> listRAMs = new ArrayList<>();
 
         BufferedReader bufReader = new BufferedReader(new FileReader("BD/RAMs.txt"));
         String line = bufReader.readLine();
@@ -195,8 +192,7 @@ public class Boostrap {
     }
 
     private static void loadPowerSupplies() throws IOException {
-        List<PowerSupply> listPowerSupplies = new ArrayList<PowerSupply>();
-        // Load Power Supplies...
+        List<PowerSupply> listPowerSupplies = new ArrayList<>();
 
         BufferedReader bufReader = new BufferedReader(new FileReader("BD/PowerSupplies.txt"));
         String line = bufReader.readLine();
@@ -229,10 +225,9 @@ public class Boostrap {
     }
 
     private static void loadStorages() throws IOException {
-        List<Storage> listStorages = new ArrayList<Storage>();
-        // Load Storages...
+        List<Storage> listStorages = new ArrayList<>();
 
-        BufferedReader bufReader = new BufferedReader(new FileReader("BD/Storage.txt"));
+        BufferedReader bufReader = new BufferedReader(new FileReader("BD/Storages.txt"));
         String line = bufReader.readLine();
         while (line != null) {
             if (!(line.contains("--") || line.trim().isEmpty())) {
@@ -259,8 +254,8 @@ public class Boostrap {
     }
 
     private static void loadCases() throws IOException {
-        List<Case> listCases= new ArrayList<Case>();
-        // Load Cases...
+        List<Case> listCases= new ArrayList<>();
+
         BufferedReader bufReader = new BufferedReader(new FileReader("BD/Cases.txt"));
         String line = bufReader.readLine();
         while (line != null) {
