@@ -9,19 +9,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Questions {
-    public static final String BLOOD_EAR = "There is blood in the ear";
-    public static final String EARACHE = "Do you have earache";
-    public static final String DEAFNESS = "Do you have deafness";
-    public static final String CEREBROSPINAL = "Is there crebrospinal fluid spill";
-    public static final String HEADACHE = "Do you have headache";
-    public static final String BLOOD_NOSE = "Is there blood in the nose";
-    public static final String BLOOD_MOUTH = "Is there blood in the mouth";
-    public static final String BLOOD_BROWN = "Is the blood colour dark brown";
-    public static final String VOMITING = "Is there vomiting";
-    public static final String BLOOD_VAGINA = "Is there blood in the vagina";
-    public static final String BLOOD_PENIS = "Is there blood in the penis";
-    public static final String BLOOD_ANUS = "Is there blood in the anus";
-    public static final String BLOOD_COFFEE = "Has the blood in the anus the apperance of coffee grounds";
+    public static final String CHOOSE_FINALITY_LOW_BUDGET= "Qual é a sua finalidade? \\n" +
+                                                            "1. Navegação WEB \\n" +
+                                                            "2. Aplicações Office \\n" +
+                                                            "3. Aplicações Profissionais";
+
+    public static final String CHOOSE_FINALITY_NON_LOW_BUDGET = "Qual é a sua finalidade? \\n" +
+                                                                    "1. Navegação WEB \\n" +
+                                                                    "2. Aplicações Office \\n" +
+                                                                    "3. Aplicações Profissionais \\n" +
+                                                                    "4. Jogos Básicos \\n" +
+                                                                    "5. Programas Avançados \\n" +
+                                                                    "6. Gaming \\n" +
+                                                                    "7. Tratamento de Imagem \\n" +
+                                                                    "8. Edição de Vídeo 4K a 8K \\n";
+    public static final String CHOOSE_FINALITY_NAVEGACAO_WEB = "Pretende ter uma utilização com muitas ou poucas janelas? \\n" +
+                                                                "1. Poucas janelas. \\n" +
+                                                                "2. Muitas janelas.";
+    public static final String CHOOSE_FINALITY_APLICACOES_OFFICE = "Pretende utilizar o Office de forma básica ou profissional estas apliacações? \\n" +
+                                                                    "1. Forma Básica. \\n" +
+                                                                    "2. Profissional.";
+    public static final String CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS = "Pretende realizar regularmente operações de pesquisa e modificação à base de dados? \\n" +
+                                                                            "1. Vou utilizar Base de Dados. \\n" +
+                                                                            "2. Não vou utilizar Base de Dados.";
+
+    public static final String CHOOSE_FINALITY_PROGRAMAS_AVANÇADOS = "Que tipo de programas pretende utilizar? \\n" +
+                                                                        "1. Modelação 3D. \\n" +
+                                                                        "2. Design Gráfico. \\n" +
+                                                                        "3. Calculo Matemático.";
+
+    public static final String CHOOSE_FILE_TYPE = "Que tipo de ficheiros irão ser mais utilizados? \\n" +
+                                                    "1. Word/excel/PowerPoint \\n" +
+                                                    "2. Imagens ";
+
+    public static final String CHOOSE_DURATION_PER_DAY = "Quando tempo irá utilizar o computador por dia? \\n" +
+                                                            "1. 2 a 4 horas \\n" +
+                                                            "2. Mais de 4 horas \\n";
 
     public static List<Storage> questionStorage(Storage storage) throws IOException {
 

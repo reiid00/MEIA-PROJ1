@@ -10,8 +10,6 @@ public class Hypothesis {
     public BudgetType budgetType = BudgetType.NA;
     public Finality finality = Finality.NA;
 
-    public Semi_Finality semi_finality = Semi_Finality.NA;
-
     public int durationDayChoice = 0;
 
     public Storage storage = new Storage();
@@ -29,22 +27,6 @@ public class Hypothesis {
         super();
     }
 
-    public enum Semi_Finality{
-        NA,
-        NAVEGACAO_WEB,
-        APLICACOES_OFFICE,
-        APLICACOES_PROFISSIONAIS,
-
-        JOGOS_BASICOS,
-
-        PROGRAMAS_AVANÇADOS,
-
-        GAMING,
-
-        TRATAMENTO_DE_IMAGEM,
-
-        EDIÇAO_DE_VIDEO_4k_8K
-    }
     public enum Finality{
         NA,
         NAVEGACAO_WEB_SIMPLES,
