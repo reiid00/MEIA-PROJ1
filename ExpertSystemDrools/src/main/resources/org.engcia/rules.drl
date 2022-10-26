@@ -75,242 +75,243 @@ rule "r5"
         update($hypothesis);
 end
 
-/*//rule "r6"
-//	when
-//		$hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
-//	then
-//	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//	    System.out.println("Escolha a finalidade: \n");
-//	    System.out.println("1. " + "Navegação WEB \n 2. Aplicações Office \n 3. Aplicações Profissionais");
-//        int semi_finality = Integer.parseInt(br.readLine());
-//        $hypothesis.semi_finality = Hypothesis.Semi_Finality.values()[semi_finality-1];
-//		update($hypothesis);
-//end
-//
-//rule "r7"
-//	when
-//		$hypothesis : Hypothesis( budgetType != BudgetType.BAIXO)
-//	then
-//		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//         System.out.println("Escolha a finalidade: \n");
-//         int i = 1;
-//         for ( Hypothesis.Semi_Finality fnlt: Hypothesis.Semi_Finality.values() ) {
-//            System.out.println( i + ". " + fnlt);
-//            i++;
-//         }
-//
-//         Integer semi_finality = Integer.parseInt(br.readLine());
-//         $hypothesis.semi_finality = Hypothesis.Semi_Finality.values()[semi_finality-1];
-//
-//          for (Hypothesis.Finality finality : Hypothesis.Finality.values()) {
-//                 if (finality.name().equals($hypothesis.semi_finality.toString().toUpperCase())) {
-//                     $hypothesis.finality = finality;
-//                 }
-//             }
-//         update($hypothesis);
-//end
-//
-//rule "r8"
-//    when
-//        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.NAVEGACAO_WEB)
-//    then
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Pretende ter uma utilização com muitas ou poucas janelas?");
-//        System.out.println("1. Poucas janelas.");
-//        System.out.println("2. Muitas janelas.");
-//        Integer finality = Integer.parseInt(br.readLine());
-//        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
-//        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO;
-//        update($hypothesis);
-//    end
-//rule "r8"
-//    when
-//        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.APLICACOES_OFFICE)
-//    then
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Pretende utilizar o Office de forma básica ou profissional estas apliacações?");
-//        System.out.println("1. Forma Básica.");
-//        System.out.println("2. Profissional.");
-//        Integer finality = Integer.parseInt(br.readLine());
-//        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.APLICACOES_OFFICE_BASICO;
-//        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL;
-//        update($hypothesis);
-//    end
-//
-//rule "r9"
-//    when
-//        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.APLICACOES_PROFISSIONAIS)
-//    then
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Pretende realizar regularmente operações de pesquisa e modificação à base de dados?");
-//        System.out.println("1. Vou utilizar Base de Dados.");
-//        System.out.println("2. Não vou utilizar Base de Dados.");
-//        Integer finality = Integer.parseInt(br.readLine());
-//        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS;
-//        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS;
-//        update($hypothesis);
-//    end
-//*/
-//rule "r10"
-//    when
-//        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.PROGRAMAS_AVANÇADOS)
-//    then
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Que tipo de programas pretende utilizar?");
-//        System.out.println("1. Modelação 3D.");
-//        System.out.println("2. Design Gráfico.");
-//        System.out.println("3. Calculo Matemático.");
-//        Integer finality = Integer.parseInt(br.readLine());
-//        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_MODELACAO_3D;
-//        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_DESIGN_GRAFICO;
-//        else if (finality ==3) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_CALCULO_MATEMATICO;
-//        update($hypothesis);
-//     end
-//
-//rule "r11"
-//    when
-//        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_SIMPLES)
-//    then
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.storage.capacityGB = "240";
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.minRAMPreferred = 8;
-//        update($hypothesis);
-//     end
-//
-//rule "r12"
-//    when
-//        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_COMPLEXO)
-//    then
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.storage.capacityGB = "240";
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.minRAMPreferred = 16;
-//        update($hypothesis);
-//     end
-//
-//rule "r13"
-//    when
-//        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_BASICO)
-//    then
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.minRAMPreferred = 8;
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
-//        System.out.println("1. Word/excel/PowerPoint \n");
-//        System.out.println("2. Imagens ");
-//        int choice = Integer.parseInt(br.readLine());
-//        if(choice == 1) $hypothesis.storage.capacityGB = "240";
-//        else if(choice==2) $hypothesis.storage.capacityGB = "480";
-//        update($hypothesis);
-//     end
-//
-//rule "r12"
-//    when
-//        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_PROFISSIONAL)
-//    then
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.minRAMPreferred = 16;
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
-//        System.out.println("1. Word/excel/PowerPoint \n");
-//        System.out.println("2. Imagens ");
-//        int choice = Integer.parseInt(br.readLine());
-//        if(choice == 1) $hypothesis.storage.capacityGB = "240";
-//        else if(choice==2) $hypothesis.storage.capacityGB = "480";
-//        update($hypothesis);
-//     end
-//
-//rule "r13"
-//    when
-//        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS || Finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS)
-//    then
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.storage.capacityGB = "240";
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.minRAMPreferred = 480;
-//        update($hypothesis);
-//     end
-//
-//
-//rule "r8"
-//	when
-//		$hypothesis : Hypothesis( finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO ||
-//		 finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
-//	then
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Quando tempo irá utilizar o computador por dia? \n");
-//        System.out.println("1. 2 a 4 horas \n");
-//        System.out.println("2. Mais de 4 horas \n");
-//        int choice = Integer.parseInt(br.readLine());
-//        $hypothesis.durationDayChoice = choice;
-//        update($hypothesis);
-//
-//end
-//
-//rule "r9"
-//	when
-//		$hypothesis : Hypothesis( finality != Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES && finality != Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO &&
-//		 finality != Hypothesis.Finality.APLICACOES_OFFICE_BASICO && finality != Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
-//	then
-//		$hypothesis.durationDayChoice = 2;
-//        update($hypothesis);
-//end
-//
-//
-//
-//rule "r10"
-//	when
-//		$hypothesis : Hypothesis (finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO)
-//	then
-//	    Storage storage = new Storage();
-//	    storage.isSSD = true;
-//	    storage.capacityGB = "240";
-//        List<Storage> storageList = Questions.questionStorage(storage);
-//        if(storageList.size() == 2){
-//            $hypothesis.scndStorage = storageList.get(1);
-//        }
-//        $hypothesis.storage = storageList.get(0);
-//        update($hypothesis);
-//end
-//
-//rule "r11"
-//	when
-//		$hypothesis : Hypothesis (finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL)
-//	then
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//		Storage storage = new Storage();
-//        storage.isSSD = true;
-//        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
-//        System.out.println("1. Word/excel/PowerPoint \n");
-//        System.out.println("2. Imagens ");
-//        int choice = Integer.parseInt(br.readLine());
-//        if(choice ==1) storage.capacityGB = "240";
-//        else if (choice == 2) storage.capacityGB = "480";
-//        List<Storage> storageList = Questions.questionStorage(storage);
-//        if(storageList.size() == 2){
-//            $hypothesis.scndStorage = storageList.get(1);
-//        }
-//        $hypothesis.storage = storageList.get(0);
-//        update($hypothesis);
-//end
-//
-//rule "r12"
-//	when
-//		$hypothesis : Hypothesis (finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS || finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS)
-//	then
-//		Storage storage = new Storage();
-//        storage.isSSD = true;
-//        storage.capacityGB = "480";
-//        List<Storage> storageList = Questions.questionStorage(storage);
-//        if(storageList.size() == 2){
-//           $hypothesis.scndStorage = storageList.get(1);
-//        }
-//        $hypothesis.storage = storageList.get(0);
-//        update($hypothesis);
-//end
+rule "r6"
+	when
+	    $hypothesis : Hypothesis( budgetType )
+//        eval ( $hypothesis(budgetType == BudgetType.BAIXO))
+	then
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    System.out.println("Escolha a finalidade: \n");
+	    System.out.println("1. " + "Navegação WEB \n 2. Aplicações Office \n 3. Aplicações Profissionais");
+        int semi_finality = Integer.parseInt(br.readLine());
+        $hypothesis.semi_finality = Hypothesis.Semi_Finality.values()[semi_finality-1];
+		update($hypothesis);
+end
+
+rule "r7"
+	when
+		$hypothesis : Hypothesis( budgetType != BudgetType.BAIXO)
+	then
+		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+         System.out.println("Escolha a finalidade: \n");
+         int i = 1;
+         for ( Hypothesis.Semi_Finality fnlt: Hypothesis.Semi_Finality.values() ) {
+            System.out.println( i + ". " + fnlt);
+            i++;
+         }
+
+         Integer semi_finality = Integer.parseInt(br.readLine());
+         $hypothesis.semi_finality = Hypothesis.Semi_Finality.values()[semi_finality-1];
+
+          for (Hypothesis.Finality finality : Hypothesis.Finality.values()) {
+                 if (finality.name().equals($hypothesis.semi_finality.toString().toUpperCase())) {
+                     $hypothesis.finality = finality;
+                 }
+             }
+         update($hypothesis);
+end
+
+rule "r8"
+    when
+        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.NAVEGACAO_WEB)
+    then
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Pretende ter uma utilização com muitas ou poucas janelas?");
+        System.out.println("1. Poucas janelas.");
+        System.out.println("2. Muitas janelas.");
+        Integer finality = Integer.parseInt(br.readLine());
+        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
+        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO;
+        update($hypothesis);
+    end
+rule "r9"
+    when
+        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.APLICACOES_OFFICE)
+    then
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Pretende utilizar o Office de forma básica ou profissional estas apliacações?");
+        System.out.println("1. Forma Básica.");
+        System.out.println("2. Profissional.");
+        Integer finality = Integer.parseInt(br.readLine());
+        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.APLICACOES_OFFICE_BASICO;
+        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL;
+        update($hypothesis);
+    end
+
+rule "r10"
+    when
+        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.APLICACOES_PROFISSIONAIS)
+    then
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Pretende realizar regularmente operações de pesquisa e modificação à base de dados?");
+        System.out.println("1. Vou utilizar Base de Dados.");
+        System.out.println("2. Não vou utilizar Base de Dados.");
+        Integer finality = Integer.parseInt(br.readLine());
+        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS;
+        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS;
+        update($hypothesis);
+    end
+
+rule "r11"
+    when
+        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.PROGRAMAS_AVANÇADOS)
+    then
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Que tipo de programas pretende utilizar?");
+        System.out.println("1. Modelação 3D.");
+        System.out.println("2. Design Gráfico.");
+        System.out.println("3. Calculo Matemático.");
+        Integer finality = Integer.parseInt(br.readLine());
+        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_MODELACAO_3D;
+        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_DESIGN_GRAFICO;
+        else if (finality ==3) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_CALCULO_MATEMATICO;
+        update($hypothesis);
+     end
+
+rule "r12"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_SIMPLES)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 8;
+        update($hypothesis);
+     end
+
+rule "r13"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_COMPLEXO)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 16;
+        update($hypothesis);
+     end
+
+rule "r14"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_BASICO)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 8;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
+        System.out.println("1. Word/excel/PowerPoint \n");
+        System.out.println("2. Imagens ");
+        int choice = Integer.parseInt(br.readLine());
+        if(choice == 1) $hypothesis.storage.capacityGB = "240";
+        else if(choice==2) $hypothesis.storage.capacityGB = "480";
+        update($hypothesis);
+     end
+
+rule "r15"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_PROFISSIONAL)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 16;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
+        System.out.println("1. Word/excel/PowerPoint \n");
+        System.out.println("2. Imagens ");
+        int choice = Integer.parseInt(br.readLine());
+        if(choice == 1) $hypothesis.storage.capacityGB = "240";
+        else if(choice==2) $hypothesis.storage.capacityGB = "480";
+        update($hypothesis);
+     end
+
+rule "r16"
+    when
+        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS || Finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS)
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.minRAMPreferred = 480;
+        update($hypothesis);
+     end
+
+
+rule "r17"
+	when
+		$hypothesis : Hypothesis( finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO ||
+		 finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
+	then
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Quando tempo irá utilizar o computador por dia? \n");
+        System.out.println("1. 2 a 4 horas \n");
+        System.out.println("2. Mais de 4 horas \n");
+        int choice = Integer.parseInt(br.readLine());
+        $hypothesis.durationDayChoice = choice;
+        update($hypothesis);
+
+end
+
+rule "r18"
+	when
+		$hypothesis : Hypothesis( finality != Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES && finality != Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO &&
+		 finality != Hypothesis.Finality.APLICACOES_OFFICE_BASICO && finality != Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
+	then
+		$hypothesis.durationDayChoice = 2;
+        update($hypothesis);
+end
+
+
+
+rule "r19"
+	when
+		$hypothesis : Hypothesis (finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO)
+	then
+	    Storage storage = new Storage();
+	    storage.isSSD = true;
+	    storage.capacityGB = "240";
+        List<Storage> storageList = Questions.questionStorage(storage);
+        if(storageList.size() == 2){
+            $hypothesis.scndStorage = storageList.get(1);
+        }
+        $hypothesis.storage = storageList.get(0);
+        update($hypothesis);
+end
+
+rule "r20"
+	when
+		$hypothesis : Hypothesis (finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL)
+	then
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Storage storage = new Storage();
+        storage.isSSD = true;
+        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
+        System.out.println("1. Word/excel/PowerPoint \n");
+        System.out.println("2. Imagens ");
+        int choice = Integer.parseInt(br.readLine());
+        if(choice ==1) storage.capacityGB = "240";
+        else if (choice == 2) storage.capacityGB = "480";
+        List<Storage> storageList = Questions.questionStorage(storage);
+        if(storageList.size() == 2){
+            $hypothesis.scndStorage = storageList.get(1);
+        }
+        $hypothesis.storage = storageList.get(0);
+        update($hypothesis);
+end
+
+rule "r21"
+	when
+		$hypothesis : Hypothesis (finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS || finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS)
+	then
+		Storage storage = new Storage();
+        storage.isSSD = true;
+        storage.capacityGB = "480";
+        List<Storage> storageList = Questions.questionStorage(storage);
+        if(storageList.size() == 2){
+           $hypothesis.scndStorage = storageList.get(1);
+        }
+        $hypothesis.storage = storageList.get(0);
+        update($hypothesis);
+end
 
 
 
