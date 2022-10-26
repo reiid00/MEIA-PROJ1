@@ -26,7 +26,6 @@ public class Hypothesis {
     public String caseColorPreferred = "";
 
     public Hypothesis() {
-        super();
     }
 
     public enum Semi_Finality{
@@ -77,4 +76,6 @@ public class Hypothesis {
         MEDIO_ALTO,
         ALTO
     }
+
+
 }

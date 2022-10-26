@@ -26,7 +26,11 @@ import org.engcia.BD.Storage
 import org.engcia.Utils.Questions
 import java.util.List
 import org.engcia.BD.RAM
-import org.engcia.BD.RAMType;
+import org.engcia.BD.RAMType
+import org.engcia.BC.Hypothesis.BudgetType
+import org.engcia.BC.Hypothesis.Finality
+import org.engcia.BC.Hypothesis.Semi_Finality
+
 
 
 //declare any global variables here
@@ -37,47 +41,47 @@ end
 
 rule "r1"
 	when
-		$hypothesis : Hypothesis(  300 < maxBudget, maxBudget < 600 )
+		$hypothesis : Hypothesis( maxBudget >= 300, maxBudget < 600 )
 	then
-		$hypothesis.budgetType = Hypothesis.BudgetType.BAIXO;
+		$hypothesis.budgetType = BudgetType.BAIXO;
 		update($hypothesis);
 end
 
 rule "r2"
 	when
-		$hypothesis: Hypothesis(  600 < maxBudget, maxBudget < 1000 )
+		$hypothesis: Hypothesis( maxBudget >= 600, maxBudget < 1000 )
 	then
-        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_BAIXO;
+        $hypothesis.budgetType = BudgetType.MEDIO_BAIXO;
         update($hypothesis);
 end
 
 rule "r3"
 	when
-		$hypothesis: Hypothesis(  1000 < maxBudget, maxBudget < 1500 )
+		$hypothesis: Hypothesis( maxBudget >= 1000, maxBudget < 1500 )
 	then
-        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO;
+        $hypothesis.budgetType = BudgetType.MEDIO;
         update($hypothesis);
 end
 
 rule "r4"
 	when
-		$hypothesis: Hypothesis(  1500 < maxBudget, maxBudget < 2000 )
+		$hypothesis: Hypothesis( maxBudget >= 1500, maxBudget < 2000 )
 	then
-        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_ALTO;
+        $hypothesis.budgetType = BudgetType.MEDIO_ALTO;
         update($hypothesis);
 end
 
 rule "r5"
 	when
-		$hypothesis: Hypothesis(  2000 < maxBudget )
+		$hypothesis: Hypothesis( maxBudget >= 2000 )
 	then
-        $hypothesis.budgetType = Hypothesis.BudgetType.ALTO;
+        $hypothesis.budgetType = BudgetType.ALTO;
         update($hypothesis);
 end
 
 rule "r6"
 	when
-	    $hypothesis : Hypothesis( budgetType != null, budgetType.equals(BudgetType.BAIXO))
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO )
 	then
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    System.out.println("Escolha a finalidade: \n");
@@ -89,7 +93,7 @@ end
 
 rule "r7"
 	when
-		$hypothesis : Hypothesis( budgetType != null, !budgetType.equals(BudgetType.BAIXO))
+		$hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO )
 	then
 		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
          System.out.println("Escolha a finalidade: \n");
@@ -112,7 +116,7 @@ end
 
 rule "r8"
     when
-        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.NAVEGACAO_WEB)
+        $hypothesis : Hypothesis( semi_finality == Semi_Finality.NAVEGACAO_WEB )
     then
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Pretende ter uma utilização com muitas ou poucas janelas?");
@@ -123,9 +127,10 @@ rule "r8"
         else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO;
         update($hypothesis);
     end
+
 rule "r9"
     when
-        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.APLICACOES_OFFICE)
+        $hypothesis : Hypothesis( semi_finality == Semi_Finality.APLICACOES_OFFICE )
     then
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Pretende utilizar o Office de forma básica ou profissional estas apliacações?");
@@ -139,7 +144,7 @@ rule "r9"
 
 rule "r10"
     when
-        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.APLICACOES_PROFISSIONAIS)
+        $hypothesis : Hypothesis( semi_finality == Semi_Finality.APLICACOES_PROFISSIONAIS )
     then
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Pretende realizar regularmente operações de pesquisa e modificação à base de dados?");
@@ -153,7 +158,7 @@ rule "r10"
 
 rule "r11"
     when
-        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.PROGRAMAS_AVANÇADOS)
+        $hypothesis : Hypothesis( semi_finality == Semi_Finality.PROGRAMAS_AVANÇADOS )
     then
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Que tipo de programas pretende utilizar?");
@@ -169,7 +174,7 @@ rule "r11"
 
 rule "r12"
     when
-        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_SIMPLES)
+        $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_SIMPLES )
     then
         $hypothesis.storage.isSSD = true;
         $hypothesis.storage.capacityGB = "240";
@@ -180,7 +185,7 @@ rule "r12"
 
 rule "r13"
     when
-        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_COMPLEXO)
+        $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_COMPLEXO )
     then
         $hypothesis.storage.isSSD = true;
         $hypothesis.storage.capacityGB = "240";
@@ -191,7 +196,7 @@ rule "r13"
 
 rule "r14"
     when
-        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_BASICO)
+        $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
     then
         $hypothesis.storage.isSSD = true;
         $hypothesis.storage.isSSD = true;
@@ -208,7 +213,7 @@ rule "r14"
 
 rule "r15"
     when
-        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_PROFISSIONAL)
+        $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_PROFISSIONAL )
     then
         $hypothesis.storage.isSSD = true;
         $hypothesis.storage.isSSD = true;
@@ -225,7 +230,7 @@ rule "r15"
 
 rule "r16"
     when
-        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS || Finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS)
+        $hypothesis : Hypothesis( finality == Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS || finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS )
     then
         $hypothesis.storage.isSSD = true;
         $hypothesis.storage.capacityGB = "240";
@@ -252,18 +257,16 @@ end
 
 rule "r18"
 	when
-		$hypothesis : Hypothesis( finality != Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES && finality != Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO &&
-		 finality != Hypothesis.Finality.APLICACOES_OFFICE_BASICO && finality != Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
+		$hypothesis : Hypothesis( finality != Hypothesis.Finality.NA && finality != Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES && finality != Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO
+		    && finality != Hypothesis.Finality.APLICACOES_OFFICE_BASICO && finality != Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
 	then
 		$hypothesis.durationDayChoice = 2;
         update($hypothesis);
 end
 
-
-
 rule "r19"
 	when
-		$hypothesis : Hypothesis (finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO)
+		$hypothesis : Hypothesis ( finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES && finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO )
 	then
 	    Storage storage = new Storage();
 	    storage.isSSD = true;
@@ -278,7 +281,7 @@ end
 
 rule "r20"
 	when
-		$hypothesis : Hypothesis (finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL)
+		$hypothesis : Hypothesis ( finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
 	then
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		Storage storage = new Storage();
@@ -299,7 +302,7 @@ end
 
 rule "r21"
 	when
-		$hypothesis : Hypothesis (finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS || finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS)
+		$hypothesis : Hypothesis ( finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS || finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS )
 	then
 		Storage storage = new Storage();
         storage.isSSD = true;
