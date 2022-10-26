@@ -264,138 +264,27 @@ rule "r3h1"
 	    $hypothesis.finality = Finality.EDIÇAO_DE_VIDEO_4k_8K;
 		update($hypothesis);
 end
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//rule "r6"
-//	when
-//	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO )
-//        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1"))
-//        eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "1"))
-//	then
-//	    $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
-//		update($hypothesis);
-//end
-//
-//rule "r7"
-//	when
-//		$hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO )
-//		eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1") || UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "2") ||
-//            UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3") || UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "4") ||
-//            UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5") || UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "6") ||
-//            UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "7"))
-//
-//	then
-//          $hypothesis.semi_finality = Finality.;
-//         update($hypothesis);
-//end
-//
-//rule "r8a1"
-//    when
-//        $hypothesis : Hypothesis( budgetType != BudgetType.BAIXO )
-//        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1"))
-//        eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "1"))
-//    then
-//		$hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
-//        update($hypothesis);
-//    end
-//
-//rule "r8a2"
-//    when
-//        $hypothesis : Hypothesis( finality )
-//        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1"))
-//        eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "2"))
-//    then
-//        $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO;
-//        update($hypothesis);
-//    end
-//
-//rule "r9a"
-//    when
-//        $hypothesis : Hypothesis( semi_finality == Semi_Finality.APLICACOES_OFFICE )
-//        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "1"))
-//    then
-//		$hypothesis.finality = Hypothesis.Finality.APLICACOES_OFFICE_BASICO;
-//        update($hypothesis);
-//    end
-//
-//rule "r9b"
-//    when
-//        $hypothesis : Hypothesis( semi_finality == Semi_Finality.APLICACOES_OFFICE )
-//        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "2"))
-//    then
-//        $hypothesis.finality = Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL;
-//        update($hypothesis);
-//    end
-//
-//rule "r10"
-//    when
-//        $hypothesis : Hypothesis( semi_finality == Semi_Finality.APLICACOES_PROFISSIONAIS )
-//    then
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Pretende realizar regularmente operações de pesquisa e modificação à base de dados?");
-//        System.out.println("1. Vou utilizar Base de Dados.");
-//        System.out.println("2. Não vou utilizar Base de Dados.");
-//        Integer finality = Integer.parseInt(br.readLine());
-//        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS;
-//        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS;
-//        update($hypothesis);
-//    end
-//
-//rule "r11"
-//    when
-//        $hypothesis : Hypothesis( semi_finality == Semi_Finality.PROGRAMAS_AVANÇADOS )
-//    then
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Que tipo de programas pretende utilizar?");
-//        System.out.println("1. Modelação 3D.");
-//        System.out.println("2. Design Gráfico.");
-//        System.out.println("3. Calculo Matemático.");
-//        Integer finality = Integer.parseInt(br.readLine());
-//        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_MODELACAO_3D;
-//        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_DESIGN_GRAFICO;
-//        else if (finality ==3) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_CALCULO_MATEMATICO;
-//        update($hypothesis);
-//     end
-//
-//rule "r12"
-//    when
-//        $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_SIMPLES )
-//    then
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.storage.capacityGB = "240";
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.minRAMPreferred = 8;
-//        update($hypothesis);
-//     end
-//
-//rule "r13"
-//    when
-//        $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_COMPLEXO )
-//    then
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.storage.capacityGB = "240";
-//        $hypothesis.storage.isSSD = true;
-//        $hypothesis.minRAMPreferred = 16;
-//        update($hypothesis);
-//     end
-//
+
+rule "r4a"
+    when
+        $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_SIMPLES )
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.minRAMPreferred = 8;
+        update($hypothesis);
+     end
+
+rule "r4b"
+    when
+        $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+    then
+        $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.minRAMPreferred = 16;
+        update($hypothesis);
+     end
+
 //rule "r14"
 //    when
 //        $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
