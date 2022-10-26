@@ -77,7 +77,7 @@ end
 
 rule "r6"
 	when
-		eval($hypothesis : Hypothesis( budgetType == BudgetType.BAIXO))
+	    $hypothesis : Hypothesis( budgetType != null, budgetType.equals(BudgetType.BAIXO))
 	then
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    System.out.println("Escolha a finalidade: \n");
@@ -89,7 +89,7 @@ end
 
 rule "r7"
 	when
-		$hypothesis : Hypothesis( budgetType != BudgetType.BAIXO)
+		$hypothesis : Hypothesis( budgetType != null, !budgetType.equals(BudgetType.BAIXO))
 	then
 		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
          System.out.println("Escolha a finalidade: \n");
