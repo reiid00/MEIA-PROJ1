@@ -4,6 +4,9 @@ import org.engcia.Components.GPU.GPUBrand;
 import org.engcia.Components.Storage;
 
 public class Hypothesis {
+
+    private int minBudget = 0; // opcional
+    private int maxBudget = 0;
     public BudgetType budgetType;
     public Finality finality;
 
