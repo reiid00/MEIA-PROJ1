@@ -1,7 +1,7 @@
-package org.engcia.BaseConhecimento;
+package org.engcia.BC;
 
-import org.engcia.Components.GPU.GPUBrand;
-import org.engcia.Components.Storage;
+import org.engcia.BD.GPU.GPUBrand;
+import org.engcia.BD.Storage;
 
 public class Hypothesis {
 

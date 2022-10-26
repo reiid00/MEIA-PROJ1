@@ -17,16 +17,16 @@ package org.engcia;
 // package must be defined in packages from kmodule.xml file
 
 //list any import classes here.
-import org.engcia.BaseConhecimento.Hypothesis;
-import org.engcia.BaseConhecimento.Conclusion;
-import org.engcia.BaseConhecimento.Evidences
+import org.engcia.BC.Hypothesis;
+import org.engcia.BC.Conclusion;
+import org.engcia.BC.Evidences
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import org.engcia.Components.Storage
-import org.engcia.Services.Questions
+import org.engcia.BD.Storage
+import org.engcia.Utils.Questions
 import java.util.List
-import org.engcia.Components.RAM
-import org.engcia.Components.RAMType;
+import org.engcia.BD.RAM
+import org.engcia.BD.RAMType;
 
 
 //declare any global variables here
@@ -37,47 +37,47 @@ end
 
 rule "r1"
 	when
-		Evidences(  300 < maxBudget < 600 )
+		Hypothesis(  300 < maxBudget < 600 )
 	then
 		Hypothesis h = new Hypothesis();
 		h.budgetType = Hypothesis.BudgetType.BAIXO;
-		insert(h);
+		update(h);
 end
 
 rule "r2"
 	when
-		Evidences(  600 < maxBudget < 1000 )
+		Hypothesis(  600 < maxBudget < 1000 )
 	then
 		Hypothesis h = new Hypothesis();
         h.budgetType = Hypothesis.BudgetType.MEDIO_BAIXO;
-        insert(h);
+        update(h);
 end
 
 rule "r3"
 	when
-		Evidences(  1000 < maxBudget < 1500 )
+		Hypothesis(  1000 < maxBudget < 1500 )
 	then
 		Hypothesis h = new Hypothesis();
         h.budgetType = Hypothesis.BudgetType.MEDIO;
-        insert(h);
+        update(h);
 end
 
 rule "r4"
 	when
-		Evidences(  1500 < maxBudget < 2000 )
+		Hypothesis(  1500 < maxBudget < 2000 )
 	then
 		Hypothesis h = new Hypothesis();
         h.budgetType = Hypothesis.BudgetType.MEDIO_ALTO;
-        insert(h);
+        update(h);
 end
 
 rule "r5"
 	when
-		Evidences(  2000 < maxBudget )
+		Hypothesis(  2000 < maxBudget )
 	then
 		Hypothesis h = new Hypothesis();
         h.budgetType = Hypothesis.BudgetType.ALTO;
-        insert(h);
+        update(h);
 end
 
 rule "r6"

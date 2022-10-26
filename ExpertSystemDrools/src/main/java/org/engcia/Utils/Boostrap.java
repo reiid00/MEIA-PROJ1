@@ -1,19 +1,20 @@
-package org.engcia.Services;
+package org.engcia.Utils;
 
-import org.engcia.Components.*;
+import org.engcia.BD.*;
 
-import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
 
 public class Boostrap {
 
-    public static void loadDatabase() throws IOException {
+    public static void loadBD() throws IOException {
         loadGPUs();
         loadCPUs();
         loadCPUCoolers();

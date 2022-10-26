@@ -1,4 +1,4 @@
-package org.engcia.BaseConhecimento;
+package org.engcia.BC;
 
 public class Fact {
     static private int lastId = 0;

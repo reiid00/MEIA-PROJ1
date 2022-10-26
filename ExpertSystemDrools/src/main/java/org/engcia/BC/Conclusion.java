@@ -1,6 +1,6 @@
-package org.engcia.BaseConhecimento;
+package org.engcia.BC;
 
-public class ClientQuestions {
+public class Conclusion {
     public static final String OTORRHAGIA = "Otorrhagia";
     public static final String SKULL_FRACTURE = "Skull fracture";
     public static final String EPISTAXE = "Epistaxe";
@@ -15,7 +15,7 @@ public class ClientQuestions {
 
     private String description;
 
-    public ClientQuestions(String description) {
+    public Conclusion(String description) {
         super();
         this.description = description;
     }

@@ -1,16 +1,13 @@
 package org.engcia;
 
-import org.engcia.BaseConhecimento.Conclusion;
-import org.engcia.BaseConhecimento.Evidences;
-import org.engcia.Services.Boostrap;
-
+import org.engcia.BC.Conclusion;
+import org.engcia.Utils.Boostrap;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.LiveQuery;
 import org.kie.api.runtime.rule.Row;
 import org.kie.api.runtime.rule.ViewChangedEventListener;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,23 +20,7 @@ public class Haemorrhage {
     public static BufferedReader BR;
 
     public static final void main(String[] args) throws IOException {
-       /* Evidences evidences = new Evidences();
-        evidences.setBloodAnus("no");
-        evidences.setBloodBrown("no");
-        evidences.setBloodCoffee("no");
-        evidences.setBloodEar("yes");
-        evidences.setBloodMouth("no");
-        evidences.setBloodNose("no");
-        evidences.setBloodPenis("no");
-        evidences.setBloodVagina("no");
-        evidences.setCerebrospinal("no");
-        evidences.setDeafness("no");
-        evidences.setEarAche("yes");
-        evidences.setHeadAche("no");
-        evidences.setVomiting("no");
-
-        runEngine(evidences);*/
-        Boostrap.loadDatabase();
+        Boostrap.loadBD();
         runEngine();
     }
 
@@ -75,8 +56,6 @@ public class Haemorrhage {
 
             };
             LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
-
-
 
             kSession.fireAllRules();
             // kSession.fireUntilHalt();

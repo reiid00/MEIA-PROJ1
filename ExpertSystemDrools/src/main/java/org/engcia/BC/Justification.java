@@ -1,4 +1,5 @@
-/**package org.engcia.model;
+package org.engcia.BC;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,4 +26,4 @@ public class Justification {
     public Fact getConclusion() {
         return this.conclusion;
     }
-}**/
+}
