@@ -134,6 +134,8 @@ rule "r12"
 		insert(c);
 end
 
+
+
 rule "unknown"
 	when
 		not Conclusion()
