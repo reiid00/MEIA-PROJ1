@@ -14,10 +14,13 @@ import org.kie.api.runtime.rule.ViewChangedEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Haemorrhage {
     static final Logger LOG = LoggerFactory.getLogger(Haemorrhage.class);
+    public static KieSession KS;
+    public static BufferedReader BR;
 
     public static final void main(String[] args) throws IOException {
        /* Evidences evidences = new Evidences();
@@ -37,17 +40,19 @@ public class Haemorrhage {
 
         runEngine(evidences);*/
         Boostrap.loadDatabase();
+        runEngine();
     }
 
-    private static void runEngine(Evidences evidences) {
+    private static void runEngine() {
         try {
             // load up the knowledge base
             KieServices ks = KieServices.Factory.get();
             KieContainer kContainer = ks.getKieClasspathContainer();
             final KieSession kSession = kContainer.newKieSession("ksession-rules");
             // session name defined in kmodule.xml"
-
+            Haemorrhage.KS = kSession;
             // Query listener
+
             ViewChangedEventListener listener = new ViewChangedEventListener() {
                 @Override
                 public void rowDeleted(Row row) {
@@ -71,7 +76,7 @@ public class Haemorrhage {
             };
             LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
 
-            kSession.insert(evidences);
+
 
             kSession.fireAllRules();
             // kSession.fireUntilHalt();
@@ -82,4 +87,6 @@ public class Haemorrhage {
             t.printStackTrace();
         }
     }
+
+
 }

@@ -5,8 +5,9 @@ package org.engcia.Components;
 public class Storage extends Component{
     public boolean isSSD = false;
     public String capacityGB = ""; // GB
+    // NÃO ESTÁ BEM, PASSAR TUDO PARA VALORES, PARA UTILIZARMOS NAS REGRAS (ALTERAR DEPOIS, TAMBÉM, NO BOOSTRAP EM JAVA E PROLOG) !!!
     public String cacheGB = ""; // GB
-    public String benchmark = ""; // Mb/s
+    public String benchmarkScore = ""; // Mb/s
 
     public Storage(){
         super();
@@ -15,6 +16,7 @@ public class Storage extends Component{
     @Override
     public String toString()
     {
-        return super.toString();
+        if (isSSD) return "SSD " + capacityGB;
+        return "HDD " + capacityGB;
     }
 }
