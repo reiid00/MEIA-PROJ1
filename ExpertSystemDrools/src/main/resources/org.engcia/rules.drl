@@ -30,6 +30,7 @@ import java.util.List
 import org.engcia.BD.RAM
 import org.engcia.BD.RAMType
 import org.engcia.Utils.Questions
+import org.engcia.BD.Case
 
 
 
@@ -265,6 +266,7 @@ rule "r3h1"
 		update($hypothesis);
 end
 
+/*
 rule "r4a"
     when
         $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_SIMPLES )
@@ -284,6 +286,190 @@ rule "r4b"
         $hypothesis.minRAMPreferred = 16;
         update($hypothesis);
      end
+*/
+
+rule "r5a1"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_SIMPLES )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.minRAMPreferred =8;
+        update($hypothesis);
+end
+rule "r5a2"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_SIMPLES )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.minRAMPreferred =8;
+        update($hypothesis);
+end
+rule "r5b1"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.minRAMPreferred =16;
+        update($hypothesis);
+end
+rule "r5b2"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.minRAMPreferred =16;
+        update($hypothesis);
+end
+rule "r5c1"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.minRAMPreferred =8;
+        update($hypothesis);
+end
+rule "r5c2"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.minRAMPreferred =8;
+        update($hypothesis);
+end
+rule "r5c1"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.minRAMPreferred =8;
+        update($hypothesis);
+end
+rule "r5c2"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.minRAMPreferred =8;
+        update($hypothesis);
+end
+
+rule "r5d1"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_PROFISSIONAL )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.minRAMPreferred =16;
+        update($hypothesis);
+end
+rule "r5d2"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_PROFISSIONAL )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.minRAMPreferred =16;
+        update($hypothesis);
+end
+rule "r5e1"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS )
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.storage.isSSD = true;
+        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.minRAMPreferred =16;
+        update($hypothesis);
+end
+//igual ao anterior mas precisamos de mais info do perito
+rule "r5e2"
+	when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS)
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	   $hypothesis.storage.isSSD = true;
+       $hypothesis.storage.capacityGB = "480";
+       $hypothesis.minRAMPreferred =16;
+       update($hypothesis);
+end
+
+rule "r6a1"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_OPTIONAL_CASE_COLOR, "1"))
+        eval(UI.answer(Questions.CHOOSE_CASE_COLOR, "1"))
+	then
+	    $hypothesis.caseColorPreferred="black";
+        update($hypothesis);
+end
+
+rule "r6a2"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_OPTIONAL_CASE_COLOR, "1"))
+        eval(UI.answer(Questions.CHOOSE_CASE_COLOR, "2"))
+	then
+	  $hypothesis.caseColorPreferred="white";
+      update($hypothesis);
+
+end
+
+rule "r7a1"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "1"))
+	then
+	  $hypothesis.caseSize=Case.TowerSizeType.MICRO_ATX_TOWER;
+      update($hypothesis);
+
+end
+rule "r7a2"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "2"))
+	then
+	  $hypothesis.caseSize=Case.TowerSizeType.MINI_ATX_TOWER;
+      update($hypothesis);
+
+end
+rule "r7a3"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "3"))
+	then
+	  $hypothesis.caseSize=Case.TowerSizeType.MID_TOWER;
+      update($hypothesis);
+
+end
 
 //rule "r14"
 //    when

@@ -46,6 +46,19 @@ public class Questions {
                                                             "1. 2 a 4 horas \\n" +
                                                             "2. Mais de 4 horas \\n";
 
+    public static final String CHOOSE_OPTIONAL_CASE_COLOR = "Tem preferência na cor da caixa \\n" +
+            "1. Sim \\n" +
+            "2. Não \\n";
+    public static final String CHOOSE_CASE_COLOR = "Qual das cores prefere?\\n" +
+            "1. Preto \\n" +
+            "2. Branco \\n";
+    public static final String CHOOSE_CASE_SIZE = "Pretende que tamanho de caixa?\\n" +
+            "1. Muito pequena \\n" +
+            "2. Pequena \\n"+
+            "2. Normal \\n";
+
+
+
     public static List<Storage> questionStorage(Storage storage) throws IOException {
 
         List<Storage> storageList = new ArrayList<>();

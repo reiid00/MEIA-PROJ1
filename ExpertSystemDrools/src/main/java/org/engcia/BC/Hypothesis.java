@@ -1,9 +1,12 @@
 package org.engcia.BC;
 
+import org.engcia.BD.Case;
+import org.engcia.BD.Case.TowerSizeType;
 import org.engcia.BD.GPU.GPUBrand;
 import org.engcia.BD.Storage;
 
 public class Hypothesis {
+
 
     public int minBudget = 0; // opcional
     public int maxBudget = 0;
@@ -22,6 +25,7 @@ public class Hypothesis {
     public boolean prefersDedicatedGPU = false;
     public GPUBrand gpuBrandPreffered = GPUBrand.NA;
     public String caseColorPreferred = "";
+    public TowerSizeType caseSize = TowerSizeType.NA;
 
     public Hypothesis() {
     }
