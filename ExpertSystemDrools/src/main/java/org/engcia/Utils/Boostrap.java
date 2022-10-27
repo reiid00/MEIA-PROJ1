@@ -183,7 +183,6 @@ public class Boostrap {
                 ram.ramType = RAMType.valueOf(lineArray.get(8).toUpperCase());
                 ram.voltage = Float.parseFloat(lineArray.get(9));
 
-                System.out.println(ram);
                 listRAMs.add(ram);
             }
             line = bufReader.readLine();
@@ -216,7 +215,6 @@ public class Boostrap {
                     powerSupply.atxCompatibilityTypes.add(ATXCompatibilityType.valueOf(atx.toUpperCase()));
                 }
 
-                System.out.println(powerSupply);
                 listPowerSupplies.add(powerSupply);
             }
             line = bufReader.readLine();
@@ -241,11 +239,11 @@ public class Boostrap {
                     storage.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
                 }
                 storage.isSSD = Boolean.getBoolean(lineArray.get(5));
-                storage.capacityGB = lineArray.get(6);
-                storage.cacheGB = lineArray.get(7);
-                storage.benchmarkScore = lineArray.get(8);
+                storage.isSATA = Boolean.getBoolean(lineArray.get(6));
+                storage.capacity = Integer.parseInt(lineArray.get(7));
+                storage.cache = Integer.parseInt(lineArray.get(8));
+                storage.benchmarkScore = Integer.parseInt(lineArray.get(9));
 
-                System.out.println(storage);
                 listStorages.add(storage);
             }
             line = bufReader.readLine();

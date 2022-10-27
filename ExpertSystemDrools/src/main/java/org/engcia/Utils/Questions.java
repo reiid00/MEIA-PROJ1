@@ -55,9 +55,9 @@ public class Questions {
             "1. Preto \n" +
             "2. Branco \n";
     public static final String CHOOSE_CASE_SIZE = "Pretende que tamanho de caixa?\n" +
-            "1. Muito pequena \n" +
+            "1. Normal \n" +
             "2. Pequena \n"+
-            "3. Normal \n";
+            "3. Muito pequena \n";
 
 
 
@@ -87,7 +87,7 @@ public class Questions {
                 else storage.isSSD = false;
                 System.out.println("Indique o tamanho pretendido (GB)");
                 int sizeChoice = Integer.parseInt(br.readLine());
-                storage.capacityGB = String.valueOf(sizeChoice);
+                storage.capacity = sizeChoice;
                 storageList.add(storage);
                 return storageList;
             } else if (choice == 2) {
@@ -97,7 +97,7 @@ public class Questions {
                 if (storage.isSSD) s2.isSSD = false;
                 if(s2.isSSD) System.out.println("Indique o tamanho pretendido (GB) para o SSD");
                 else System.out.println("Indique o tamanho pretendido (GB) para o HDD");
-                s2.capacityGB = br.readLine();
+                s2.capacity = Integer.parseInt(br.readLine());
                 storageList.add(s2);
                 return storageList;
             }

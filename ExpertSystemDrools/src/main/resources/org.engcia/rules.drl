@@ -325,7 +325,7 @@ rule "r5a1"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.capacity = 240;
         $hypothesis.minRAMPreferred =8;
         update($hypothesis);
 end
@@ -337,7 +337,7 @@ rule "r5a2"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.storage.capacity = 480;
         $hypothesis.minRAMPreferred =8;
         update($hypothesis);
 end
@@ -349,7 +349,7 @@ rule "r5b1"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.capacity = 240;
         $hypothesis.minRAMPreferred =16;
         update($hypothesis);
 end
@@ -361,7 +361,7 @@ rule "r5b2"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.storage.capacity = 480;
         $hypothesis.minRAMPreferred =16;
         update($hypothesis);
 end
@@ -373,7 +373,7 @@ rule "r5c1"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.capacity = 240;
         $hypothesis.minRAMPreferred =8;
         update($hypothesis);
 end
@@ -385,7 +385,7 @@ rule "r5c2"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.storage.capacity = 480;
         $hypothesis.minRAMPreferred =8;
         update($hypothesis);
 end
@@ -398,7 +398,7 @@ rule "r5d1"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
+        $hypothesis.storage.capacity = 240;
         $hypothesis.minRAMPreferred =16;
         update($hypothesis);
 end
@@ -410,7 +410,7 @@ rule "r5d2"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.storage.capacity = 480;
         $hypothesis.minRAMPreferred =16;
         update($hypothesis);
 end
@@ -421,7 +421,7 @@ rule "r5e1"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
 	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "480";
+        $hypothesis.storage.capacity = 480;
         $hypothesis.minRAMPreferred =16;
         update($hypothesis);
 end
@@ -434,7 +434,7 @@ rule "r5e2"
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
 	   $hypothesis.storage.isSSD = true;
-       $hypothesis.storage.capacityGB = "480";
+       $hypothesis.storage.capacity = 480;
        $hypothesis.minRAMPreferred =16;
        update($hypothesis);
 end
@@ -468,7 +468,7 @@ rule "r7a1"
 	    $hypothesis : Hypothesis( finality != Finality.NA )
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "1"))
 	then
-	  $hypothesis.caseSize=Case.TowerSizeType.MINI_ATX_TOWER;
+	  $hypothesis.caseSize=Case.TowerSizeType.MID_TOWER;
       update($hypothesis);
 
 end
@@ -488,7 +488,7 @@ rule "r7a3"
 	    $hypothesis : Hypothesis( finality != Finality.NA )
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "3"))
 	then
-	  $hypothesis.caseSize=Case.TowerSizeType.MID_TOWER;
+	  $hypothesis.caseSize=Case.TowerSizeType.MINI_ATX_TOWER;
       update($hypothesis);
 
 end

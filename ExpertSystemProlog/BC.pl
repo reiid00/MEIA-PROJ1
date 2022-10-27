@@ -6,7 +6,7 @@
 :-dynamic motherboard/11.
 :-dynamic powerSupply/9.
 :-dynamic ram/10.
-:-dynamic storage/9.
+:-dynamic storage/10.
 
 numAtributos(case, 8).
 numAtributos(cpu, 12).
@@ -15,7 +15,7 @@ numAtributos(gpu, 13).
 numAtributos(motherboard, 11).
 numAtributos(powerSupply, 9).
 numAtributos(ram, 10).
-numAtributos(storage, 9).
+numAtributos(storage, 10).
 
 % Leitura da Base de Dados
 
@@ -196,13 +196,19 @@ assertStorages([]):- !.
 assertStorages([X|Lines]):- 
         numAtributos(storage, NumAtributos),
         length(X, NumAtributos),!,
-        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, IsSSD1, Capacity, Cache, Benchmark],
+        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, IsSSD1, IsSATA1, Capacity1, Cache1, BenchmarkScore1],
         number_string(BasePrice, BasePrice1),
+        number_string(Capacity, Capacity1),
+        number_string(Cache, Cache1),
+        number_string(BenchmarkScore, BenchmarkScore1),
 
         (IsSSD1 == 'true', !, IsSSD = true
         ; IsSSD = false),
+
+        (IsSATA1 == 'true', !, IsSATA = true
+        ; IsSATA = false),
        
-        assert(storage(ID, Manufacturer, Name, BasePrice, LaunchDate, IsSSD, Capacity, Cache, Benchmark)),
+        assert(storage(ID, Manufacturer, Name, BasePrice, LaunchDate, IsSSD, IsSATA, Capacity, Cache, BenchmarkScore)),
         assertStorages(Lines).
 assertStorages([_|Lines]):- assertStorages(Lines).
 
