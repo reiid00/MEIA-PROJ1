@@ -468,7 +468,7 @@ rule "r7a1"
 	    $hypothesis : Hypothesis( finality != Finality.NA )
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "1"))
 	then
-	  $hypothesis.caseSize=Case.TowerSizeType.MICRO_ATX_TOWER;
+	  $hypothesis.caseSize=Case.TowerSizeType.MINI_ATX_TOWER;
       update($hypothesis);
 
 end
@@ -478,7 +478,7 @@ rule "r7a2"
 	    $hypothesis : Hypothesis( finality != Finality.NA )
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "2"))
 	then
-	  $hypothesis.caseSize=Case.TowerSizeType.MINI_ATX_TOWER;
+	  $hypothesis.caseSize=Case.TowerSizeType.MICRO_ATX_TOWER;
       update($hypothesis);
 
 end

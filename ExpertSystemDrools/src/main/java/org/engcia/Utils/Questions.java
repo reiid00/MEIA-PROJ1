@@ -44,7 +44,7 @@ public class Questions {
                                                     "1. Word/excel/PowerPoint \n" +
                                                     "2. Imagens ";
 
-    public static final String CHOOSE_DURATION_PER_DAY = "Quando tempo irá utilizar o computador por dia? \n" +
+    public static final String CHOOSE_DURATION_PER_DAY = "Quanto tempo, em média, irá utilizar o computador por dia? \n" +
                                                             "1. 2 a 4 horas \n" +
                                                             "2. Mais de 4 horas \n";
 
