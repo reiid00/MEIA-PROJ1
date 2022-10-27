@@ -34,6 +34,7 @@ public class UI {
         Evidence evidence = null;
         for (Evidence e: evidences) {
             if (e.getEvidence().compareTo(ev) == 0) {
+                System.out.println("loop");
                 questionFound = true;
                 evidence = e;
                 break;
@@ -54,7 +55,6 @@ public class UI {
 
         Evidence e = new Evidence(ev, value);
         Main.KS.insert(e);
-
         if (value.compareTo(v) == 0) {
             Main.agendaEventListener.addLhs(e);
             return true;
@@ -65,7 +65,7 @@ public class UI {
         }
     }
     public static boolean compare(String evidenceValue,int value){
-        if(value < Integer.valueOf(evidenceValue)){
+        if(value > Integer.parseInt(evidenceValue)){
             return true;
         }else{
             return false;
@@ -95,11 +95,13 @@ public class UI {
         }
         System.out.print(ev + "? ");
         String value = readLine();
+        System.out.println(value);
 
         Evidence e = new Evidence(ev, value);
         Main.KS.insert(e);
-
-        if (compare( value,intValue)) {
+        System.out.println(1);
+        if (compare(value,intValue)) {
+            System.out.println(2);
             Main.agendaEventListener.addLhs(e);
             return true;
         } else {

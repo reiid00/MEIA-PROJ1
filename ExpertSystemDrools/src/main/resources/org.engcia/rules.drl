@@ -38,255 +38,264 @@ import org.engcia.BD.Case
 
 query "Conclusions"
 	$conclusion : Conclusion()
+	$hypothesis : Hypothesis()
 end
 
 rule "r1a"
 	when
-		$hypothesis : Hypothesis( maxBudget >= 300, maxBudget < 600 )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.NA && isBudgetDefined == false)
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,600))
 	then
 		$hypothesis.budgetType = Hypothesis.BudgetType.BAIXO;
+		$hypothesis.isBudgetDefined = true;
 		update($hypothesis);
 end
 
 rule "r1b"
 	when
-		$hypothesis: Hypothesis( maxBudget >= 600, maxBudget < 1000 )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.NA && isBudgetDefined == false)
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,1000))
 	then
         $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_BAIXO;
+		$hypothesis.isBudgetDefined = true;
         update($hypothesis);
 end
 
 rule "r1c"
 	when
-		$hypothesis: Hypothesis( maxBudget >= 1000, maxBudget < 1500 )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.NA && isBudgetDefined == false)
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,1500))
 	then
         $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO;
+		$hypothesis.isBudgetDefined = true;
         update($hypothesis);
 end
 
 rule "r1d"
 	when
-		$hypothesis: Hypothesis( maxBudget >= 1500, maxBudget < 2000 )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.NA && isBudgetDefined == false)
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,2000))
 	then
         $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_ALTO;
+		$hypothesis.isBudgetDefined = true;
         update($hypothesis);
 end
 
 rule "r1e"
 	when
-		$hypothesis: Hypothesis( maxBudget >= 2000 )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.NA && isBudgetDefined == false)
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,2000000))
 	then
         $hypothesis.budgetType = Hypothesis.BudgetType.ALTO;
+		$hypothesis.isBudgetDefined = true;
         update($hypothesis);
 end
 
 rule "r2a1"
 	when
-	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
         eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "1"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "1"))
 	then
 	    $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
+
 		update($hypothesis);
 end
 
 rule "r2a2"
 	when
-	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "1"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "2"))
 	then
 	    $hypothesis.finality = Finality.NAVEGACAO_WEB_COMPLEXO;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r2b1"
 	when
-	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "2"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "1"))
 	then
 	    $hypothesis.finality = Finality.APLICACOES_OFFICE_BASICO;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r2b2"
 	when
-	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "2"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "2"))
 	then
 	    $hypothesis.finality = Finality.APLICACOES_OFFICE_PROFISSIONAL;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r2c1"
 	when
-	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "3"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "1"))
 	then
 	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r2c2"
 	when
-	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "3"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "2"))
 	then
 	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3a1"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO  && isFinDefined == false )
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "1"))
 	then
 	    $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3a2"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO && isFinDefined == false )
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "2"))
 	then
 	    $hypothesis.finality = Finality.NAVEGACAO_WEB_COMPLEXO;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3b1"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO && isFinDefined == false )
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "2"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "1"))
 	then
 	    $hypothesis.finality = Finality.APLICACOES_OFFICE_BASICO;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3b2"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "2"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "2"))
 	then
 	    $hypothesis.finality = Finality.APLICACOES_OFFICE_PROFISSIONAL;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3c1"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO && isFinDefined == false )
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "1"))
 	then
 	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3c2"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "2"))
 	then
 	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3d1"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "4"))
 	then
 	    $hypothesis.finality = Finality.JOGOS_BASICOS;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3e1"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANÇADOS, "1"))
 	then
 	    $hypothesis.finality = Finality.PROGRAMAS_AVANÇADOS_MODELACAO_3D;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3e2"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANÇADOS, "2"))
 	then
 	    $hypothesis.finality = Finality.PROGRAMAS_AVANÇADOS_DESIGN_GRAFICO;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3e3"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANÇADOS, "3"))
 	then
 	    $hypothesis.finality = Finality.PROGRAMAS_AVANÇADOS_CALCULO_MATEMATICO;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3f1"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO  && isFinDefined == false )
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "6"))
 	then
 	    $hypothesis.finality = Finality.GAMING;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3g1"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "7"))
 	then
 	    $hypothesis.finality = Finality.TRATAMENTO_DE_IMAGEM;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
 rule "r3h1"
 	when
-	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO  && isFinDefined == false)
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "8"))
 	then
 	    $hypothesis.finality = Finality.EDIÇAO_DE_VIDEO_4k_8K;
+		$hypothesis.isFinDefined = true;
 		update($hypothesis);
 end
 
-/*
-rule "r4a"
-    when
-        $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_SIMPLES )
-    then
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
-        $hypothesis.minRAMPreferred = 8;
-        update($hypothesis);
-     end
-
-rule "r4b"
-    when
-        $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_COMPLEXO )
-    then
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
-        $hypothesis.minRAMPreferred = 16;
-        update($hypothesis);
-     end
-*/
 
 rule "r5a1"
 	when
@@ -330,28 +339,6 @@ rule "r5b2"
 	    $hypothesis.storage.isSSD = true;
         $hypothesis.storage.capacityGB = "480";
         $hypothesis.minRAMPreferred =16;
-        update($hypothesis);
-end
-rule "r5c1"
-	when
-	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
-        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
-        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
-	then
-	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
-        $hypothesis.minRAMPreferred =8;
-        update($hypothesis);
-end
-rule "r5c2"
-	when
-	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
-        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
-        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
-	then
-	    $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "480";
-        $hypothesis.minRAMPreferred =8;
         update($hypothesis);
 end
 rule "r5c1"

@@ -11,6 +11,20 @@ public class Hypothesis {
     public int minBudget = 0; // opcional
     public int maxBudget = 0;
     public BudgetType budgetType = BudgetType.NA;
+
+    public boolean isBudgetDefined = false;
+
+    public boolean isFinDefined = false;
+
+    public boolean isDurDefined = false;
+
+    public boolean isStorDefined = false;
+
+    public boolean isRAMDefined = false;
+
+    public boolean isGraphDefined = false;
+
+    public boolean isCPUDefined = false;
     public Finality finality = Finality.NA;
 
     public int durationDayChoice = 0;
