@@ -102,14 +102,14 @@ public class UI {
         }
     }
 
-    public static boolean compare(String evidenceValue,int value){
-        if(value > Integer.parseInt(evidenceValue)){
+    public static boolean compare(String evidenceValue,int min, int max){
+        if(max > Integer.parseInt(evidenceValue) && Integer.parseInt(evidenceValue)  > min){
             return true;
         }else{
             return false;
         }
     }
-    public static boolean answerBudget(String ev, int intValue) {
+    public static boolean answerBudget(String ev, int intMin, int intMax) {
         @SuppressWarnings("unchecked")
         Collection<Evidence> evidences = (Collection<Evidence>) Main.KS.getObjects(new ClassObjectFilter(Evidence.class));
         boolean questionFound = false;
@@ -122,7 +122,7 @@ public class UI {
             }
         }
         if (questionFound) {
-            if (compare(evidence.getValue(),intValue)) {
+            if (compare(evidence.getValue(),intMin,intMax)) {
                 Main.agendaEventListener.addLhs(evidence);
                 return true;
             } else {
@@ -138,7 +138,7 @@ public class UI {
         Evidence e = new Evidence(ev, value);
         Main.KS.insert(e);
         System.out.println(1);
-        if (compare(value,intValue)) {
+        if (compare(value,intMin,intMax)) {
             System.out.println(2);
             Main.agendaEventListener.addLhs(e);
             return true;

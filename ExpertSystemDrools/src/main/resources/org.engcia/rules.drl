@@ -44,7 +44,7 @@ end
 rule "r1a"
     no-loop
     when
-        eval(UI.answerBudget(Questions.CHOOSE_BUDGET,600))
+        eval(UI.answerBudget(Questions.CHOOSE_BUDGET,300,600))
     then
         Hypothesis $hypothesis = new Hypothesis();
         $hypothesis.budgetType = Hypothesis.BudgetType.BAIXO;
@@ -55,7 +55,7 @@ end
 rule "r1b"
     no-loop
 	when
-		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,1000))
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,600,1000))
 	then
         Hypothesis $hypothesis = new Hypothesis();
         $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_BAIXO;
@@ -65,7 +65,7 @@ end
 rule "r1c"
     no-loop
 	when
-		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,1500))
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,1000,1500))
 	then
         Hypothesis $hypothesis = new Hypothesis();
         $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO;
@@ -75,7 +75,7 @@ end
 rule "r1d"
     no-loop
 	when
-		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,2000))
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,1500,2000))
 	then
 	    Hypothesis $hypothesis = new Hypothesis();
         $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_ALTO;
@@ -85,7 +85,7 @@ end
 rule "r1e"
     no-loop
 	when
-		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,2000000))
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,2000,Integer.MAX_VALUE))
 	then
         Hypothesis $hypothesis = new Hypothesis();
         $hypothesis.budgetType = Hypothesis.BudgetType.ALTO;
