@@ -26,6 +26,7 @@ import org.engcia.BC.Evidence
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import org.engcia.BD.Storage
+import org.engcia.BD.PowerSupply.EnergyEfficiency
 import java.util.List
 import org.engcia.BD.RAM
 import org.engcia.BD.RAMType
@@ -534,7 +535,39 @@ rule "r5e2 - When Finality is Professional Applications with DB - used to find d
        update($hypothesis);
 end
 
-rule "r6a1 - Choose Case Color, answer Black"
+rule "r6a1 - Choose Environment Energy Efficiency Instability, answer Negative"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "1"))
+	then
+        $hypothesis.minEnergyEfficiencyNeeded=EnergyEfficiency._80PLUS;
+        update($hypothesis);
+end
+
+rule "r6a2 - Choose Environment Energy Efficiency, answer Positive, a bit problematic"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "2"))
+	then
+        $hypothesis.minEnergyEfficiencyNeeded=EnergyEfficiency._80PLUS_GOLD;
+        update($hypothesis);
+
+end
+
+rule "r6a3 - Choose Environment Energy Efficiency, answer Positive, serious issue"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "3"))
+	then
+        $hypothesis.minEnergyEfficiencyNeeded=EnergyEfficiency._80PLUS_PLATINUM;
+        update($hypothesis);
+
+end
+
+rule "r7a1 - Choose Case Color, answer Black"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -545,7 +578,7 @@ rule "r6a1 - Choose Case Color, answer Black"
         update($hypothesis);
 end
 
-rule "r6a2 - Choose Case Color, answer White"
+rule "r7a2 - Choose Case Color, answer White"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -557,33 +590,33 @@ rule "r6a2 - Choose Case Color, answer White"
 
 end
 
-rule "r7a1 - Choose Case Size, answer Micro-ATX "
+rule "r8a1 - Choose Case Size, answer Micro-ATX "
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "1"))
 	then
-	  $hypothesis.caseSize=Case.TowerSizeType.MID_TOWER;
+	  $hypothesis.caseSizePreferred=Case.TowerSizeType.MID_TOWER;
       update($hypothesis);
 
 end
-rule "r7a2 - Choose Case Size, answer Mini-ATX"
+rule "r8a2 - Choose Case Size, answer Mini-ATX"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "2"))
 	then
-	  $hypothesis.caseSize=Case.TowerSizeType.MICRO_ATX_TOWER;
+	  $hypothesis.caseSizePreferred=Case.TowerSizeType.MICRO_ATX_TOWER;
       update($hypothesis);
 
 end
-rule "r7a3 - Choose Case Size, answer MID Tower"
+rule "r8a3 - Choose Case Size, answer MID Tower"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "3"))
 	then
-	  $hypothesis.caseSize=Case.TowerSizeType.MINI_ATX_TOWER;
+	  $hypothesis.caseSizePreferred=Case.TowerSizeType.MINI_ATX_TOWER;
       update($hypothesis);
 
 end

@@ -59,6 +59,11 @@ public class Questions {
             "2. Pequena \n"+
             "3. Muito pequena \n";
 
+    public static final String CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY = "Considera o ambiente (casa/trabalho) onde pretende utilizar o PC como sendo instável/ineficiente energeticamente?\n" +
+            "1. Não \n" +
+            "2. Sim, um pouco problemático \n"+
+            "3. Sim, é um problema muito grave \n";
+
 
 
     public static List<Storage> questionStorage(Storage storage) throws IOException {
