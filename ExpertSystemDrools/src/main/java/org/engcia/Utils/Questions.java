@@ -57,7 +57,7 @@ public class Questions {
     public static final String CHOOSE_CASE_SIZE = "Pretende que tamanho de caixa?\n" +
             "1. Muito pequena \n" +
             "2. Pequena \n"+
-            "2. Normal \n";
+            "3. Normal \n";
 
 
 

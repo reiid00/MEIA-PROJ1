@@ -103,7 +103,7 @@ public class UI {
     }
 
     public static boolean compare(String evidenceValue,int min, int max){
-        if(max > Integer.parseInt(evidenceValue) && Integer.parseInt(evidenceValue)  > min){
+        if(max >= Integer.parseInt(evidenceValue) && Integer.parseInt(evidenceValue)  > min){
             return true;
         }else{
             return false;
