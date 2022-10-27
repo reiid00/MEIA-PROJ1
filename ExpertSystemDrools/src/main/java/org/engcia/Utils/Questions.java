@@ -35,7 +35,7 @@ public class Questions {
                                                                             "1. Vou utilizar Base de Dados. \n" +
                                                                             "2. Não vou utilizar Base de Dados.";
 
-    public static final String CHOOSE_FINALITY_PROGRAMAS_AVANÇADOS = "Que tipo de programas pretende utilizar? \n" +
+    public static final String CHOOSE_FINALITY_PROGRAMAS_AVANCADOS = "Que tipo de programas pretende utilizar? \n" +
                                                                         "1. Modelação 3D. \n" +
                                                                         "2. Design Gráfico. \n" +
                                                                         "3. Calculo Matemático.";
