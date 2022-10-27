@@ -96,8 +96,9 @@ assertCPUCoolers([]):- !.
 assertCPUCoolers([X|Lines]):- 
         numAtributos(cpuCooler, NumAtributos),
         length(X, NumAtributos),!,
-        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, IsWaterCooled1, IsFanless1, SocketCompatibilityList1],
+        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, Voltage1, IsWaterCooled1, IsFanless1, SocketCompatibilityList1],
         number_string(BasePrice, BasePrice1),
+        number_string(Voltage, Voltage1),
 
         (IsWaterCooled1 == 'true', !, IsWaterCooled = true
         ; IsWaterCooled = false),
@@ -110,7 +111,7 @@ assertCPUCoolers([X|Lines]):-
         sub_string(SocketCompatibilityList1, 1, N_SocketCompatibilityList, _, SocketCompatibilityList2),
         split_string(SocketCompatibilityList2, ',', '', SocketCompatibilityList),
 
-        assert(cpuCooler(ID, Manufacturer, Name, BasePrice, LaunchDate, IsWaterCooled, IsFanless, SocketCompatibilityList)),
+        assert(cpuCooler(ID, Manufacturer, Name, BasePrice, LaunchDate, Voltage, IsWaterCooled, IsFanless, SocketCompatibilityList)),
         assertCPUCoolers(Lines).
 assertCPUCoolers([_|Lines]):- assertCPUCoolers(Lines).
 

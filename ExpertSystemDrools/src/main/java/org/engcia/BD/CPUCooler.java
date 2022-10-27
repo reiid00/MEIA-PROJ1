@@ -5,6 +5,7 @@ import java.util.List;
 
 public class CPUCooler extends Component {
 
+    public int voltage = 0;
     public boolean isWaterCooled = false;
     public boolean isFanless = false;
     public List<SocketType> socketCompatabilityList = new ArrayList<>();
