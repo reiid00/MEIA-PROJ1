@@ -41,10 +41,7 @@ public class Main {
             final KieSession kSession = kContainer.newKieSession("ksession-rules");
             Main.KS = kSession;
             Main.agendaEventListener = new TrackingAgendaEventListener();
-            Hypothesis teste = new Hypothesis();
-            teste.minBudget = 0;
-            teste.maxBudget = 500;
-            kSession.insert(teste);
+
             kSession.addEventListener(agendaEventListener);
 
             // Query listener
@@ -76,7 +73,8 @@ public class Main {
             LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
 
             kSession.fireAllRules();
-     //      kSession.fireUntilHalt();
+
+//           kSession.fireUntilHalt();
 
             query.close();
 
