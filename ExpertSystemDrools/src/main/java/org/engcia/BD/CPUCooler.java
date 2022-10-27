@@ -9,9 +9,14 @@ public class CPUCooler extends Component {
     public boolean isWaterCooled = false;
     public boolean isFanless = false;
     public List<SocketType> socketCompatabilityList = new ArrayList<>();
+    public CoolerType cooler=CoolerType.NA;
 
     public CPUCooler(){
         super();
+    }
+
+    public CoolerType getCooler() {
+        return cooler;
     }
 
     @Override
@@ -23,6 +28,11 @@ public class CPUCooler extends Component {
     public boolean isCompatible (SocketType socket){
         return socketCompatabilityList.contains(socket);
     }
-
+    public enum CoolerType{
+        NA,
+        NORMAL,
+        WATERCOOLING,
+        FANLESS
+    }
 }
 

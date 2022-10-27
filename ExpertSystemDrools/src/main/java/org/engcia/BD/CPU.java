@@ -10,8 +10,12 @@ public class CPU extends Component {
     public SocketType socket = SocketType.NA;
     public boolean hasIntegratedGPU=false;
 
+
+
+
     public CPU(){
         super();
+        this.manufacturer=CPUManufactor.NA.toString();
     }
 
     @Override
@@ -21,12 +25,17 @@ public class CPU extends Component {
     }
 
     public boolean isAMD(){
-        return this.manufacturer.toUpperCase().equals("AMD");
+        return this.manufacturer.toUpperCase().equals(CPUManufactor.AMD);
     }
 
     public boolean isIntel(){
-        return this.manufacturer.toUpperCase().equals("INTEL");
+        return this.manufacturer.toUpperCase().equals(CPUManufactor.INTEL);
     }
 
+    public enum CPUManufactor{
+        NA,
+        INTEL,
+        AMD,
+    }
 }
 

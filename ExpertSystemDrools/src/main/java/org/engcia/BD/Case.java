@@ -18,6 +18,8 @@ public class Case extends Component {
         return super.toString();
     }
 
+
+
     public enum TowerSizeType{
         NA,
         MICRO_ATX_TOWER,

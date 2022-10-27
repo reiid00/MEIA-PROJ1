@@ -1,5 +1,7 @@
 package org.engcia.BC;
 
+import org.engcia.BD.CPU;
+import org.engcia.BD.CPUCooler;
 import org.engcia.BD.Case;
 import org.engcia.BD.Case.TowerSizeType;
 import org.engcia.BD.GPU.GPUBrand;
@@ -40,7 +42,9 @@ public class Hypothesis {
     public GPUBrand gpuBrandPreffered = GPUBrand.NA;
     public String caseColorPreferred = "";
     public TowerSizeType caseSize = TowerSizeType.NA;
-
+    public CPU.CPUManufactor cpuManufactor = CPU.CPUManufactor.NA;
+    public boolean pretendsToDoOC = false;
+    public CPUCooler.CoolerType coolerType= CPUCooler.CoolerType.NA;
     public Hypothesis() {
     }
 

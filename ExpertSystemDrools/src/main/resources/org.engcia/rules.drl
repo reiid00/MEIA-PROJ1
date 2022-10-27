@@ -31,6 +31,8 @@ import org.engcia.BD.RAM
 import org.engcia.BD.RAMType
 import org.engcia.Utils.Questions
 import org.engcia.BD.Case
+import org.engcia.BD.CPU
+import org.engcia.BD.CPUCooler
 
 
 
@@ -588,3 +590,55 @@ rule "r7a3 - Choose Case Size, answer MID Tower"
 
 end
 
+
+rule "r8a"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_CPU_MANUFACTOR, "1"))
+	then
+	  $hypothesis.cpuManufactor=CPU.CPUManufactor.INTEL;
+      update($hypothesis);
+
+end
+rule "r8b"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.NA )
+        eval(UI.answer(Questions.CHOOSE_CPU_MANUFACTOR, "2"))
+	then
+	  $hypothesis.cpuManufactor=CPU.CPUManufactor.AMD;
+      update($hypothesis);
+
+end
+rule "r9a"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_OPTIONAL_OC, "1"))
+          eval(UI.answer(Questions.CHOOSE_OC, "2"))
+	then
+	    $hypothesis.pretendsToDoOC=true;
+        $hypothesis.coolerType=CPUCooler.CoolerType.WATERCOOLING;
+      update($hypothesis);
+
+end
+rule "r9b"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_OPTIONAL_OC, "1"))
+          eval(UI.answer(Questions.CHOOSE_OC, "3"))
+	then
+	    $hypothesis.pretendsToDoOC=true;
+        $hypothesis.coolerType=CPUCooler.CoolerType.NORMAL;
+      update($hypothesis);
+
+end
+rule "r9c"
+	when
+	    $hypothesis : Hypothesis( finality != Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_OPTIONAL_OC, "1"))
+          eval(UI.answer(Questions.CHOOSE_OC, "4"))
+	then
+	    $hypothesis.pretendsToDoOC=true;
+        $hypothesis.coolerType=CPUCooler.CoolerType.FANLESS;
+      update($hypothesis);
+
+end

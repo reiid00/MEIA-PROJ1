@@ -59,6 +59,20 @@ public class Questions {
             "2. Pequena \n"+
             "3. Muito pequena \n";
 
+    public static final String CHOOSE_CPU_MANUFACTOR = "Prefere um cpu Intel ou AMD?\n" +
+            "1. INTEL \n" +
+            "2. AMD \n";
+
+
+    public static final String CHOOSE_OPTIONAL_OC = "Prefere fazer OC?\n" +
+            "1. Sim \n" +
+            "2. Não \n";
+
+    public static final String CHOOSE_OC = "Necessita de cooler, se sim escolha o pretendido?\n" +
+            "1. Não \n" +
+            "2. WaterCooling \n"+
+            "3. Normal \n"+
+            "4. Fanless \n";
 
 
     public static List<Storage> questionStorage(Storage storage) throws IOException {
