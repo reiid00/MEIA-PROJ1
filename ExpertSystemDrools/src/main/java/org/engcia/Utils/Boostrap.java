@@ -111,9 +111,10 @@ public class Boostrap {
                     String[] date = lineArray.get(4).split("/");
                     cpuCooler.launchDate = new Date(Integer.parseInt(date[2]),Integer.parseInt(date[1]),Integer.parseInt(date[0]));
                 }
-                cpuCooler.isWaterCooled = Boolean.getBoolean(lineArray.get(5));
-                cpuCooler.isFanless = Boolean.getBoolean(lineArray.get(6));
-                List<String> socketList = Arrays.asList(lineArray.get(7).split("\\[")[1].split("]")[0].split(","));
+                cpuCooler.voltage = Integer.parseInt(lineArray.get(5));
+                cpuCooler.isWaterCooled = Boolean.getBoolean(lineArray.get(6));
+                cpuCooler.isFanless = Boolean.getBoolean(lineArray.get(7));
+                List<String> socketList = Arrays.asList(lineArray.get(8).split("\\[")[1].split("]")[0].split(","));
                 for(String socket : socketList)
                 {
                     cpuCooler.socketCompatabilityList.add(SocketType.valueOf(socket.toUpperCase()));
