@@ -1,10 +1,8 @@
 package org.engcia.BC;
 
-import org.engcia.BD.CPU;
-import org.engcia.BD.CPUCooler;
-import org.engcia.BD.Case;
 import org.engcia.BD.Case.TowerSizeType;
 import org.engcia.BD.GPU.GPUBrand;
+import org.engcia.BD.PowerSupply.EnergyEfficiency;
 import org.engcia.BD.Storage;
 
 public class Hypothesis {
@@ -13,38 +11,36 @@ public class Hypothesis {
     public int minBudget = 0; // opcional
     public int maxBudget = 0;
     public BudgetType budgetType = BudgetType.NA;
-
-    public boolean isBudgetDefined = false;
-
-    public boolean isFinDefined = false;
-
-    public boolean isDurDefined = false;
-
-    public boolean isStorDefined = false;
-
-    public boolean isRAMDefined = false;
-
-    public boolean isGraphDefined = false;
-
-    public boolean isCPUDefined = false;
     public Finality finality = Finality.NA;
 
     public int durationDayChoice = 0;
 
-    public Storage storage = new Storage();
-    public Storage scndStorage = new Storage();
+    public Storage minStorage = new Storage();
+    public Storage minScndStorage = new Storage();
     public int finalityEstimatedDurationTime = 0;
     public int minRAM = 0;
+    public int minRAMSpeed = 0;
     public int minRAMPreferred = 0;
+
 
     public boolean needsDedicatedGPU = false;
     public boolean prefersDedicatedGPU = false;
-    public GPUBrand gpuBrandPreffered = GPUBrand.NA;
+    public GPUBrand gpuBrandPreferred = GPUBrand.NA;
+
+    public boolean wantsPreferredGPUBrand = false;
+
+    public String preferredGPUBrand = "";
+
+
+    public int adequateMinCPUBenchmark = 0;
+
+
+    public int adequateMinGPUBenchmark = 0;
     public String caseColorPreferred = "";
-    public TowerSizeType caseSize = TowerSizeType.NA;
-    public CPU.CPUManufactor cpuManufactor = CPU.CPUManufactor.NA;
-    public boolean pretendsToDoOC = false;
-    public CPUCooler.CoolerType coolerType= CPUCooler.CoolerType.NA;
+    public TowerSizeType caseSizePreferred = TowerSizeType.NA;
+
+    public EnergyEfficiency minEnergyEfficiencyNeeded = EnergyEfficiency.NA;
+
     public Hypothesis() {
     }
 
@@ -55,7 +51,10 @@ public class Hypothesis {
         APLICACOES_OFFICE_BASICO,
         APLICACOES_OFFICE_PROFISSIONAL,
         APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS,
-        APLICACOES_PROFISSIONAIS_COM_BASE_DADOS,
+
+        APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_LOCAIS,
+
+        APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_REMOTAS,
 
         JOGOS_BASICOS,
 
@@ -67,7 +66,9 @@ public class Hypothesis {
 
         GAMING,
 
-        TRATAMENTO_DE_IMAGEM,
+        TRATAMENTO_DE_IMAGEM_BASICO,
+
+        TRATAMENTO_DE_IMAGEM_PROFISSIONAL,
 
         EDICAO_DE_VIDEO_4k_8K
     }
