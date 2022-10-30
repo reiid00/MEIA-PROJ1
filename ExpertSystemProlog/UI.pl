@@ -9,7 +9,7 @@ question(choose_budget, 'Quanto pretende gastar no computador?', _).
 question(choose_finality_low_budget, 'Qual é a sua finalidade? \n 1. Navegação WEB \n 2. Aplicações Office \n 3. Aplicações Profissionais \n', [1, 2, 3]).
 question(choose_finality_non_low_budget, 'Qual é a sua finalidade? \n 1. Navegação WEB \n 2. Aplicações Office \n 3. Aplicações Profissionais \n 4. Jogos Básicos \n 5. Programas Avançados \n 6. Gaming \n 7. Tratamento de Imagem \n 8. Edição de Vídeo 4K a 8K \n', [1, 2, 3, 4, 5, 6, 7, 8]).
 question(choose_finality_navegacao_web, 'Pretende ter uma utilização com muitas ou poucas janelas? \n 1. Poucas janelas. \n 2. Muitas janelas. \n', [1, 2]).
-question(choose_finality_aplicacoes_office, 'Pretende utilizar o Office de forma básica ou profissional estas apliacações? \n 1. Forma Básica. \n 2. Profissional. \n', [1, 2]).
+question(choose_finality_aplicacoes_office, 'Pretende utilizar o Office de forma básica ou profissional estas aplicações? \n 1. Forma Básica. \n 2. Profissional. \n', [1, 2]).
 question(choose_finality_aplicacoes_profissionais, 'Pretende realizar regularmente operações de pesquisa e modificação à base de dados? \n 1. Vou utilizar Base de Dados. \n 2. Não vou utilizar Base de Dados. \n', [1, 2]).
 question(choose_finality_programas_avancados, 'Que tipo de programas pretende utilizar? \n 1. Modelação 3D. \n 2. Design Gráfico. \n 3. Calculo Matemático. \n', [1, 2, 3]).
 question(choose_file_type, 'Que tipo de ficheiros irão ser mais utilizados? \n 1. Word/excel/PowerPoint \n 2. Imagens \n', [1, 2]).
@@ -18,6 +18,20 @@ question(choose_optional_case_color, 'Tem preferência na cor da caixa? \n 1. Si
 question(choose_case_color, 'Qual das cores prefere?\n 1. Preto \n 2. Branco \n ', [1, 2]).
 question(choose_case_size, 'Pretende que tamanho de caixa?\n 1. Normal \n 2. Pequena \n 3. Muito pequena \n', [1, 2, 3]).
 question(choose_environment_energy_efficiency_instability, 'Considera o ambiente (casa/trabalho) onde pretende utilizar o PC como sendo instável/ineficiente energeticamente? \n 1. Não \n 2. Sim, um pouco problemático \n 3. Sim, é um problema muito grave',[1, 2, 3]).
+question(choose_gpu_manufacturer, 'Que fabricante de placas gráficas prefere? 1. Nvidia \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
+question(choose_if_wants_dedicated_graphics_card, 'Pretende realizar trabalhos mais pesados a nível gráfico (jogos, sistemas 3D)? \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_if_wants_preferred_gpu_brand, 'Tem preferência na marca da placa gráfica? \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_gpu_brand, 'Qual a marca que prefere? \n',[]).
+question(choose_image_treatment_type, 'Pretende utilizar estas aplicações de forma básica ou profissional? \n 1. Forma Básica. \n 2. Profissional. \n',[1, 2]).
+question(choose_initial_storage_240, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 240 GB  \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_initial_storage_480, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 480 GB  \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_2nd_storage, 'Pretende adicionar/modificar um segundo disco de armazenamento? (HDD) \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_ram_8gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 8 GB \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_ram_16gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 16 GB \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_ram_32gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 32 GB \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_cpu_manufacturer, 'Que fabricante de processador prefere? \n 1. Intel \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
+question(choose_cpu_oc, 'Pretende fazer OverClock ao CPU? \n 1. Sim \n 2. Nao \n',[1, 2]).
+question(choose_cooler_type, 'Que tipo de CPU Cooler pretende? \n 1. Water Cooling \n 2. Fanless \n 3. Normal \n 4. Indiferente \n',[1, 2, 3, 4]).
 
 askQuestion(QuestionID, Value) :- 
     answer(QuestionID, Answer),!,
