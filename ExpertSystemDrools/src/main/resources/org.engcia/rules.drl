@@ -632,6 +632,7 @@ rule "r5d1 - When Finality is Basic Games - used to find define ideal storage an
        $hypothesis.minRAMPreferred =16;
         $hypothesis.minRAMSpeed=3600;
         $hypothesis.adequateMinCPUBenchmark=140;
+        $hypothesis.adequateMinGPUBenchmark=100;
        update($hypothesis);
 end
 
@@ -714,21 +715,64 @@ rule "r5g1 - When Finality is 4K/8K Video Editing - used to find define ideal st
        $hypothesis.minScndStorage.isSSD = false;
        $hypothesis.minScndStorage.capacity = 1000;
        $hypothesis.minRAMPreferred =32;
-        $hypothesis.minRAMSpeed=2600;
-        $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
        update($hypothesis);
 end
 
-rule "r5h1 - When Finality is Gaming - used to find define ideal storage, RAM and CPU"
+rule "r5h11 - When Finality is Gaming and Budget Type is Medium Low  - used to find define ideal storage, RAM, CPU and GPU"
 	no-loop
     when
-	    $hypothesis : Hypothesis( finality == Finality.GAMING)
+	    $hypothesis : Hypothesis( finality == Finality.GAMING  && budgetType = BudgetType.MEDIO_BAIXO)
 	then
 	   $hypothesis.minStorage.isSSD = true;
        $hypothesis.minStorage.capacity = 240;
        $hypothesis.minRAMPreferred =32;
-        $hypothesis.minRAMSpeed=2600;
-        $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.adequateMinGPUBenchmark = 120;
+       update($hypothesis);
+end
+
+rule "r5h12 - When Finality is Gaming and Budget Type is Medium - used to find define ideal storage, RAM, CPU and GPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType = BudgetType.MEDIO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.adequateMinGPUBenchmark = 120;
+       update($hypothesis);
+end
+
+rule "r5h13 - When Finality is Gaming and Budget Type is Medium High - used to find define ideal storage, RAM, CPU and GPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType = BudgetType.MEDIO_ALTO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.adequateMinGPUBenchmark = 170;
+       update($hypothesis);
+end
+
+rule "r5h14 - When Finality is Gaming and Budget Type is High - used to find define ideal storage, RAM, CPU and GPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType = BudgetType.ALTO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.adequateMinGPUBenchmark = 200;
        update($hypothesis);
 end
 
