@@ -1,5 +1,6 @@
 package org.engcia.BC;
 
+import org.engcia.BD.CPUCooler;
 import org.engcia.BD.Case.TowerSizeType;
 import org.engcia.BD.GPU.GPUBrand;
 import org.engcia.BD.PowerSupply.EnergyEfficiency;
@@ -27,7 +28,12 @@ public class Hypothesis {
     public boolean prefersDedicatedGPU = false;
     public GPUBrand gpuBrandPreferred = GPUBrand.NA;
 
-    public boolean wantsPreferredGPUBrand = false;
+    public String cpuManufacturerPreferred = "";
+
+    public boolean needsCPUCooler = false;
+
+    public CPUCooler cpuCooler = new CPUCooler();
+
 
     public String preferredGPUBrand = "";
 

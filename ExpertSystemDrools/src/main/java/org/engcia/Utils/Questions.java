@@ -81,11 +81,53 @@ public class Questions {
                                                                     "1. Sim \n" +
                                                                     "2. Nao \n";
 
-    public static final String CHOOSE_GPU_BRAND = "Tem preferência de marca? \n";
+    public static final String CHOOSE_GPU_BRAND = "Qual a marca que prefere? \n";
 
     public static final String CHOOSE_IMAGE_TREATMENT_TYPE = "Pretende utilizar estas aplicações de forma básica ou profissional? \n" +
                                                             "1. Forma Básica. \n" +
                                                             "2. Profissional. \n";
+
+    public static final String CHOOSE_INITIAL_STORAGE_240 = "Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 240 GB  \n"+
+                                                                "1. Sim \n" +
+                                                                "2. Nao \n";
+
+    public static final String CHOOSE_INITIAL_STORAGE_480 = "Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 480 GB  \n"+
+                                                            "1. Sim \n" +
+                                                            "2. Nao \n";
+
+    public static final String CHOOSE_2ND_STORAGE = "Pretende adicionar/modificar um segundo local de armazenamento? (HDD) \n"+
+                                                    "1. Sim \n" +
+                                                    "2. Nao \n";
+
+    public static final String CHOOSE_RAM_8GB = "Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 8 GB \n "+
+                                                "1. Sim \n" +
+                                                "2. Nao \n";
+
+    public static final String CHOOSE_RAM_16GB = "Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 16 GB \n "+
+                                                "1. Sim \n" +
+                                                "2. Nao \n";
+
+
+    public static final String CHOOSE_RAM_32GB = "Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 32 GB \n "+
+                                                "1. Sim \n" +
+                                                "2. Nao \n";
+
+    public static final String CHOOSE_CPU_MANUFACTURER =  "Que fabricante de processador prefere? \n" +
+                                                            "1. INTEL \n" +
+                                                            "2. AMD \n" +
+                                                            "3. Indiferente \n";
+
+
+    public static final String CHOOSE_CPU_OC = "Pretende fazer OverClock ao CPU? \n"+
+                                                "1. Sim \n" +
+                                                "2. Nao \n";
+
+    public static final String CHOOSE_COOLER_TYPE = "Que tipo de CPU Cooler pretende? \n"+
+                                                "1. Water Cooling \n" +
+                                                "2. Fanless \n" +
+                                                "3. Normal \n" +
+                                                "4. Indiferente \n" ;
+
 
 
     public static List<Storage> questionStorage(Storage storage) throws IOException {

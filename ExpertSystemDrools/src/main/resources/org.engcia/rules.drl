@@ -33,6 +33,7 @@ import org.engcia.BD.RAMType
 import org.engcia.Utils.Questions
 import org.engcia.BD.Case
 import org.engcia.BD.GPU
+import java.util.Scanner
 
 
 
@@ -261,6 +262,7 @@ rule "r3d1 - Finality question when Budget type isn't low and answer is Basic Ga
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "4"))
 	then
 	    $hypothesis.finality = Finality.JOGOS_BASICOS;
+	    $hypothesis.needsDedicatedGPU = true;
 		update($hypothesis);
 end
 
@@ -304,6 +306,9 @@ rule "r3f1 - Finality question when Budget type isn't low and answer is Gaming"
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "6"))
 	then
 	    $hypothesis.finality = Finality.GAMING;
+	    $hypothesis.needsDedicatedGPU = true;
+        System.out.println($hypothesis.finality);
+        System.out.println($hypothesis.needsDedicatedGPU);
 		update($hypothesis);
 end
 
@@ -336,6 +341,7 @@ rule "r3h1 - Finality question when Budget type isn't low and answer is Video Ed
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "8"))
 	then
 	    $hypothesis.finality = Finality.EDICAO_DE_VIDEO_4k_8K;
+	    $hypothesis.needsDedicatedGPU = true;
 		update($hypothesis);
 end
 
@@ -682,7 +688,7 @@ rule "r5f1 - When Finality is Basic Image Treatment - used to find define ideal 
 	then
 	   $hypothesis.minStorage.isSSD = true;
        $hypothesis.minStorage.capacity = 240;
-       $hypothesis.minScndStorage.isSSD = false;
+       $hypothesis.minScndStorage.isSATA = true;
        $hypothesis.minScndStorage.capacity = 1000;
        $hypothesis.minRAMPreferred =32;
         $hypothesis.minRAMSpeed=2600;
@@ -697,7 +703,7 @@ rule "r5f2 - When Finality is Professional Image Treatment - used to find define
 	then
 	   $hypothesis.minStorage.isSSD = true;
        $hypothesis.minStorage.capacity = 240;
-       $hypothesis.minScndStorage.isSSD = false;
+       $hypothesis.minScndStorage.isSATA = true;
        $hypothesis.minScndStorage.capacity = 2000;
        $hypothesis.minRAMPreferred =32;
         $hypothesis.minRAMSpeed=3200;
@@ -712,18 +718,19 @@ rule "r5g1 - When Finality is 4K/8K Video Editing - used to find define ideal st
 	then
 	   $hypothesis.minStorage.isSSD = true;
        $hypothesis.minStorage.capacity = 240;
-       $hypothesis.minScndStorage.isSSD = false;
+       $hypothesis.minScndStorage.isSATA= true;
        $hypothesis.minScndStorage.capacity = 1000;
        $hypothesis.minRAMPreferred =32;
        $hypothesis.minRAMSpeed=2600;
        $hypothesis.adequateMinCPUBenchmark=170;
+        $hypothesis.adequateMinGPUBenchmark=100;
        update($hypothesis);
 end
 
 rule "r5h11 - When Finality is Gaming and Budget Type is Medium Low  - used to find define ideal storage, RAM, CPU and GPU"
 	no-loop
     when
-	    $hypothesis : Hypothesis( finality == Finality.GAMING  && budgetType = BudgetType.MEDIO_BAIXO)
+	    $hypothesis : Hypothesis( finality == Finality.GAMING  && budgetType == BudgetType.MEDIO_BAIXO)
 	then
 	   $hypothesis.minStorage.isSSD = true;
        $hypothesis.minStorage.capacity = 240;
@@ -737,7 +744,7 @@ end
 rule "r5h12 - When Finality is Gaming and Budget Type is Medium - used to find define ideal storage, RAM, CPU and GPU"
 	no-loop
     when
-	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType = BudgetType.MEDIO)
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.MEDIO)
 	then
 	   $hypothesis.minStorage.isSSD = true;
        $hypothesis.minStorage.capacity = 240;
@@ -751,7 +758,7 @@ end
 rule "r5h13 - When Finality is Gaming and Budget Type is Medium High - used to find define ideal storage, RAM, CPU and GPU"
 	no-loop
     when
-	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType = BudgetType.MEDIO_ALTO)
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.MEDIO_ALTO)
 	then
 	   $hypothesis.minStorage.isSSD = true;
        $hypothesis.minStorage.capacity = 240;
@@ -765,7 +772,7 @@ end
 rule "r5h14 - When Finality is Gaming and Budget Type is High - used to find define ideal storage, RAM, CPU and GPU"
 	no-loop
     when
-	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType = BudgetType.ALTO)
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.ALTO)
 	then
 	   $hypothesis.minStorage.isSSD = true;
        $hypothesis.minStorage.capacity = 240;
@@ -776,47 +783,126 @@ rule "r5h14 - When Finality is Gaming and Budget Type is High - used to find def
        update($hypothesis);
 end
 
+rule "r6a1 - When System sugests minimum storage of 240 and user wants to change it"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage.capacity == 240)
+        eval(UI.answer(Questions.CHOOSE_INITIAL_STORAGE_240, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido:");
+        Integer i = in.nextInt();
+        $hypothesis.minStorage.capacity = i;
+        update($hypothesis);
+end
+
+rule "r6a2 - When System sugests minimum storage of 480 and user wants to change it"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage.capacity == 480)
+        eval(UI.answer(Questions.CHOOSE_INITIAL_STORAGE_480, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minStorage.capacity = i;
+        update($hypothesis);
+end
+
+rule "r6b1 - When user wants to add or update a 2nd storage (HDD)"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage.isSSD == true)
+        eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minScndStorage.capacity = i;
+        $hypothesis.minScndStorage.isSATA = true;
+        update($hypothesis);
+end
+
+rule "r7a3 - When user wants to change RAM Storage - Initially was 32GB"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage.capacity == 32)
+        eval(UI.answer(Questions.CHOOSE_RAM_32GB, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minRAM = i;
+        update($hypothesis);
+end
+
+rule "r7a2 - When user wants to change RAM Storage - Initially was 16GB"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage.capacity == 16)
+        eval(UI.answer(Questions.CHOOSE_RAM_16GB, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minRAM = i;
+        update($hypothesis);
+end
+
+rule "r7a1 - When user wants to change RAM Storage - Initially was 8GB"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage.capacity == 8)
+        eval(UI.answer(Questions.CHOOSE_RAM_8GB, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minRAM = i;
+        update($hypothesis);
+end
+
+
 
 
 // USER DOESNT NEED GPU BUT WANTS ONE
 
-rule "r6bf1 - System doesn't need a Dedicated GPU but user wants one"
+rule "r7bf1 - System doesn't need a Dedicated GPU but user wants one"
     no-loop
     when
-        $hypothesis : Hypothesis(needsDedicatedGPU == false && budgetType != BudgetType.BAIXO)
+        $hypothesis : Hypothesis(needsDedicatedGPU == false && budgetType != BudgetType.BAIXO && finality != Finality.NA)
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_DEDICATED_GRAPHICS_CARD, "1"))
     then
-    $hypothesis.prefersDedicatedGPU = true;
-    update($hypothesis);
+        $hypothesis.prefersDedicatedGPU = true;
+        update($hypothesis);
 end
-
 
 // CHOOSING DEDICATED GRAPHICS CARD
 
-rule "r6a1 - Choose GPU Manufacturer, answer INTEL"
+rule "r8a1 - Choose GPU Manufacturer, answer INTEL"
     no-loop
     when
-        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
     then
     $hypothesis.gpuBrandPreferred = GPU.GPUBrand.NVIDIA;
     update($hypothesis);
 end
 
-rule "r6a2 - Choose GPU Manufacturer, answer INTEL"
+rule "r8a2 - Choose GPU Manufacturer, answer INTEL"
     no-loop
     when
-        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
     then
     $hypothesis.gpuBrandPreferred = GPU.GPUBrand.AMD;
     update($hypothesis);
 end
 
-rule "r6a3 - Choose GPU Manufacturer, answer INTEL"
+rule "r8a3 - Choose GPU Manufacturer, answer INTEL"
     no-loop
     when
-        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "3"))
     then
     $hypothesis.gpuBrandPreferred = GPU.GPUBrand.NA;
@@ -825,31 +911,75 @@ end
 
 // Question Brand GPU preference
 
-rule "r6b1 - Finality is Gaming, user has GPU brand preference"
+rule "r8b1 - Finality is Gaming, user has GPU brand preference"
     no-loop
     when
         $hypothesis : Hypothesis(finality == Finality.GAMING)
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "1"))
     then
-        $hypothesis.wantsPreferredGPUBrand = true;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique a marca pretendida:");
+        String s = in.nextLine();
+        $hypothesis.preferredGPUBrand = s;
         update($hypothesis);
 end
 
-// Question Choose GPU Brand
-
-rule "r6c1 - user has GPU brand preference, chose the brand"
+rule "r9a1 - User has CPU manufacturer preference, INTEL "
     no-loop
     when
-        $hypothesis : Hypothesis(wantsPreferredGPUBrand == true)
-        eval(UI.answer(Questions.CHOOSE_GPU_BRAND, null))
+        $hypothesis : Hypothesis(finality != Finality.NA)
+        eval(UI.answer(Questions.CHOOSE_CPU_MANUFACTURER, "1"))
     then
-        $hypothesis.wantsPreferredGPUBrand = true;
+    $hypothesis.cpuManufacturerPreferred = "INTEL";
         update($hypothesis);
 end
 
+rule "r9a2 - User has CPU manufacturer preference, AMD "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality != Finality.NA)
+        eval(UI.answer(Questions.CHOOSE_CPU_MANUFACTURER, "2"))
+    then
+    $hypothesis.cpuManufacturerPreferred = "AMD";
+        update($hypothesis);
+end
 
+rule "r10a1 - Finality is Gaming, user wants to do OC and prefers WaterCooling "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality == Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
+        eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "1"))
+    then
+    $hypothesis.needsCPUCooler = true;
+    $hypothesis.cpuCooler.isWaterCooled = true;
+        update($hypothesis);
+end
 
-rule "r6a1 - Choose Environment Energy Efficiency Instability, answer Negative"
+rule "r10a2 - Finality is Gaming, user wants to do OC and prefers Fanless "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality == Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
+        eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "2"))
+    then
+    $hypothesis.needsCPUCooler = true;
+    $hypothesis.cpuCooler.isFanless = true;
+        update($hypothesis);
+end
+
+rule "r10a3 - Finality is Gaming, user wants to do OC and prefers Normal or doesnt have preference "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality == Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
+        eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "3") || UI.answer(Questions.CHOOSE_COOLER_TYPE, "4"))
+    then
+    $hypothesis.needsCPUCooler = true;
+        update($hypothesis);
+end
+
+rule "r11a1 - Choose Environment Energy Efficiency Instability, answer Negative"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -859,7 +989,7 @@ rule "r6a1 - Choose Environment Energy Efficiency Instability, answer Negative"
         update($hypothesis);
 end
 
-rule "r6a2 - Choose Environment Energy Efficiency, answer Positive, a bit problematic"
+rule "r11a2 - Choose Environment Energy Efficiency, answer Positive, a bit problematic"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -870,7 +1000,7 @@ rule "r6a2 - Choose Environment Energy Efficiency, answer Positive, a bit proble
 
 end
 
-rule "r6a3 - Choose Environment Energy Efficiency, answer Positive, serious issue"
+rule "r11a3 - Choose Environment Energy Efficiency, answer Positive, serious issue"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -881,9 +1011,7 @@ rule "r6a3 - Choose Environment Energy Efficiency, answer Positive, serious issu
 
 end
 
-
-
-rule "r7a1 - Choose Case Color, answer Black"
+rule "r12a1 - Choose Case Color, answer Black"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -894,7 +1022,7 @@ rule "r7a1 - Choose Case Color, answer Black"
         update($hypothesis);
 end
 
-rule "r7a2 - Choose Case Color, answer White"
+rule "r12a2 - Choose Case Color, answer White"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -906,7 +1034,7 @@ rule "r7a2 - Choose Case Color, answer White"
 
 end
 
-rule "r8a1 - Choose Case Size, answer Micro-ATX "
+rule "r12a1 - Choose Case Size, answer Micro-ATX "
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -916,7 +1044,7 @@ rule "r8a1 - Choose Case Size, answer Micro-ATX "
       update($hypothesis);
 
 end
-rule "r8a2 - Choose Case Size, answer Mini-ATX"
+rule "r12a2 - Choose Case Size, answer Mini-ATX"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
@@ -926,7 +1054,7 @@ rule "r8a2 - Choose Case Size, answer Mini-ATX"
       update($hypothesis);
 
 end
-rule "r8a3 - Choose Case Size, answer MID Tower"
+rule "r12a3 - Choose Case Size, answer MID Tower"
 	no-loop
     when
 	    $hypothesis : Hypothesis( finality != Finality.NA )
