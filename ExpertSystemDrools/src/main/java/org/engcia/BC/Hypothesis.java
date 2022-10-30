@@ -27,7 +27,6 @@ public class Hypothesis {
     public boolean prefersDedicatedGPU = false;
     public GPUBrand gpuBrandPreferred = GPUBrand.NA;
 
-    public boolean wantsPreferredGPUBrand = false;
 
     public String preferredGPUBrand = "";
 
