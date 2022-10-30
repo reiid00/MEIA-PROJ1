@@ -27,7 +27,7 @@ askQuestion(QuestionID, Value) :-
     write(Question), nl,
     read(Answer),
     (member(Answer, ListValidAnswers), !
-    ; write('Resposta inválida, por favor tente novamente.'), nl, askQuestion(QuestionID)),
+    ; write('Resposta inválida, por favor tente novamente.'), nl, askQuestion(QuestionID, Value)),
     assert(answer(QuestionID, Answer)),
     Answer == Value.
 
