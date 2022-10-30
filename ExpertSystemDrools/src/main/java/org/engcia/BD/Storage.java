@@ -13,6 +13,11 @@ public class Storage extends Component{
         super();
     }
 
+    public Storage(int cap){
+        super();
+        this.capacity=cap;
+    }
+
     @Override
     public String toString()
     {
