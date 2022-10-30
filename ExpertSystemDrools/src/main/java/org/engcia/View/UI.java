@@ -41,7 +41,7 @@ public class UI {
             }
         }
         if (questionFound) {
-            if (evidence.getValue().compareTo(v) == 0) {
+            if (v == null || evidence.getValue().compareTo(v) == 0) {
                 Main.agendaEventListener.addLhs(evidence);
                 return true;
             } else {
@@ -55,7 +55,7 @@ public class UI {
 
         Evidence e = new Evidence(ev, value);
         Main.KS.insert(e);
-        if (value.compareTo(v) == 0) {
+        if (v == null || value.compareTo(v) == 0) {
             Main.agendaEventListener.addLhs(e);
             return true;
         } else {

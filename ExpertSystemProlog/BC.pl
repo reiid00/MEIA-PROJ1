@@ -10,8 +10,8 @@ numAtributos(case, 8).
 numAtributos(cpu, 12).
 
 % cpuCooler(ID, Manufacturer, Name, BasePrice, LaunchDate, Voltage, IsWaterCooled, IsFanless, SocketCompatibilityList)
-:-dynamic cpuCooler/8.
-numAtributos(cpuCooler, 8).
+:-dynamic cpuCooler/9.
+numAtributos(cpuCooler, 9).
 
 % gpu(ID, Manufacturer, Name, BasePrice, LaunchDate, Brand, Memory, MemoryType, MaxClock, Voltage, FansCount, ATXCompatibilityList, BenchmarkScore)
 :-dynamic gpu/13.

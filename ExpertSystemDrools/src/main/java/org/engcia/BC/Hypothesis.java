@@ -35,7 +35,11 @@ public class Hypothesis {
 
     public boolean needsDedicatedGPU = false;
     public boolean prefersDedicatedGPU = false;
-    public GPUBrand gpuBrandPreffered = GPUBrand.NA;
+    public GPUBrand gpuBrandPreferred = GPUBrand.NA;
+
+    public boolean wantsPreferredGPUBrand = false;
+
+    public String preferredGPUBrand = "";
     public String caseColorPreferred = "";
     public TowerSizeType caseSizePreferred = TowerSizeType.NA;
 

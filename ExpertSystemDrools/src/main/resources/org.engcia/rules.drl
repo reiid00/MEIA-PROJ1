@@ -536,7 +536,9 @@ rule "r5e2 - When Finality is Professional Applications with DB - used to find d
        update($hypothesis);
 end
 
-rule "r6a1 - System doesn't need a Dedicated GPU but user wants one"
+// USER DOESNT NEED GPU BUT WANTS ONE
+
+rule "r6bf1 - System doesn't need a Dedicated GPU but user wants one"
     no-loop
     when
         $hypothesis : Hypothesis(needsDedicatedGPU == false && budgetType != BudgetType.BAIXO)
@@ -555,25 +557,52 @@ rule "r6a1 - Choose GPU Manufacturer, answer INTEL"
         $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
     then
-    $hypothesis.gpuBrandPreffered = GPU.GPUBrand.NVIDIA;
+    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.NVIDIA;
+    update($hypothesis);
 end
 
-rule "r6a1 - Choose GPU Manufacturer, answer INTEL"
+rule "r6a2 - Choose GPU Manufacturer, answer INTEL"
     no-loop
     when
         $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
     then
-    $hypothesis.gpuBrandPreffered = GPU.GPUBrand.AMD;
+    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.AMD;
+    update($hypothesis);
 end
 
-rule "r6a1 - Choose GPU Manufacturer, answer INTEL"
+rule "r6a3 - Choose GPU Manufacturer, answer INTEL"
     no-loop
     when
         $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "3"))
     then
-    $hypothesis.gpuBrandPreffered = GPU.GPUBrand.NA;
+    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.NA;
+    update($hypothesis);
+end
+
+// Question Brand GPU preference
+
+rule "r6b1 - Finality is Gaming, user has GPU brand preference"
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality == Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "1"))
+    then
+        $hypothesis.wantsPreferredGPUBrand = true;
+        update($hypothesis);
+end
+
+// Question Choose GPU Brand
+
+rule "r6c1 - user has GPU brand preference, chose the brand"
+    no-loop
+    when
+        $hypothesis : Hypothesis(wantsPreferredGPUBrand == true)
+        eval(UI.answer(Questions.CHOOSE_GPU_BRAND, null))
+    then
+        $hypothesis.wantsPreferredGPUBrand = true;
+        update($hypothesis);
 end
 
 

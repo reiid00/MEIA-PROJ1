@@ -70,9 +70,14 @@ public class Questions {
                                             "3. Indiferente \n";
 
     public static final String CHOOSE_IF_WANTS_DEDICATED_GRAPHICS_CARD = "Pretende realizar trabalhos mais pesados a nível gráfico (jogos, sistemas 3D)? \n" +
-                                                                            "1. Sim \n" +
+                                                                        "1. Sim \n" +
                                                                         "2. Nao \n";
 
+    public static final String CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND = "Tem preferência na marca da placa gráfica? \n" +
+                                                                    "1. Sim \n" +
+                                                                    "2. Nao \n";
+
+    public static final String CHOOSE_GPU_BRAND = "Tem preferência de marca? \n";
 
 
     public static List<Storage> questionStorage(Storage storage) throws IOException {
