@@ -50,7 +50,7 @@ public class UI {
                 return false;
             }
         }
-        System.out.print(ev + "? ");
+        System.out.print(ev + " ");
         String value = readLine();
 
         Evidence e = new Evidence(ev, value);
@@ -103,7 +103,7 @@ public class UI {
     }
 
     public static boolean compare(String evidenceValue,int min, int max){
-        if(max >= Integer.parseInt(evidenceValue) && Integer.parseInt(evidenceValue)  > min){
+        if(Integer.parseInt(evidenceValue) > min && Integer.parseInt(evidenceValue) <= max){
             return true;
         }else{
             return false;
@@ -131,15 +131,13 @@ public class UI {
                 return false;
             }
         }
-        System.out.print(ev + "? ");
+        System.out.print(ev + " ");
         String value = readLine();
         System.out.println(value);
 
         Evidence e = new Evidence(ev, value);
         Main.KS.insert(e);
-        System.out.println(1);
         if (compare(value,intMin,intMax)) {
-            System.out.println(2);
             Main.agendaEventListener.addLhs(e);
             return true;
         } else {

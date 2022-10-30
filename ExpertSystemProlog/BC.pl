@@ -1,22 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Components - Os primeiros 5 atributos estão reservados aos atributos genéricos de todos os componentes X + 5(component)
-:-dynamic case/8.
-:-dynamic cpu/12.
-:-dynamic cpuCooler/8.
-:-dynamic gpu/13.
-:-dynamic motherboard/11.
-:-dynamic powerSupply/9.
-:-dynamic ram/10.
-:-dynamic storage/10.
 
+% case(ID, Manufacturer, Name, BasePrice, LaunchDate, SizeType, ATXCompatibilityList, Color)
+:-dynamic case/8. 
 numAtributos(case, 8).
+
+% cpu(ID, Manufacturer, Name, BasePrice, LaunchDate, CoreCount, ThreadsCount, BoostClock, Voltage, Benchmark, Socket, HasIntegratedGPU)
+:-dynamic cpu/12.
 numAtributos(cpu, 12).
+
+% cpuCooler(ID, Manufacturer, Name, BasePrice, LaunchDate, Voltage, IsWaterCooled, IsFanless, SocketCompatibilityList)
+:-dynamic cpuCooler/8.
 numAtributos(cpuCooler, 8).
+
+% gpu(ID, Manufacturer, Name, BasePrice, LaunchDate, Brand, Memory, MemoryType, MaxClock, Voltage, FansCount, ATXCompatibilityList, BenchmarkScore)
+:-dynamic gpu/13.
 numAtributos(gpu, 13).
+
+% motherboard(ID, Manufacturer, Name, BasePrice, LaunchDate, SocketCompatibilityList, ATXType, MaxMemoryRam, RAMType, RAMSlots, RAMSpeedList)
+:-dynamic motherboard/11.
 numAtributos(motherboard, 11).
+
+% powerSupply(ID, Manufacturer, Name, BasePrice, LaunchDate, Capacity, EnergyEfficiency, Modular, ATXCompatibilityList)
+:-dynamic powerSupply/9.
 numAtributos(powerSupply, 9).
+
+% ram(ID, Manufacturer, Name, BasePrice, LaunchDate, Speed, Capacity, SlotsCount, RamType, Voltage)
+:-dynamic ram/10.
 numAtributos(ram, 10).
+
+% storage(ID, Manufacturer, Name, BasePrice, LaunchDate, IsSSD, IsSATA, Capacity, Cache, BenchmarkScore)
+:-dynamic storage/10.
 numAtributos(storage, 10).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Leitura da Base de Dados
 
 readLines(Stream, Lines):- readLines(Stream, [], Lines).
@@ -236,3 +253,5 @@ assertCases([X|Lines]):-
 assertCases([_|Lines]):- assertCases(Lines).
 
 loadBC():- loadGPUs(), loadCPUs(), loadCPUCoolers(), loadMotherboards(), loadRAMs(), loadPowerSupplies(), loadStorages(), loadCases().
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
