@@ -112,6 +112,22 @@ public class Questions {
                                                 "1. Sim \n" +
                                                 "2. Nao \n";
 
+    public static final String CHOOSE_CPU_MANUFACTURER =  "Que fabricante de processador prefere? \n" +
+                                                            "1. INTEL \n" +
+                                                            "2. AMD \n" +
+                                                            "3. Indiferente \n";
+
+
+    public static final String CHOOSE_CPU_OC = "Pretende fazer OverClock ao CPU? \n"+
+                                                "1. Sim \n" +
+                                                "2. Nao \n";
+
+    public static final String CHOOSE_COOLER_TYPE = "Que tipo de CPU Cooler pretende? \n"+
+                                                "1. Water Cooling \n" +
+                                                "2. Fanless \n" +
+                                                "3. Normal \n" +
+                                                "4. Indiferente \n" ;
+
 
 
     public static List<Storage> questionStorage(Storage storage) throws IOException {
