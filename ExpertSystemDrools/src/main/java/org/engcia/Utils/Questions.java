@@ -35,6 +35,10 @@ public class Questions {
                                                                             "1. Vou utilizar Base de Dados. \n" +
                                                                             "2. Não vou utilizar Base de Dados. \n";
 
+    public static final String CHOOSE_FINALITY_TYPE_OF_DATA_BASE = "Que tipo de Base de Dados irá utilizar? \n" +
+                                                                    "1. Base de Dados Local \n" +
+                                                                    "2. Base de Dados Remotas \n" +
+                                                                    "3. Ambas \n";
     public static final String CHOOSE_FINALITY_PROGRAMAS_AVANCADOS = "Que tipo de programas pretende utilizar? \n" +
                                                                         "1. Modelação 3D. \n" +
                                                                         "2. Design Gráfico. \n" +
@@ -78,6 +82,10 @@ public class Questions {
                                                                     "2. Nao \n";
 
     public static final String CHOOSE_GPU_BRAND = "Tem preferência de marca? \n";
+
+    public static final String CHOOSE_IMAGE_TREATMENT_TYPE = "Pretende utilizar estas aplicações de forma básica ou profissional? \n" +
+                                                            "1. Forma Básica. \n" +
+                                                            "2. Profissional. \n";
 
 
     public static List<Storage> questionStorage(Storage storage) throws IOException {
