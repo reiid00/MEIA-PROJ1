@@ -32,6 +32,7 @@ import org.engcia.BD.RAM
 import org.engcia.BD.RAMType
 import org.engcia.Utils.Questions
 import org.engcia.BD.Case
+import org.engcia.BD.GPU
 
 
 
@@ -535,6 +536,48 @@ rule "r5e2 - When Finality is Professional Applications with DB - used to find d
        update($hypothesis);
 end
 
+rule "r6a1 - System doesn't need a Dedicated GPU but user wants one"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == false && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_IF_WANTS_DEDICATED_GRAPHICS_CARD, "1"))
+    then
+    $hypothesis.prefersDedicatedGPU = true;
+    update($hypothesis);
+end
+
+
+// CHOOSING DEDICATED GRAPHICS CARD
+
+rule "r6a1 - Choose GPU Manufacturer, answer INTEL"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
+        eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
+    then
+    $hypothesis.gpuBrandPreffered = GPU.GPUBrand.NVIDIA;
+end
+
+rule "r6a1 - Choose GPU Manufacturer, answer INTEL"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
+        eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
+    then
+    $hypothesis.gpuBrandPreffered = GPU.GPUBrand.AMD;
+end
+
+rule "r6a1 - Choose GPU Manufacturer, answer INTEL"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU = true)
+        eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "3"))
+    then
+    $hypothesis.gpuBrandPreffered = GPU.GPUBrand.NA;
+end
+
+
+
 rule "r6a1 - Choose Environment Energy Efficiency Instability, answer Negative"
 	no-loop
     when
@@ -566,6 +609,8 @@ rule "r6a3 - Choose Environment Energy Efficiency, answer Positive, serious issu
         update($hypothesis);
 
 end
+
+
 
 rule "r7a1 - Choose Case Color, answer Black"
 	no-loop

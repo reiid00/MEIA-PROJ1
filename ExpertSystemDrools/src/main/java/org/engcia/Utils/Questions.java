@@ -64,6 +64,15 @@ public class Questions {
             "2. Sim, um pouco problemático \n"+
             "3. Sim, é um problema muito grave \n";
 
+    public static final String CHOOSE_GPU_MANUFACTURER = "Que fabricante de placas gráficas prefere? \n" +
+                                            "1. NVIDIA \n" +
+                                            "2. AMD \n" +
+                                            "3. Indiferente \n";
+
+    public static final String CHOOSE_IF_WANTS_DEDICATED_GRAPHICS_CARD = "Pretende realizar trabalhos mais pesados a nível gráfico (jogos, sistemas 3D)? \n" +
+                                                                            "1. Sim \n" +
+                                                                        "2. Nao \n";
+
 
 
     public static List<Storage> questionStorage(Storage storage) throws IOException {

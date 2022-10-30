@@ -22,8 +22,6 @@ public class Hypothesis {
 
     public boolean isRAMDefined = false;
 
-    public boolean isGraphDefined = false;
-
     public boolean isCPUDefined = false;
     public Finality finality = Finality.NA;
 
