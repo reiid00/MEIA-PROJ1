@@ -21,11 +21,12 @@ question(choose_environment_energy_efficiency_instability, 'Considera o ambiente
 question(choose_gpu_manufacturer, 'Que fabricante de placas gráficas prefere? 1. Nvidia \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
 question(choose_if_wants_dedicated_graphics_card, 'Pretende realizar trabalhos mais pesados a nível gráfico (jogos, sistemas 3D)? \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_if_wants_preferred_gpu_brand, 'Tem preferência na marca da placa gráfica? \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_gpu_brand, 'Qual a marca que prefere? \n',[]).
+question(choose_preferred_gpu_brand, 'Indique a marca pretendida \n',[]).
 question(choose_image_treatment_type, 'Pretende utilizar estas aplicações de forma básica ou profissional? \n 1. Forma Básica. \n 2. Profissional. \n',[1, 2]).
 question(choose_initial_storage_240, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 240 GB  \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_initial_storage_480, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 480 GB  \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_2nd_storage, 'Pretende adicionar/modificar um segundo disco de armazenamento? (HDD) \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_if_wants_2nd_storage, 'Pretende adicionar/modificar um segundo disco de armazenamento? (HDD) \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_storage_min_capacity, 'Indique o mínimo de tamanho pretendido (GB) \n',[]).
 question(choose_ram_8gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 8 GB \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_ram_16gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 16 GB \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_ram_32gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 32 GB \n 1. Sim \n 2. Não \n',[1, 2]).

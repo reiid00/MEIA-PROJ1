@@ -21,7 +21,7 @@ public class Hypothesis {
     public Integer minRAMPreferred = null;
     public Boolean needsDedicatedGPU=null;
     public Boolean prefersDedicatedGPU=null ;
-    public GPUBrand gpuBrandPreferred = GPUBrand.NA;
+    public GPUBrand gpuManufacturerPreferred = GPUBrand.NA;
     public String cpuManufacturerPreferred = null;
     public Boolean needsCPUCooler = null;
     public CPUCooler cpuCooler =null;

@@ -180,7 +180,7 @@ rule "r3a1 - Finality question when Budget type is not low and answer is Simple 
     no-loop
 	when
 	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
-        eval(UI.answerteste(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1", $hypothesis.budgetType))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1", $hypothesis.budgetType))
         eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "1"))
 	then
 	    $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
@@ -403,7 +403,7 @@ rule "r5a4 - File Type and Daily use question when Finality is Simple Web Naviga
     when
 	    $hypothesis : Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
         eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
-        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
 	    $hypothesis.minStorage.isSSD = true;
         $hypothesis.minStorage.capacity = 480;
@@ -837,7 +837,7 @@ rule "r6b2.1 - When System sugests minimum storage of 480 and user wants to chan
         update($hypothesis);
 end
 
-rule "r6b2.2 - When System sugests minimum storage of 480 and user doesnt want to change it"
+rule "r6a2.2 - When System sugests minimum storage of 480 and user doesnt want to change it"
     no-loop
     when
 	    $hypothesis : Hypothesis(minStorage != null && minStorage.capacity == 480 && finality != finality.NA && durationDayChoice != 0 )
@@ -916,7 +916,7 @@ end
 
 // USER DOESNT NEED GPU BUT WANTS ONE
 
-rule "r7bf1 - System doesn't need a Dedicated GPU but user wants one"
+rule "r7bf1a - System doesn't need a Dedicated GPU but user wants one"
     no-loop
     when
         $hypothesis : Hypothesis(needsDedicatedGPU == false && budgetType != BudgetType.BAIXO && finality != Finality.NA && minStorage != null && minRAM!=0 && durationDayChoice!=0)
@@ -927,7 +927,7 @@ rule "r7bf1 - System doesn't need a Dedicated GPU but user wants one"
 end
 
 // USER DOESNT choose prefered gpu
-rule "r7bf1 - System doesn't choose a Dedicated GPU but user wants one"
+rule "r7bf1b - System doesn't choose a Dedicated GPU but user wants one"
     no-loop
     when
         $hypothesis : Hypothesis(needsDedicatedGPU == false && budgetType != BudgetType.BAIXO && finality != Finality.NA && minStorage != null && minRAM!=0 && durationDayChoice!=0)
@@ -946,7 +946,7 @@ rule "r8a1 - Choose GPU Manufacturer, answer INTEL"
         $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
     then
-    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.NVIDIA;
+    $hypothesis.gpuManufacturerPreferred = GPU.GPUBrand.NVIDIA;
     update($hypothesis);
 end
 
@@ -956,17 +956,17 @@ rule "r8a2 - Choose GPU Manufacturer, answer INTEL"
         $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
     then
-    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.AMD;
+    $hypothesis.gpuManufacturerPreferred = GPU.GPUBrand.AMD;
     update($hypothesis);
 end
 
-rule "r8a3 - Choose GPU Manufacturer, answer INTEL"
+rule "r8a3 - Choose GPU Manufacturer, answer None"
     no-loop
     when
         $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "3"))
     then
-    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.NA;
+    $hypothesis.gpuManufacturerPreferred = GPU.GPUBrand.NA;
     update($hypothesis);
 end
 
