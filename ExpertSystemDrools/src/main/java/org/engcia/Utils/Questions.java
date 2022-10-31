@@ -87,29 +87,18 @@ public class Questions {
                                                             "1. Forma Básica. \n" +
                                                             "2. Profissional. \n";
 
-    public static final String CHOOSE_INITIAL_STORAGE_240 = "Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 240 GB  \n"+
-                                                                "1. Sim \n" +
+    public static final String CHOOSE_INITIAL_STORAGE = "Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de XXX GB  \n"+
+                                                                "1. Sim, aumentar para o dobro da capacidade \n" +
                                                                 "2. Nao \n";
 
-    public static final String CHOOSE_INITIAL_STORAGE_480 = "Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 480 GB  \n"+
-                                                            "1. Sim \n" +
-                                                            "2. Nao \n";
-
     public static final String CHOOSE_2ND_STORAGE = "Pretende adicionar/modificar um segundo local de armazenamento? (HDD) \n"+
-                                                    "1. Sim \n" +
-                                                    "2. Nao \n";
+                                                    "1. Sim, pretendo adicionar um disco rígido de 1TB  \n" +
+                                                    "2. Sim, pretendo adicionar um disco rígido de 2TB  \n" +
+                                                    "3. Sim, pretendo adicionar um disco rígido de 4TB  \n" +
+                                                    "4. Nao \n";
 
-    public static final String CHOOSE_RAM_8GB = "Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 8 GB \n "+
-                                                "1. Sim \n" +
-                                                "2. Nao \n";
-
-    public static final String CHOOSE_RAM_16GB = "Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 16 GB \n "+
-                                                "1. Sim \n" +
-                                                "2. Nao \n";
-
-
-    public static final String CHOOSE_RAM_32GB = "Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 32 GB \n "+
-                                                "1. Sim \n" +
+    public static final String CHOOSE_RAM = "Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de XXX GB \n "+
+                                                "1. Sim, pretendo aumento para o dobro da capacidade \n" +
                                                 "2. Nao \n";
 
     public static final String CHOOSE_CPU_MANUFACTURER =  "Que fabricante de processador prefere? \n" +

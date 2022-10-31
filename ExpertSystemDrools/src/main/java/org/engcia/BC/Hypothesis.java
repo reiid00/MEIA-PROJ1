@@ -8,28 +8,43 @@ import org.engcia.BD.Storage;
 
 public class Hypothesis {
 
-    public Integer minBudget = null; // opcional
-    public Integer maxBudget = null;
+
+    public int minBudget = 0; // opcional
+    public int maxBudget = 0;
     public BudgetType budgetType = BudgetType.NA;
     public Finality finality = Finality.NA;
-    public Integer durationDayChoice = null;
-    public Storage minStorage = null;
-    public Storage minScndStorage = null;
-    public Integer finalityEstimatedDurationTime = null;
-    public Integer minRAM = null;
-    public Integer minRAMSpeed = null;
-    public Integer minRAMPreferred = null;
-    public Boolean needsDedicatedGPU=null;
-    public Boolean prefersDedicatedGPU=null ;
+
+    public int durationDayChoice = 0;
+
+    public Storage minStorage = new Storage();
+    public Storage minScndStorage = new Storage();
+    public int finalityEstimatedDurationTime = 0;
+    public int minRAM = 0;
+    public int minRAMSpeed = 0;
+    public int minRAMPreferred = 0;
+
+
+    public boolean needsDedicatedGPU = false;
+    public boolean prefersDedicatedGPU = false;
     public GPUBrand gpuBrandPreferred = GPUBrand.NA;
-    public String cpuManufacturerPreferred = null;
-    public Boolean needsCPUCooler = null;
-    public CPUCooler cpuCooler =null;
-    public String preferredGPUBrand = null;
-    public Integer adequateMinCPUBenchmark = null;
-    public Integer adequateMinGPUBenchmark = null;
-    public String caseColorPreferred = null;
+
+    public String cpuManufacturerPreferred = "";
+
+    public boolean needsCPUCooler = false;
+
+    public CPUCooler cpuCooler = new CPUCooler();
+
+
+    public String preferredGPUBrand = "";
+
+
+    public int adequateMinCPUBenchmark = 0;
+
+
+    public int adequateMinGPUBenchmark = 0;
+    public String caseColorPreferred = "";
     public TowerSizeType caseSizePreferred = TowerSizeType.NA;
+
     public EnergyEfficiency minEnergyEfficiencyNeeded = EnergyEfficiency.NA;
 
     public Hypothesis() {
