@@ -108,7 +108,7 @@ public class Questions {
 
 
     public static final String CHOOSE_CPU_OC = "Pretende fazer OverClock ao CPU? \n"+
-                                                "1. Sim \n" +
+                                                "1. Sim, 32GB \n" +
                                                 "2. Nao \n";
 
     public static final String CHOOSE_COOLER_TYPE = "Que tipo de CPU Cooler pretende? \n"+
