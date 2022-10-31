@@ -1,22 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Components - Os primeiros 5 atributos estão reservados aos atributos genéricos de todos os componentes X + 5(component)
-:-dynamic case/8.
-:-dynamic cpu/12.
-:-dynamic cpuCooler/8.
-:-dynamic gpu/13.
-:-dynamic motherboard/11.
-:-dynamic powerSupply/9.
-:-dynamic ram/10.
-:-dynamic storage/9.
 
+% case(ID, Manufacturer, Name, BasePrice, LaunchDate, SizeType, ATXCompatibilityList, Color)
+:-dynamic case/8. 
 numAtributos(case, 8).
-numAtributos(cpu, 12).
-numAtributos(cpuCooler, 8).
-numAtributos(gpu, 13).
-numAtributos(motherboard, 11).
-numAtributos(powerSupply, 9).
-numAtributos(ram, 10).
-numAtributos(storage, 9).
 
+% cpu(ID, Manufacturer, Name, BasePrice, LaunchDate, CoreCount, ThreadsCount, BoostClock, Voltage, Benchmark, Socket, HasIntegratedGPU)
+:-dynamic cpu/12.
+numAtributos(cpu, 12).
+
+% cpuCooler(ID, Manufacturer, Name, BasePrice, LaunchDate, Voltage, IsWaterCooled, IsFanless, SocketCompatibilityList)
+:-dynamic cpuCooler/9.
+numAtributos(cpuCooler, 9).
+
+% gpu(ID, Manufacturer, Name, BasePrice, LaunchDate, Brand, Memory, MemoryType, MaxClock, Voltage, FansCount, ATXCompatibilityList, BenchmarkScore)
+:-dynamic gpu/13.
+numAtributos(gpu, 13).
+
+% motherboard(ID, Manufacturer, Name, BasePrice, LaunchDate, SocketCompatibilityList, ATXType, MaxMemoryRam, RAMType, RAMSlots, RAMSpeedList)
+:-dynamic motherboard/11.
+numAtributos(motherboard, 11).
+
+% powerSupply(ID, Manufacturer, Name, BasePrice, LaunchDate, Capacity, EnergyEfficiency, Modular, ATXCompatibilityList)
+:-dynamic powerSupply/9.
+numAtributos(powerSupply, 9).
+
+% ram(ID, Manufacturer, Name, BasePrice, LaunchDate, Speed, Capacity, SlotsCount, RamType, Voltage)
+:-dynamic ram/10.
+numAtributos(ram, 10).
+
+% storage(ID, Manufacturer, Name, BasePrice, LaunchDate, IsSSD, IsSATA, Capacity, Cache, BenchmarkScore)
+:-dynamic storage/10.
+numAtributos(storage, 10).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Leitura da Base de Dados
 
 readLines(Stream, Lines):- readLines(Stream, [], Lines).
@@ -96,8 +113,9 @@ assertCPUCoolers([]):- !.
 assertCPUCoolers([X|Lines]):- 
         numAtributos(cpuCooler, NumAtributos),
         length(X, NumAtributos),!,
-        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, IsWaterCooled1, IsFanless1, SocketCompatibilityList1],
+        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, Voltage1, IsWaterCooled1, IsFanless1, SocketCompatibilityList1],
         number_string(BasePrice, BasePrice1),
+        number_string(Voltage, Voltage1),
 
         (IsWaterCooled1 == 'true', !, IsWaterCooled = true
         ; IsWaterCooled = false),
@@ -110,7 +128,7 @@ assertCPUCoolers([X|Lines]):-
         sub_string(SocketCompatibilityList1, 1, N_SocketCompatibilityList, _, SocketCompatibilityList2),
         split_string(SocketCompatibilityList2, ',', '', SocketCompatibilityList),
 
-        assert(cpuCooler(ID, Manufacturer, Name, BasePrice, LaunchDate, IsWaterCooled, IsFanless, SocketCompatibilityList)),
+        assert(cpuCooler(ID, Manufacturer, Name, BasePrice, LaunchDate, Voltage, IsWaterCooled, IsFanless, SocketCompatibilityList)),
         assertCPUCoolers(Lines).
 assertCPUCoolers([_|Lines]):- assertCPUCoolers(Lines).
 
@@ -196,13 +214,19 @@ assertStorages([]):- !.
 assertStorages([X|Lines]):- 
         numAtributos(storage, NumAtributos),
         length(X, NumAtributos),!,
-        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, IsSSD1, Capacity, Cache, Benchmark],
+        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, IsSSD1, IsSATA1, Capacity1, Cache1, BenchmarkScore1],
         number_string(BasePrice, BasePrice1),
+        number_string(Capacity, Capacity1),
+        number_string(Cache, Cache1),
+        number_string(BenchmarkScore, BenchmarkScore1),
 
         (IsSSD1 == 'true', !, IsSSD = true
         ; IsSSD = false),
+
+        (IsSATA1 == 'true', !, IsSATA = true
+        ; IsSATA = false),
        
-        assert(storage(ID, Manufacturer, Name, BasePrice, LaunchDate, IsSSD, Capacity, Cache, Benchmark)),
+        assert(storage(ID, Manufacturer, Name, BasePrice, LaunchDate, IsSSD, IsSATA, Capacity, Cache, BenchmarkScore)),
         assertStorages(Lines).
 assertStorages([_|Lines]):- assertStorages(Lines).
 
@@ -229,3 +253,5 @@ assertCases([X|Lines]):-
 assertCases([_|Lines]):- assertCases(Lines).
 
 loadBC():- loadGPUs(), loadCPUs(), loadCPUCoolers(), loadMotherboards(), loadRAMs(), loadPowerSupplies(), loadStorages(), loadCases().
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -15,28 +15,23 @@
 
 package org.engcia;
 
-import static org.junit.Assert.*;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
-import org.drools.core.time.SessionPseudoClock;
 import org.junit.Test;
 import org.kie.api.KieBase;
-import org.kie.api.KieBaseConfiguration;
 import org.kie.api.KieServices;
 import org.kie.api.builder.Message;
 import org.kie.api.builder.Results;
-import org.kie.api.conf.EventProcessingOption;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.definition.rule.Rule;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.KieSessionConfiguration;
-import org.kie.api.runtime.conf.ClockTypeOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RuleTest {
     static final Logger LOG = LoggerFactory.getLogger(RuleTest.class);
@@ -69,18 +64,6 @@ public class RuleTest {
         session.setGlobal("controlSet", check);
 
         LOG.info("Now running data");
-
-        Measurement mRed= new Measurement("color", "red");
-        session.insert(mRed);
-        session.fireAllRules();
-
-        Measurement mGreen= new Measurement("color", "green");
-        session.insert(mGreen);
-        session.fireAllRules();
-
-        Measurement mBlue= new Measurement("color", "blue");
-        session.insert(mBlue);
-        session.fireAllRules();
 
         LOG.info("Final checks");
 

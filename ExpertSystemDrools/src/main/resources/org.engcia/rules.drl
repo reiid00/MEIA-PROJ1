@@ -17,324 +17,1115 @@ package org.engcia;
 // package must be defined in packages from kmodule.xml file
 
 //list any import classes here.
-import org.engcia.BaseConhecimento.Hypothesis;
-import org.engcia.BaseConhecimento.Conclusion;
-import org.engcia.BaseConhecimento.Evidences
+import org.engcia.View.UI
+import org.engcia.BC.Hypothesis
+import org.engcia.BC.Hypothesis.Finality
+import org.engcia.BC.Hypothesis.BudgetType
+import org.engcia.BC.Conclusion
+import org.engcia.BC.Evidence
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import org.engcia.Components.Storage
-import org.engcia.Services.Questions
+import org.engcia.BD.Storage
+import org.engcia.BD.PowerSupply.EnergyEfficiency
 import java.util.List
-import org.engcia.Components.RAM
-import org.engcia.Components.RAMType;
+import org.engcia.BD.RAM
+import org.engcia.BD.RAMType
+import org.engcia.Utils.Questions
+import org.engcia.BD.Case
+import org.engcia.BD.GPU
+import java.util.Scanner
+
 
 
 //declare any global variables here
 
 query "Conclusions"
 	$conclusion : Conclusion()
+	$hypothesis : Hypothesis()
 end
 
-rule "r1"
-	when
-		Evidences(  300 < maxBudget < 600 )
-	then
-		Hypothesis h = new Hypothesis();
-		h.budgetType = Hypothesis.BudgetType.BAIXO;
-		insert(h);
+rule "r1a - Budget question between 300 and 600"
+    no-loop
+    when
+        eval(UI.answerBudget(Questions.CHOOSE_BUDGET,300,600))
+    then
+        Hypothesis $hypothesis = new Hypothesis();
+        $hypothesis.budgetType = Hypothesis.BudgetType.BAIXO;
+        insert($hypothesis);
 end
 
-rule "r2"
+
+rule "r1b - Budget question between 600 and 1000"
+    no-loop
 	when
-		Evidences(  600 < maxBudget < 1000 )
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,600,1000))
 	then
-		Hypothesis h = new Hypothesis();
-        h.budgetType = Hypothesis.BudgetType.MEDIO_BAIXO;
-        insert(h);
+        Hypothesis $hypothesis = new Hypothesis();
+        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_BAIXO;
+        insert($hypothesis);
 end
 
-rule "r3"
+rule "r1c - Budget question between 1000 and 1500"
+    no-loop
 	when
-		Evidences(  1000 < maxBudget < 1500 )
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,1000,1500))
 	then
-		Hypothesis h = new Hypothesis();
-        h.budgetType = Hypothesis.BudgetType.MEDIO;
-        insert(h);
+        Hypothesis $hypothesis = new Hypothesis();
+        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO;
+        insert($hypothesis);
 end
 
-rule "r4"
+rule "r1d - Budget question between 1500 and 2000"
+    no-loop
 	when
-		Evidences(  1500 < maxBudget < 2000 )
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,1500,2000))
 	then
-		Hypothesis h = new Hypothesis();
-        h.budgetType = Hypothesis.BudgetType.MEDIO_ALTO;
-        insert(h);
+	    Hypothesis $hypothesis = new Hypothesis();
+        $hypothesis.budgetType = Hypothesis.BudgetType.MEDIO_ALTO;
+        insert($hypothesis);
 end
 
-rule "r5"
+rule "r1e - Budget question more than 2000"
+    no-loop
 	when
-		Evidences(  2000 < maxBudget )
+		eval(UI.answerBudget(Questions.CHOOSE_BUDGET,2000,Integer.MAX_VALUE))
 	then
-		Hypothesis h = new Hypothesis();
-        h.budgetType = Hypothesis.BudgetType.ALTO;
-        insert(h);
+        Hypothesis $hypothesis = new Hypothesis();
+        $hypothesis.budgetType = Hypothesis.BudgetType.ALTO;
+        insert($hypothesis);
 end
 
-rule "r6"
-	when
-		$hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
+rule "r2a1 - Finality question when Budget type is low and answer is Simple Web Navigation "
+    no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "1"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "1"))
 	then
-	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    System.out.println("Escolha a finalidade: \n");
-	    System.out.println("1. " + "Navegação WEB \n 2. Aplicações Office \n 3. Aplicações Profissionais");
-        int semi_finality = Integer.parseInt(br.readLine());
-        $hypothesis.semi_finality = Hypothesis.Semi_Finality.values()[semi_finality-1];
+	    $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
+
 		update($hypothesis);
 end
 
-rule "r7"
+rule "r2a2 - Finality question when Budget type is low and answer is Complex Web Navigation "
+    no-loop
 	when
-		$hypothesis : Hypothesis( budgetType != BudgetType.BAIXO)
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "1"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "2"))
 	then
-		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-         System.out.println("Escolha a finalidade: \n");
-         int i = 1;
-         for ( Hypothesis.Semi_Finality fnlt: Hypothesis.Semi_Finality.values() ) {
-            System.out.println( i + ". " + fnlt);
-            i++;
-         }
-
-         Integer semi_finality = Integer.parseInt(br.readLine());
-         $hypothesis.semi_finality = Hypothesis.Semi_Finality.values()[semi_finality-1];
-
-          for (Hypothesis.Finality finality : Hypothesis.Finality.values()) {
-                 if (finality.name().equals($hypothesis.semi_finality.toString().toUpperCase())) {
-                     $hypothesis.finality = finality;
-                 }
-             }
-         update($hypothesis);
+	    $hypothesis.finality = Finality.NAVEGACAO_WEB_COMPLEXO;
+		update($hypothesis);
 end
 
-rule "r8"
-    when
-        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.NAVEGACAO_WEB)
-    then
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Pretende ter uma utilização com muitas ou poucas janelas?");
-        System.out.println("1. Poucas janelas.");
-        System.out.println("2. Muitas janelas.");
-        Integer finality = Integer.parseInt(br.readLine());
-        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
-        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO;
-        update($hypothesis);
-    end
-rule "r8"
-    when
-        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.APLICACOES_OFFICE)
-    then
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Pretende utilizar o Office de forma básica ou profissional estas apliacações?");
-        System.out.println("1. Forma Básica.");
-        System.out.println("2. Profissional.");
-        Integer finality = Integer.parseInt(br.readLine());
-        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.APLICACOES_OFFICE_BASICO;
-        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL;
-        update($hypothesis);
-    end
+rule "r2b1 - Finality question when Budget type is low and answer is Simple Office Applications "
+    no-loop
+	when
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "2"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "1"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_OFFICE_BASICO;
+		update($hypothesis);
+end
 
-rule "r9"
-    when
-        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.APLICACOES_PROFISSIONAIS)
-    then
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Pretende realizar regularmente operações de pesquisa e modificação à base de dados?");
-        System.out.println("1. Vou utilizar Base de Dados.");
-        System.out.println("2. Não vou utilizar Base de Dados.");
-        Integer finality = Integer.parseInt(br.readLine());
-        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS;
-        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS;
-        update($hypothesis);
-    end
+rule "r2b2 - Finality question when Budget type is low and answer is Professional Office Applications"
+    no-loop
+	when
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "2"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "2"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_OFFICE_PROFISSIONAL;
+		update($hypothesis);
+end
 
-rule "r10"
+rule "r2c11 - Finality question when Budget type is low and answer is Professional Applications with Local DB"
+    no-loop
+	when
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "3"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "1"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_TYPE_OF_DATA_BASE, "1") || UI.answer(Questions.CHOOSE_FINALITY_TYPE_OF_DATA_BASE, "3"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_LOCAIS;
+		update($hypothesis);
+end
+
+
+rule "r2c12 - Finality question when Budget type is low and answer is Professional Applications with remote DB"
+       no-loop
+   	when
+   	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
+           eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "3"))
+           eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "1"))
+           eval(UI.answer(Questions.CHOOSE_FINALITY_TYPE_OF_DATA_BASE, "2"))
+   	then
+   	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_REMOTAS;
+   		update($hypothesis);
+   end
+
+rule "r2c2 - Finality question when Budget type is low and answer is Professional Applications without DB"
+    no-loop
+	when
+	    $hypothesis : Hypothesis( budgetType == BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_LOW_BUDGET, "3"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "2"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS;
+		update($hypothesis);
+end
+
+rule "r3a1 - Finality question when Budget type is not low and answer is Simple Web Navigation"
+    no-loop
+	when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+        eval(UI.answerteste(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1", $hypothesis.budgetType))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "1"))
+	then
+	    $hypothesis.finality = Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES;
+		update($hypothesis);
+end
+
+rule "r3a2 - Finality question when Budget type isn't low and answer is Complex Web Navigation"
+    no-loop
+	when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "2"))
+	then
+	    $hypothesis.finality = Finality.NAVEGACAO_WEB_COMPLEXO;
+		update($hypothesis);
+end
+
+rule "r3b1 - Finality question when Budget type isn't low and answer is Simple Office Applications"
+    no-loop
+	when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO )
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "2"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "1"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_OFFICE_BASICO;
+		update($hypothesis);
+end
+
+rule "r3b2 - Finality question when Budget type isn't low and answer is Professional Office Applications"
+    no-loop
+	when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA, budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "2"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "2"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_OFFICE_PROFISSIONAL;
+		update($hypothesis);
+end
+
+rule "r3c11 - Finality question when Budget type isn't low and answer is Professional Applications with Local DB"
+	no-loop
     when
-        $hypothesis : Hypothesis(Semi_Finality == Semi_Finality.PROGRAMAS_AVANÇADOS)
-    then
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Que tipo de programas pretende utilizar?");
-        System.out.println("1. Modelação 3D.");
-        System.out.println("2. Design Gráfico.");
-        System.out.println("3. Calculo Matemático.");
-        Integer finality = Integer.parseInt(br.readLine());
-        if (finality == 1) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_MODELACAO_3D;
-        else  if (finality == 2) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_DESIGN_GRAFICO;
-        else if (finality ==3) $hypothesis.finality = Hypothesis.Finality.PROGRAMAS_AVANÇADOS_CALCULO_MATEMATICO;
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO )
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "1"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_TYPE_OF_DATA_BASE, "1") || UI.answer(Questions.CHOOSE_FINALITY_TYPE_OF_DATA_BASE, "3"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_LOCAIS;
+		update($hypothesis);
+end
+
+rule "r3c12 - Finality question when Budget type isn't low and answer is Professional Applications with Remote DB"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO )
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "1"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_TYPE_OF_DATA_BASE, "2"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_REMOTAS;
+		update($hypothesis);
+end
+
+rule "r3c2 - Finality question when Budget type isn't low and answer is Professional Applications without DB"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "2"))
+	then
+	    $hypothesis.finality = Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS;
+		update($hypothesis);
+end
+
+rule "r3d1 - Finality question when Budget type isn't low and answer is Basic Games"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "4"))
+	then
+	    $hypothesis.finality = Finality.JOGOS_BASICOS;
+	    $hypothesis.needsDedicatedGPU = true;
+		update($hypothesis);
+end
+
+rule "r3e1 - Finality question when Budget type isn't low and answer is Advanced Programs of 3d Modelation"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANCADOS, "1"))
+	then
+	    $hypothesis.finality = Finality.PROGRAMAS_AVANCADOS_MODELACAO_3D;
+		update($hypothesis);
+end
+
+rule "r3e2 - Finality question when Budget type isn't low and answer is Advanced Programs of Graphic Design"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANCADOS, "2"))
+	then
+	    $hypothesis.finality = Finality.PROGRAMAS_AVANCADOS_DESIGN_GRAFICO;
+		update($hypothesis);
+end
+
+rule "r3e3 - Finality question when Budget type isn't low and answer is Advanced Programs of Mathematic Calculus"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
+        eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANCADOS, "3"))
+	then
+	    $hypothesis.finality = Finality.PROGRAMAS_AVANCADOS_CALCULO_MATEMATICO;
+		update($hypothesis);
+end
+
+rule "r3f1 - Finality question when Budget type isn't low and answer is Gaming"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "6"))
+	then
+	    $hypothesis.finality = Finality.GAMING;
+	    $hypothesis.needsDedicatedGPU = true;
+        System.out.println($hypothesis.finality);
+        System.out.println($hypothesis.needsDedicatedGPU);
+		update($hypothesis);
+end
+
+rule "r3g1 - Finality question when Budget type isn't low and answer is Basic Image Treatment"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "7"))
+        eval(UI.answer(Questions.CHOOSE_IMAGE_TREATMENT_TYPE, "1"))
+	then
+	    $hypothesis.finality = Finality.TRATAMENTO_DE_IMAGEM_BASICO;
+		update($hypothesis);
+end
+
+rule "r3g1 - Finality question when Budget type isn't low and answer is Professional Image Treatment"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "7"))
+        eval(UI.answer(Questions.CHOOSE_IMAGE_TREATMENT_TYPE, "2"))
+	then
+	    $hypothesis.finality = Finality.TRATAMENTO_DE_IMAGEM_PROFISSIONAL;
+		update($hypothesis);
+end
+
+rule "r3h1 - Finality question when Budget type isn't low and answer is Video Edition 4K/8K"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType != BudgetType.NA && budgetType != BudgetType.BAIXO)
+        eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "8"))
+	then
+	    $hypothesis.finality = Finality.EDICAO_DE_VIDEO_4k_8K;
+	    $hypothesis.needsDedicatedGPU = true;
+		update($hypothesis);
+end
+
+
+
+
+rule "r5a1 - File Type and Daily use question when Finality is Simple Web Navigation and answers are Word/excel/PowerPoint and 2 to 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality != finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES && budgetType!=budgetType.NA)
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage=new Storage();
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =8;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=1;
+
         update($hypothesis);
+end
+
+rule "r5a2 - File Type and Daily use question when Finality is Simple Web Navigation and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =8;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=2;
+        update($hypothesis);
+end
+
+rule "r5a3 - File Type and Daily use question when Finality is Simple Web Navigation and answers are Images and 2 to 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 480;
+        $hypothesis.minRAMPreferred =8;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5a4 - File Type and Daily use question when Finality is Simple Web Navigation and answers are Images and more than 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 480;
+        $hypothesis.minRAMPreferred =8;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5b1 - File Type and Daily use question when Finality is Complex Web Navigation and answers are Word/excel/PowerPoint and 2 to 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis(budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5b2 - File Type and Daily use question when Finality is Complex Web Navigation and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=3600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5b3 - File Type and Daily use question when Finality is Complex Web Navigation and answers are Images and 2 to 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 480;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5b4 - File Type and Daily use question when Finality is Complex Web Navigation and answers are Images and more than 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 480;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=3600;
+        $hypothesis.durationDayChoice=2;
+        update($hypothesis);
+end
+
+rule "r5c1 - File Type and Daily use question when Finality is Simple Office Applications and answers are Word/excel/PowerPoint and 2 to 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =8;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5c2 - File Type and Daily use question when Finality is Simple Office Applications and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =8;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=2;
+        update($hypothesis);
+end
+
+rule "r5c3 - File Type and Daily use question when Finality is Simple Office Applications and answers are Images and 2 to 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =8;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5c4 - File Type and Daily use question when Finality is Simple Office Applications and answers are Images and more than 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_BASICO )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 480;
+        $hypothesis.minRAMPreferred =8;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=120;
+        $hypothesis.durationDayChoice=2;
+        update($hypothesis);
+end
+
+rule "r5d1 - File Type and Daily use question when Finality is Professional Office Applications and answers are Word/excel/PowerPoint and 2 to 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_PROFISSIONAL )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=140;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5d2 - File Type and Daily use question when Finality is Professional Office Applications and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_PROFISSIONAL )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=3600;
+        $hypothesis.adequateMinCPUBenchmark=140;
+        $hypothesis.durationDayChoice=2;
+        update($hypothesis);
+end
+
+rule "r5d3 - File Type and Daily use question when Finality is Professional Office Applications and answers are Images and 2 to 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_PROFISSIONAL )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 240;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=140;
+        $hypothesis.durationDayChoice=1;
+        update($hypothesis);
+end
+
+rule "r5d4 - File Type and Daily use question when Finality is Professional Office Applications and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_OFFICE_PROFISSIONAL )
+        eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
+        eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 480;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=3600;
+        $hypothesis.adequateMinCPUBenchmark=140;
+        $hypothesis.durationDayChoice=2;
+        update($hypothesis);
+end
+
+rule "r5e1 - When Finality is Professional Applications without DB - used to find define ideal storage and RAM "
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS )
+	then
+	    $hypothesis.minStorage.isSSD = true;
+        $hypothesis.minStorage.capacity = 480;
+        $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=3600;
+        $hypothesis.adequateMinCPUBenchmark=140;
+        update($hypothesis);
+end
+
+rule "r5e21 - When Finality is Professional Applications with Local DB - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_LOCAIS)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 480;
+       $hypothesis.minRAMPreferred =32;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=140;
+       update($hypothesis);
+end
+
+rule "r5e22 - When Finality is Professional Applications with Remote DB - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_REMOTAS)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=3600;
+        $hypothesis.adequateMinCPUBenchmark=140;
+       update($hypothesis);
+end
+
+rule "r5d1 - When Finality is Basic Games - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.JOGOS_BASICOS)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =16;
+        $hypothesis.minRAMSpeed=3600;
+        $hypothesis.adequateMinCPUBenchmark=140;
+        $hypothesis.adequateMinGPUBenchmark=100;
+       update($hypothesis);
+end
+
+rule "r5e1 - When Finality is Advanced Programs of 3D Modelation - used to find define ideal storage and RAM"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.PROGRAMAS_AVANCADOS_MODELACAO_3D)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=170;
+       update($hypothesis);
+end
+
+rule "r5e2 - When Finality is Advanced Programs of Graphic Design - used to find define ideal storage, RAM and CPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.PROGRAMAS_AVANCADOS_DESIGN_GRAFICO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=170;
+       update($hypothesis);
+end
+
+rule "r5e3 - When Finality is Advanced Programs of Mathematic Calculus - used to find define ideal storage, RAM and CPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.PROGRAMAS_AVANCADOS_CALCULO_MATEMATICO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=170;
+       update($hypothesis);
+end
+
+rule "r5f1 - When Finality is Basic Image Treatment - used to find define ideal storage, RAM and CPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.TRATAMENTO_DE_IMAGEM_BASICO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minScndStorage.isSATA = true;
+       $hypothesis.minScndStorage.capacity = 1000;
+       $hypothesis.minRAMPreferred =32;
+        $hypothesis.minRAMSpeed=2600;
+        $hypothesis.adequateMinCPUBenchmark=170;
+       update($hypothesis);
+end
+
+rule "r5f2 - When Finality is Professional Image Treatment - used to find define ideal storage, RAM and CPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.TRATAMENTO_DE_IMAGEM_PROFISSIONAL)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minScndStorage.isSATA = true;
+       $hypothesis.minScndStorage.capacity = 2000;
+       $hypothesis.minRAMPreferred =32;
+        $hypothesis.minRAMSpeed=3200;
+        $hypothesis.adequateMinCPUBenchmark=180;
+       update($hypothesis);
+end
+
+rule "r5g1 - When Finality is 4K/8K Video Editing - used to find define ideal storage, RAM and CPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.EDICAO_DE_VIDEO_4k_8K)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minScndStorage.isSATA= true;
+       $hypothesis.minScndStorage.capacity = 1000;
+       $hypothesis.minRAMPreferred =32;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+        $hypothesis.adequateMinGPUBenchmark=100;
+       update($hypothesis);
+end
+
+rule "r5h11 - When Finality is Gaming and Budget Type is Medium Low  - used to find define ideal storage, RAM, CPU and GPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.GAMING  && budgetType == BudgetType.MEDIO_BAIXO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.adequateMinGPUBenchmark = 120;
+       update($hypothesis);
+end
+
+rule "r5h12 - When Finality is Gaming and Budget Type is Medium - used to find define ideal storage, RAM, CPU and GPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.MEDIO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.adequateMinGPUBenchmark = 120;
+       update($hypothesis);
+end
+
+rule "r5h13 - When Finality is Gaming and Budget Type is Medium High - used to find define ideal storage, RAM, CPU and GPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.MEDIO_ALTO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.adequateMinGPUBenchmark = 170;
+       update($hypothesis);
+end
+
+rule "r5h14 - When Finality is Gaming and Budget Type is High - used to find define ideal storage, RAM, CPU and GPU"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.ALTO)
+	then
+	   $hypothesis.minStorage.isSSD = true;
+       $hypothesis.minStorage.capacity = 240;
+       $hypothesis.minRAMPreferred =32;
+       $hypothesis.minRAMSpeed=2600;
+       $hypothesis.adequateMinCPUBenchmark=170;
+       $hypothesis.adequateMinGPUBenchmark = 200;
+       update($hypothesis);
+end
+
+rule "r6a1.1 - When System sugests minimum storage of 240 and user wants to change it"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage != null && minStorage.capacity == 240 && finality != finality.NA && durationDayChoice != null && budgetType != budgetType.NA )
+        eval(UI.answer(Questions.CHOOSE_INITIAL_STORAGE_240, "1"))
+    then
+       System.out.println($hypothesis.minStorage.capacity);
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido:");
+        Integer i = in.nextInt();
+        $hypothesis.minStorage.capacity = i;
+
+        update($hypothesis);
+end
+
+rule "r6a1.2 - When System sugests minimum storage of 240 and user doesnt want to change it"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage != null && minStorage.capacity == 240 && finality != finality.NA && durationDayChoice != 0 )
+        eval(UI.answer(Questions.CHOOSE_INITIAL_STORAGE_240, "2"))
+    then
+        $hypothesis.minStorage=new Storage();
+        update($hypothesis);
+end
+
+rule "r6b2.1 - When System sugests minimum storage of 480 and user wants to change it"
+    no-loop
+    when
+	    $hypothesis : Hypothesis(minStorage != null && minStorage.capacity == 480 && finality != finality.NA && durationDayChoice != 0 )
+        eval(UI.answer(Questions.CHOOSE_INITIAL_STORAGE_480, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minStorage.capacity = i;
+        update($hypothesis);
+end
+
+rule "r6b2.2 - When System sugests minimum storage of 480 and user doesnt want to change it"
+    no-loop
+    when
+	    $hypothesis : Hypothesis(minStorage != null && minStorage.capacity == 480 && finality != finality.NA && durationDayChoice != 0 )
+        eval(UI.answer(Questions.CHOOSE_INITIAL_STORAGE_480, "2"))
+    then
+        $hypothesis.minStorage=new Storage();
+        update($hypothesis);
+end
+
+rule "r6b1 - When user wants to add or update a 2nd storage (HDD)"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage != null && minStorage.isSSD == true)
+        eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minScndStorage.capacity = i;
+        $hypothesis.minScndStorage.isSATA = true;
+        update($hypothesis);
+end
+
+rule "r6b2 - When user doesnt want to add or update a 2nd storage (HDD)"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage != null && minStorage.isSSD == true)
+        eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "2"))
+    then
+         $hypothesis.minScndStorage=new Storage();
+        update($hypothesis);
+end
+
+
+rule "r7a3 - When user wants to change RAM Storage - Initially was 32GB"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage != null && minStorage.capacity == 32)
+        eval(UI.answer(Questions.CHOOSE_RAM_32GB, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minRAM = i;
+        update($hypothesis);
+end
+
+rule "r7a2 - When user wants to change RAM Storage - Initially was 16GB"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage != null && minStorage.capacity == 16)
+        eval(UI.answer(Questions.CHOOSE_RAM_16GB, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minRAM = i;
+        update($hypothesis);
+end
+
+rule "r7a1 - When user wants to change RAM Storage - Initially was 8GB"
+    no-loop
+    when
+	    $hypothesis : Hypothesis( minStorage != null && minStorage.capacity == 8)
+        eval(UI.answer(Questions.CHOOSE_RAM_8GB, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique o mínimo de tamanho pretendido (GB):");
+        Integer i = in.nextInt();
+        $hypothesis.minRAM = i;
+        update($hypothesis);
+end
+
+
+
+
+// USER DOESNT NEED GPU BUT WANTS ONE
+
+rule "r7bf1 - System doesn't need a Dedicated GPU but user wants one"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == false && budgetType != BudgetType.BAIXO && finality != Finality.NA && minStorage != null && minRAM!=0 && durationDayChoice!=0)
+        eval(UI.answer(Questions.CHOOSE_IF_WANTS_DEDICATED_GRAPHICS_CARD, "1"))
+    then
+        $hypothesis.prefersDedicatedGPU = true;
+        update($hypothesis);
+end
+
+// USER DOESNT choose prefered gpu
+rule "r7bf1 - System doesn't choose a Dedicated GPU but user wants one"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == false && budgetType != BudgetType.BAIXO && finality != Finality.NA && minStorage != null && minRAM!=0 && durationDayChoice!=0)
+        eval(UI.answer(Questions.CHOOSE_IF_WANTS_DEDICATED_GRAPHICS_CARD, "2"))
+    then
+        $hypothesis.prefersDedicatedGPU = false;
+        update($hypothesis);
+end
+
+
+// CHOOSING DEDICATED GRAPHICS CARD
+
+rule "r8a1 - Choose GPU Manufacturer, answer INTEL"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
+        eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
+    then
+    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.NVIDIA;
+    update($hypothesis);
+end
+
+rule "r8a2 - Choose GPU Manufacturer, answer INTEL"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
+        eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
+    then
+    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.AMD;
+    update($hypothesis);
+end
+
+rule "r8a3 - Choose GPU Manufacturer, answer INTEL"
+    no-loop
+    when
+        $hypothesis : Hypothesis(needsDedicatedGPU == true || prefersDedicatedGPU == true)
+        eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "3"))
+    then
+    $hypothesis.gpuBrandPreferred = GPU.GPUBrand.NA;
+    update($hypothesis);
+end
+
+// Question Brand GPU preference
+
+rule "r8b1 - Finality is Gaming, user has GPU brand preference"
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality == Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "1"))
+    then
+        Scanner in = new Scanner(System.in);
+        System.out.println("Indique a marca pretendida:");
+        String s = in.nextLine();
+        $hypothesis.preferredGPUBrand = s;
+        update($hypothesis);
+end
+
+rule "r9a1 - User has CPU manufacturer preference, INTEL "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality != Finality.NA  && minStorage != null && minRAM!=0 && durationDayChoice!=0 && needsDedicatedGPU != null && prefersDedicatedGPU != null && minRAMSpeed !=0 && minStorage!=null)
+        eval(UI.answer(Questions.CHOOSE_CPU_MANUFACTURER, "1"))
+    then
+    $hypothesis.cpuManufacturerPreferred = "INTEL";
+        update($hypothesis);
+end
+
+rule "r9a2 - User has CPU manufacturer preference, AMD "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality != Finality.NA && minStorage != null && minRAM!=0 && durationDayChoice!=0 && needsDedicatedGPU != null && prefersDedicatedGPU != null && minRAMSpeed !=0 && minStorage!=null)
+        eval(UI.answer(Questions.CHOOSE_CPU_MANUFACTURER, "2"))
+    then
+    $hypothesis.cpuManufacturerPreferred = "AMD";
+        update($hypothesis);
+end
+
+rule "r10a1 - Finality is Gaming, user wants to do OC and prefers WaterCooling "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality == Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
+        eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "1"))
+    then
+    $hypothesis.needsCPUCooler = true;
+    $hypothesis.cpuCooler.isWaterCooled = true;
+        update($hypothesis);
+end
+
+rule "r10a2 - Finality is Gaming, user wants to do OC and prefers Fanless "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality == Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
+        eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "2"))
+    then
+    $hypothesis.needsCPUCooler = true;
+    $hypothesis.cpuCooler.isFanless = true;
+        update($hypothesis);
+end
+
+rule "r10a3 - Finality is Gaming, user wants to do OC and prefers Normal or doesnt have preference "
+    no-loop
+    when
+        $hypothesis : Hypothesis(finality == Finality.GAMING)
+        eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
+        eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "3") || UI.answer(Questions.CHOOSE_COOLER_TYPE, "4"))
+    then
+    $hypothesis.needsCPUCooler = true;
+        update($hypothesis);
+end
+
+rule "r11a1 - Choose Environment Energy Efficiency Instability, answer Negative"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality != Finality.NA && budgetType !=budgetType.NA && finality != finality.NA && durationDayChoice != null && minStorage != null && minScndStorage != null && minRAM !=null &&  needsDedicatedGPU!=null && gpuBrandPreferred!=null && needsCPUCooler!=null && caseColorPreferred!=null && cpuCooler!=null && caseSizePreferred!=null && caseColorPreferred!=null && preferredGPUBrand!=null)
+        eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "1"))
+	then
+        $hypothesis.minEnergyEfficiencyNeeded=EnergyEfficiency._80PLUS;
+        update($hypothesis);
+end
+
+rule "r11a2 - Choose Environment Energy Efficiency, answer Positive, a bit problematic"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality != Finality.NA && budgetType !=budgetType.NA && finality != finality.NA && durationDayChoice != null && minStorage != null && minScndStorage != null && minRAM !=null &&  needsDedicatedGPU!=null && gpuBrandPreferred!=null && needsCPUCooler!=null && caseColorPreferred!=null && cpuCooler!=null && caseSizePreferred!=null && caseColorPreferred!=null && preferredGPUBrand!=null)
+        eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "2"))
+	then
+        $hypothesis.minEnergyEfficiencyNeeded=EnergyEfficiency._80PLUS_GOLD;
+        update($hypothesis);
+
+end
+
+rule "r11a3 - Choose Environment Energy Efficiency, answer Positive, serious issue"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality != Finality.NA && budgetType !=budgetType.NA && finality != finality.NA && durationDayChoice != null && minStorage != null && minScndStorage != null && minRAM !=null &&  needsDedicatedGPU!=null && gpuBrandPreferred!=null && needsCPUCooler!=null && caseColorPreferred!=null && cpuCooler!=null && caseSizePreferred!=null && caseColorPreferred!=null && preferredGPUBrand!=null )
+        eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "3"))
+	then
+        $hypothesis.minEnergyEfficiencyNeeded=EnergyEfficiency._80PLUS_PLATINUM;
+        update($hypothesis);
+
+end
+
+rule "r12a1 - Choose Case Color, answer Black"
+	no-loop
+    when
+	    $hypothesis : Hypothesis(finality != Finality.NA && budgetType !=budgetType.NA && finality != finality.NA && durationDayChoice != null && minStorage != null && minScndStorage != null && minRAM !=null &&  needsDedicatedGPU!=null && gpuBrandPreferred!=null && needsCPUCooler!=null && caseColorPreferred!=null && cpuCooler!=null && caseSizePreferred!=null  && preferredGPUBrand!=null)
+        eval(UI.answer(Questions.CHOOSE_OPTIONAL_CASE_COLOR, "1"))
+        eval(UI.answer(Questions.CHOOSE_CASE_COLOR, "1"))
+	then
+	    $hypothesis.caseColorPreferred="black";
+        update($hypothesis);
+end
+
+
+
+rule "r12a2 - Choose Case Color, answer White"
+	no-loop
+    when
+	    $hypothesis : Hypothesis( finality != Finality.NA && budgetType !=budgetType.NA && finality != finality.NA && durationDayChoice != null && minStorage != null && minScndStorage != null && minRAM !=null &&  needsDedicatedGPU!=null && gpuBrandPreferred!=null && needsCPUCooler!=null && caseColorPreferred!=null && cpuCooler!=null && caseSizePreferred!=null  && preferredGPUBrand!=null)
+        eval(UI.answer(Questions.CHOOSE_OPTIONAL_CASE_COLOR, "1"))
+        eval(UI.answer(Questions.CHOOSE_CASE_COLOR, "2"))
+	then
+	  $hypothesis.caseColorPreferred="white";
+      update($hypothesis);
+
      end
 
-rule "r11"
+rule "r12a1 - Choose Case Size, answer Micro-ATX "
+	no-loop
     when
-        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_SIMPLES)
-    then
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.minRAMPreferred = 8;
-        update($hypothesis);
-     end
+	    $hypothesis : Hypothesis( finality != Finality.NA && budgetType !=budgetType.NA && finality != finality.NA && durationDayChoice != null && minStorage != null && minScndStorage != null && minRAM !=null &&  needsDedicatedGPU!=null && gpuBrandPreferred!=null && needsCPUCooler!=null && caseColorPreferred!=null && cpuCooler!=null && preferredGPUBrand!=null  )
+        eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "1"))
+	then
+	  $hypothesis.caseSizePreferred=Case.TowerSizeType.MID_TOWER;
+      update($hypothesis);
 
-rule "r12"
+end
+rule "r12a2 - Choose Case Size, answer Mini-ATX"
+	no-loop
     when
-        $hypothesis : Hypothesis(Finality == Finality.NAVEGACAO_WEB_COMPLEXO)
-    then
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.minRAMPreferred = 16;
-        update($hypothesis);
-     end
+	    $hypothesis : Hypothesis( finality != Finality.NA && budgetType !=budgetType.NA && finality != finality.NA && durationDayChoice != null && minStorage != null && minScndStorage != null && minRAM !=null &&  needsDedicatedGPU!=null && gpuBrandPreferred!=null && needsCPUCooler!=null && caseColorPreferred!=null && cpuCooler!=null && preferredGPUBrand!=null )
+        eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "2"))
+	then
+	  $hypothesis.caseSizePreferred=Case.TowerSizeType.MICRO_ATX_TOWER;
+      update($hypothesis);
 
-rule "r13"
+end
+rule "r12a3 - Choose Case Size, answer MID Tower"
+	no-loop
     when
-        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_BASICO)
-    then
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.minRAMPreferred = 8;
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
-        System.out.println("1. Word/excel/PowerPoint \n");
-        System.out.println("2. Imagens ");
-        int choice = Integer.parseInt(br.readLine());
-        if(choice == 1) $hypothesis.storage.capacityGB = "240";
-        else if(choice==2) $hypothesis.storage.capacityGB = "480";
-        update($hypothesis);
-     end
-
-rule "r12"
-    when
-        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_OFFICE_PROFISSIONAL)
-    then
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.minRAMPreferred = 16;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
-        System.out.println("1. Word/excel/PowerPoint \n");
-        System.out.println("2. Imagens ");
-        int choice = Integer.parseInt(br.readLine());
-        if(choice == 1) $hypothesis.storage.capacityGB = "240";
-        else if(choice==2) $hypothesis.storage.capacityGB = "480";
-        update($hypothesis);
-     end
-
-rule "r13"
-    when
-        $hypothesis : Hypothesis(Finality == Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS || Finality == Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS)
-    then
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.storage.capacityGB = "240";
-        $hypothesis.storage.isSSD = true;
-        $hypothesis.minRAMPreferred = 480;
-        update($hypothesis);
-     end
-
-
-rule "r8"
-	when
-		$hypothesis : Hypothesis( finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO ||
-		 finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
+	    $hypothesis : Hypothesis( finality != Finality.NA && budgetType !=budgetType.NA && finality != finality.NA && durationDayChoice != null && minStorage != null && minScndStorage != null && minRAM !=null &&  needsDedicatedGPU!=null && gpuBrandPreferred!=null && needsCPUCooler!=null && caseColorPreferred!=null && cpuCooler!=null && preferredGPUBrand!=null )
+        eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "3"))
 	then
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Quando tempo irá utilizar o computador por dia? \n");
-        System.out.println("1. 2 a 4 horas \n");
-        System.out.println("2. Mais de 4 horas \n");
-        int choice = Integer.parseInt(br.readLine());
-        $hypothesis.durationDayChoice = choice;
-        update($hypothesis);
+	  $hypothesis.caseSizePreferred=Case.TowerSizeType.MINI_ATX_TOWER;
+      update($hypothesis);
 
 end
 
-rule "r9"
-	when
-		$hypothesis : Hypothesis( finality != Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES && finality != Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO &&
-		 finality != Hypothesis.Finality.APLICACOES_OFFICE_BASICO && finality != Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL )
-	then
-		$hypothesis.durationDayChoice = 2;
-        update($hypothesis);
-end
-
-
-
-rule "r10"
-	when
-		$hypothesis : Hypothesis (finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES || finality == Hypothesis.Finality.NAVEGACAO_WEB_COMPLEXO)
-	then
-	    Storage storage = new Storage();
-	    storage.isSSD = true;
-	    storage.capacityGB = "240";
-        List<Storage> storageList = Questions.questionStorage(storage);
-        if(storageList.size() == 2){
-            $hypothesis.scndStorage = storageList.get(1);
-        }
-        $hypothesis.storage = storageList.get(0);
-        update($hypothesis);
-end
-
-rule "r11"
-	when
-		$hypothesis : Hypothesis (finality == Hypothesis.Finality.APLICACOES_OFFICE_BASICO || finality == Hypothesis.Finality.APLICACOES_OFFICE_PROFISSIONAL)
-	then
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		Storage storage = new Storage();
-        storage.isSSD = true;
-        System.out.println("Que tipo de ficheiros irão ser mais utilizados? \n");
-        System.out.println("1. Word/excel/PowerPoint \n");
-        System.out.println("2. Imagens ");
-        int choice = Integer.parseInt(br.readLine());
-        if(choice ==1) storage.capacityGB = "240";
-        else if (choice == 2) storage.capacityGB = "480";
-        List<Storage> storageList = Questions.questionStorage(storage);
-        if(storageList.size() == 2){
-            $hypothesis.scndStorage = storageList.get(1);
-        }
-        $hypothesis.storage = storageList.get(0);
-        update($hypothesis);
-end
-
-rule "r12"
-	when
-		$hypothesis : Hypothesis (finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_COM_BASE_DADOS || finality == Hypothesis.Finality.APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS)
-	then
-		Storage storage = new Storage();
-        storage.isSSD = true;
-        storage.capacityGB = "480";
-        List<Storage> storageList = Questions.questionStorage(storage);
-        if(storageList.size() == 2){
-           $hypothesis.scndStorage = storageList.get(1);
-        }
-        $hypothesis.storage = storageList.get(0);
-        update($hypothesis);
-end
-
-rule "r13"
-	when
-		$hypothesis : Hypothesis (finality == Hypothesis.Finality.NAVEGACAO_WEB_SIMPLES && )
-	then
-        System.out.println("O sistema sugeriu a quantidade de RAM mínima, aceita ou prefere aumentar?");
-        System.out.println("RAM sugerida:" + ram);
-        System.out.println("1. ");
-
-        update($hypothesis);
-end
-
-
-
-rule "unknown"
-	when
-		not Conclusion()
-	then
-		Conclusion c = new Conclusion(Conclusion.UNKNOWN);
-		insert(c);
-end
 
