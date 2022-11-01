@@ -13,15 +13,12 @@ public class Hypothesis {
     public int maxBudget = 0;
     public BudgetType budgetType = BudgetType.NA;
 
-
-
     public Finality finality = Finality.NA;
 
     public int durationDayChoice = 0;
 
     public Storage minStorage = new Storage();
     public Storage minScndStorage = new Storage();
-    public int finalityEstimatedDurationTime = 0;
     public int minRAM = 0;
     public int minRAMSpeed = 0;
     public int minRAMPreferred = 0;
@@ -38,7 +35,7 @@ public class Hypothesis {
     public CPUCooler cpuCooler = new CPUCooler();
 
 
-    public String preferredGPUBrand = "";
+    public String preferredGPUManufacturer = "";
 
 
     public int adequateMinCPUBenchmark = 0;
@@ -63,67 +60,83 @@ public class Hypothesis {
     }
 
     public void setBudgetType(BudgetType budgetType) {
+        Conclusion c = new Conclusion("Budget type of " + budgetType);
         this.budgetType = budgetType;
     }
 
     public void setFinality(Finality finality) {
+        Conclusion c = new Conclusion("Finality  " + finality);
         this.finality = finality;
     }
 
     public void setDurationDayChoice(int durationDayChoice) {
+        Conclusion c = new Conclusion("Uses the computer more than  " + durationDayChoice + " hours");
         this.durationDayChoice = durationDayChoice;
     }
 
-    public void setMinStorage(Storage minStorage) {
-        this.minStorage = minStorage;
+    public void setMinStorage(int capacity ) {
+        this.minStorage.isSSD = true;
+        this.minStorage.isSATA = false;
+        this.minStorage.capacity = capacity;
+        Conclusion c = new Conclusion("Storage " + minStorage);
     }
 
-    public void setMinScndStorage(Storage minScndStorage) {
-        this.minScndStorage = minScndStorage;
+    public void setMinScndStorage(int capacity ) {
+        this.minScndStorage.isSATA = true;
+        this.minScndStorage.isSSD = false;
+        this.minScndStorage.capacity = capacity;
+        Conclusion c = new Conclusion("Secondary Storage " + minStorage);
     }
 
-    public void setFinalityEstimatedDurationTime(int finalityEstimatedDurationTime) {
-        this.finalityEstimatedDurationTime = finalityEstimatedDurationTime;
-    }
 
     public void setMinRAM(int minRAM) {
+        Conclusion c = new Conclusion("RAM preferred by user " + minRAM);
         this.minRAM = minRAM;
     }
 
     public void setMinRAMSpeed(int minRAMSpeed) {
+        Conclusion c = new Conclusion("Minimum RAM speed required " + minRAMSpeed);
         this.minRAMSpeed = minRAMSpeed;
     }
 
     public void setMinRAMPreferred(int minRAMPreferred) {
+        Conclusion c = new Conclusion("Minimum RAM required " + minRAMPreferred);
         this.minRAMPreferred = minRAMPreferred;
     }
 
     public void setNeedsDedicatedGPU(boolean needsDedicatedGPU) {
+        Conclusion c = new Conclusion("Needs dedicated GPU");
         this.needsDedicatedGPU = needsDedicatedGPU;
     }
 
     public void setPrefersDedicatedGPU(boolean prefersDedicatedGPU) {
+        Conclusion c = new Conclusion("User prefers dedicated GPU");
         this.prefersDedicatedGPU = prefersDedicatedGPU;
     }
 
     public void setGpuBrandPreferred(GPUBrand gpuBrandPreferred) {
+        Conclusion c = new Conclusion("User prefers GPUs of brand " + gpuBrandPreferred);
         this.gpuBrandPreferred = gpuBrandPreferred;
     }
 
     public void setCpuManufacturerPreferred(String cpuManufacturerPreferred) {
+        Conclusion c = new Conclusion("User prefers CPUs of manufacturer " + cpuManufacturerPreferred);
         this.cpuManufacturerPreferred = cpuManufacturerPreferred;
     }
 
     public void setNeedsCPUCooler(boolean needsCPUCooler) {
+        Conclusion c = new Conclusion("User wants CPU cooler");
         this.needsCPUCooler = needsCPUCooler;
     }
 
     public void setCpuCooler(CPUCooler cpuCooler) {
+        Conclusion c = new Conclusion("User chooses CPU cooler");
         this.cpuCooler = cpuCooler;
     }
 
-    public void setPreferredGPUBrand(String preferredGPUBrand) {
-        this.preferredGPUBrand = preferredGPUBrand;
+    public void setPreferredGPUManufacturer(String preferredGPUManufacturer) {
+        Conclusion c = new Conclusion("User prefers GPUs of manufacturer " + preferredGPUManufacturer);
+        this.preferredGPUManufacturer = preferredGPUManufacturer;
     }
 
     public void setAdequateMinCPUBenchmark(int adequateMinCPUBenchmark) {
