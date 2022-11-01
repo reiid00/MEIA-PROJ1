@@ -194,5 +194,3 @@ explain_why_not([P|LPF], Level):-
 
 format(Level):-
 	Esp is (Level - 1) * 5, tab(Esp).
-% Teste!!!
-% verify_conditions([not budgetType(NA)and not budgetType(BAIXO)and evalQuestion(askQuestion(choose_finality_non_low_budget,2))and evalQuestion(askQuestion(choose_finality_aplicacoes_office,1))],L). 
