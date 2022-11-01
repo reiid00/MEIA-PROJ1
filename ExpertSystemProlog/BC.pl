@@ -5,7 +5,7 @@
 :-dynamic case/8. 
 numAtributos(case, 8).
 
-% cpu(ID, Manufacturer, Name, BasePrice, LaunchDate, CoreCount, ThreadsCount, BoostClock, Voltage, Benchmark, Socket, HasIntegratedGPU)
+% cpu(ID, Manufacturer, Name, BasePrice, LaunchDate, CoreCount, ThreadsCount, BoostClock, Voltage, BenchmarkScore, Socket, HasIntegratedGPU)
 :-dynamic cpu/12.
 numAtributos(cpu, 12).
 
@@ -88,18 +88,18 @@ assertCPUs([]):- !.
 assertCPUs([X|Lines]):- 
         numAtributos(cpu, NumAtributos),
         length(X, NumAtributos),!,
-        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, CoreCount1, ThreadsCount1, BoostClock1, Voltage1, Benchmark1, Socket, HasIntegratedGPU1],
+        X = [ID, Manufacturer, Name, BasePrice1, LaunchDate, CoreCount1, ThreadsCount1, BoostClock1, Voltage1, BenchmarkScore1, Socket, HasIntegratedGPU1],
         number_string(BasePrice, BasePrice1),
         number_string(CoreCount, CoreCount1),
         number_string(ThreadsCount, ThreadsCount1),
         number_string(BoostClock, BoostClock1),
         number_string(Voltage, Voltage1),
-        number_string(Benchmark, Benchmark1),
+        number_string(BenchmarkScore, BenchmarkScore1),
 
-        (HasIntegratedGPU1 == 'true', !, HasIntegratedGPU = true
+        (HasIntegratedGPU1 == "true", !, HasIntegratedGPU = true
         ; HasIntegratedGPU = false),
 
-        assert(cpu(ID, Manufacturer, Name, BasePrice, LaunchDate, CoreCount, ThreadsCount, BoostClock, Voltage, Benchmark, Socket, HasIntegratedGPU)),
+        assert(cpu(ID, Manufacturer, Name, BasePrice, LaunchDate, CoreCount, ThreadsCount, BoostClock, Voltage, BenchmarkScore, Socket, HasIntegratedGPU)),
         assertCPUs(Lines).
 assertCPUs([_|Lines]):- assertCPUs(Lines).
 
@@ -117,10 +117,10 @@ assertCPUCoolers([X|Lines]):-
         number_string(BasePrice, BasePrice1),
         number_string(Voltage, Voltage1),
 
-        (IsWaterCooled1 == 'true', !, IsWaterCooled = true
+        (IsWaterCooled1 == "true", !, IsWaterCooled = true
         ; IsWaterCooled = false),
 
-        (IsFanless1 == 'true', !, IsFanless = true
+        (IsFanless1 == "true", !, IsFanless = true
         ; IsFanless = false),
 
         string_length(SocketCompatibilityList1, N_SocketCompatibilityList1),
@@ -220,12 +220,12 @@ assertStorages([X|Lines]):-
         number_string(Cache, Cache1),
         number_string(BenchmarkScore, BenchmarkScore1),
 
-        (IsSSD1 == 'true', !, IsSSD = true
+        (IsSSD1 == "true", !, IsSSD = true
         ; IsSSD = false),
 
-        (IsSATA1 == 'true', !, IsSATA = true
+        (IsSATA1 == "true", !, IsSATA = true
         ; IsSATA = false),
-       
+        
         assert(storage(ID, Manufacturer, Name, BasePrice, LaunchDate, IsSSD, IsSATA, Capacity, Cache, BenchmarkScore)),
         assertStorages(Lines).
 assertStorages([_|Lines]):- assertStorages(Lines).

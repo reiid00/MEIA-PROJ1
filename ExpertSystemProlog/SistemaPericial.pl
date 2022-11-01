@@ -4,6 +4,7 @@
 :- consult('BC.pl').
 :- consult('UI.pl').
 :- consult('Regras.pl').
+:- consult('Solucao.pl').
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Utils

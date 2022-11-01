@@ -194,210 +194,210 @@ rule "r5a1" priorityGroup 1
         when
 	[finality("NAVEGACAO_WEB_SIMPLES") and evalQuestion(askQuestion(choose_file_type, 1)) and evalQuestion(askQuestion(choose_duration_per_day, 1))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(8)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(8)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
 
 % File Type and Daily use question when Finality is Simple Web Navigation and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM
 rule "r5a2" priorityGroup 1
         when
 	[finality("NAVEGACAO_WEB_SIMPLES") and evalQuestion(askQuestion(choose_file_type, 1)) and evalQuestion(askQuestion(choose_duration_per_day, 2))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(8)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(8)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
 
 % File Type and Daily use question when Finality is Simple Web Navigation and answers are Images and 2 to 4 hours a day - used to find define ideal storage and RAM
 rule "r5a3" priorityGroup 1
         when
 	[finality("NAVEGACAO_WEB_SIMPLES") and evalQuestion(askQuestion(choose_file_type, 2)) and evalQuestion(askQuestion(choose_duration_per_day, 1))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minStorage_minRAMPreferred(8)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minRAM(8)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
 
 % File Type and Daily use question when Finality is Simple Web Navigation and answers are Images and more than 4 hours a day - used to find define ideal storage and RAM
 rule "r5a4" priorityGroup 1
         when
 	[finality("NAVEGACAO_WEB_SIMPLES") and evalQuestion(askQuestion(choose_file_type, 2)) and evalQuestion(askQuestion(choose_duration_per_day, 2))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minStorage_minRAMPreferred(8)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minRAM(8)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
 
 % File Type and Daily use question when Finality is Complex Web Navigation and answers are Word/excel/PowerPoint and 2 to 4 hours a day - used to find define ideal storage and RAM
 rule "r5b1" priorityGroup 1
         when
 	[finality("NAVEGACAO_WEB_COMPLEXO") and evalQuestion(askQuestion(choose_file_type, 1)) and evalQuestion(askQuestion(choose_duration_per_day, 1))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
 
 % File Type and Daily use question when Finality is Complex Web Navigation and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM
 rule "r5b2" priorityGroup 1
         when
 	[finality("NAVEGACAO_WEB_COMPLEXO") and evalQuestion(askQuestion(choose_file_type, 1)) and evalQuestion(askQuestion(choose_duration_per_day, 2))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
 
 % File Type and Daily use question when Finality is Complex Web Navigation and answers are Images and 2 to 4 hours a day - used to find define ideal storage and RAM
 rule "r5b3" priorityGroup 1
         when
 	[finality("NAVEGACAO_WEB_COMPLEXO") and evalQuestion(askQuestion(choose_file_type, 2)) and evalQuestion(askQuestion(choose_duration_per_day, 1))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
 
 % File Type and Daily use question when Finality is Complex Web Navigation and answers are Images and more than 4 hours a day - used to find define ideal storage and RAM
 rule "r5b4" priorityGroup 1
         when
 	[finality("NAVEGACAO_WEB_COMPLEXO") and evalQuestion(askQuestion(choose_file_type, 2)) and evalQuestion(askQuestion(choose_duration_per_day, 2))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(120)) and  insert_fact(durationDayChoice(2))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(120)) and  insert_fact(durationDayChoice(2))].
 
 % File Type and Daily use question when Finality is Simple Office Applications and answers are Word/excel/PowerPoint and 2 to 4 hours a day - used to find define ideal storage and RAM
 rule "r5c1" priorityGroup 1
         when
 	[finality("APLICACOES_OFFICE_BASICO") and evalQuestion(askQuestion(choose_file_type, 1)) and evalQuestion(askQuestion(choose_duration_per_day, 1))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(8)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(8)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
 
 % File Type and Daily use question when Finality is Simple Office Applications and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM
 rule "r5c2" priorityGroup 1
         when
 	[finality("APLICACOES_OFFICE_BASICO") and evalQuestion(askQuestion(choose_file_type, 1)) and evalQuestion(askQuestion(choose_duration_per_day, 2))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(8)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(8)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
 
 % File Type and Daily use question when Finality is Simple Office Applications and answers are Images and 2 to 4 hours a day - used to find define ideal storage and RAM
 rule "r5c3" priorityGroup 1
 	when
 	[finality("APLICACOES_OFFICE_BASICO") and evalQuestion(askQuestion(choose_file_type, 2)) and evalQuestion(askQuestion(choose_duration_per_day, 1))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(8)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(8)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(1))].
 
 % File Type and Daily use question when Finality is Simple Office Applications and answers are Images and more than 4 hours a day - used to find define ideal storage and RAM
 rule "r5c4" priorityGroup 1
         when
 	[finality("APLICACOES_OFFICE_BASICO") and evalQuestion(askQuestion(choose_file_type, 2)) and evalQuestion(askQuestion(choose_duration_per_day, 2))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minStorage_minRAMPreferred(8)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minRAM(8)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(120)), insert_fact(durationDayChoice(2))].
 
 % File Type and Daily use question when Finality is Professional Office Applications and answers are Word/excel/PowerPoint and 2 to 4 hours a day - used to find define ideal storage and RAM
 rule "r5d1" priorityGroup 1
 	when
 	[finality("APLICACOES_OFFICE_PROFISSIONAL") and evalQuestion(askQuestion(choose_file_type, 1)) and evalQuestion(askQuestion(choose_duration_per_day, 1))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(durationDayChoice(1))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(durationDayChoice(1))].
 
 % File Type and Daily use question when Finality is Professional Office Applications and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM
 rule "r5d2" priorityGroup 1
 	when
 	[finality("APLICACOES_OFFICE_PROFISSIONAL") and evalQuestion(askQuestion(choose_file_type, 1)) and evalQuestion(askQuestion(choose_duration_per_day, 2))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(durationDayChoice(2))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(durationDayChoice(2))].
 
 % File Type and Daily use question when Finality is Professional Office Applications and answers are Images and 2 to 4 hours a day - used to find define ideal storage and RAM
 rule "r5d3" priorityGroup 1
 	when
 	[finality("APLICACOES_OFFICE_PROFISSIONAL") and evalQuestion(askQuestion(choose_file_type, 2)) and evalQuestion(askQuestion(choose_duration_per_day, 1))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(durationDayChoice(1))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(durationDayChoice(1))].
 
 % File Type and Daily use question when Finality is Professional Office Applications and answers are Word/excel/PowerPoint and more than 4 hours a day - used to find define ideal storage and RAM
 rule "r5d4" priorityGroup 1
         when
 	[finality("APLICACOES_OFFICE_PROFISSIONAL") and evalQuestion(askQuestion(choose_file_type, 2)) and evalQuestion(askQuestion(choose_duration_per_day, 2))]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(durationDayChoice(2))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(durationDayChoice(2))].
 
 % When Finality is Professional Applications without DB - used to find define ideal storage and RAM
 rule "r5e1" priorityGroup 1
 	when
 	[finality("APLICACOES_PROFISSIONAIS_SEM_BASE_DADOS")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140))].
 
 % When Finality is Professional Applications with Local DB - used to find define ideal storage and RAM
 rule "r5e21" priorityGroup 1
 	when
 	[finality("APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_LOCAIS")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(140))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(480)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(140))].
 
 % When Finality is Professional Applications with Remote DB - used to find define ideal storage and RAM
 rule "r5e22" priorityGroup 1
 	when
 	[finality("APLICACOES_PROFISSIONAIS_COM_BASE_DADOS_REMOTAS")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140))].
 
 % When Finality is Basic Games - used to find define ideal storage and RAM
 rule "r5d1" priorityGroup 1
         when
 	[finality("JOGOS_BASICOS")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(16)), insert_fact(minStorage_minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(adequateMinGPUBenchmark(100))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(16)), insert_fact(minRAMSpeed(3600)), insert_fact(adequateMinCPUBenchmark(140)), insert_fact(adequateMinGPUBenchmark(100))].
 
 % When Finality is Advanced Programs of 3D Modelation - used to find define ideal storage and RAM
 rule "r5e1" priorityGroup 1
 	when
 	[finality("PROGRAMAS_AVANCADOS_MODELACAO_3D")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170))].
 
 % When Finality is Advanced Programs of Graphic Design - used to find define ideal storage, RAM and CPU
 rule "r5e2" priorityGroup 1
 	when
 	[finality("PROGRAMAS_AVANCADOS_DESIGN_GRAFICO")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170))].
 
 % When Finality is Advanced Programs of Mathematic Calculus - used to find define ideal storage, RAM and CPU
 rule "r5e3" priorityGroup 1
         when
 	[finality("PROGRAMAS_AVANCADOS_CALCULO_MATEMATICO")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170))].
 
 % When Finality is Basic Image Treatment - used to find define ideal storage, RAM and CPU
 rule "r5f1" priorityGroup 1
 	when
 	[finality("TRATAMENTO_DE_IMAGEM_BASICO")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minScndStorage_capacity(1000)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minScndStorage_capacity(1000)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170))].
 
 % When Finality is Professional Image Treatment - used to find define ideal storage, RAM and CPU
 rule "r5f2" priorityGroup 1
 	when
 	[finality("TRATAMENTO_DE_IMAGEM_PROFISSIONAL")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minScndStorage_capacity(2000)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(3200)), insert_fact(adequateMinCPUBenchmark(180))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minScndStorage_capacity(2000)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(3200)), insert_fact(adequateMinCPUBenchmark(180))].
 
 % When Finality is 4K/8K Video Editing - used to find define ideal storage, RAM and CPU
 rule "r5g1" priorityGroup 1
 	when
 	[finality("EDICAO_DE_VIDEO_4k_8K")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minScndStorage_capacity(1000)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(100))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minScndStorage_capacity(1000)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(100))].
 
 % When Finality is Gaming and Budget Type is Medium Low  - used to find define ideal storage, RAM, CPU and GPU
 rule "r5h11" priorityGroup 1
 	when
 	[finality("GAMING") and budgetType("MEDIO_BAIXO")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(120))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(120))].
 
 % When Finality is Gaming and Budget Type is Medium - used to find define ideal storage, RAM, CPU and GPU
 rule "r5h12" priorityGroup 1
 	when
 	[finality("GAMING") and budgetType("MEDIO")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(120))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(120))].
 
 % When Finality is Gaming and Budget Type is Medium High - used to find define ideal storage, RAM, CPU and GPU
 rule "r5h13" priorityGroup 1
 	when
 	[finality("GAMING") and budgetType("MEDIO_ALTO")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(170))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(170))].
 
 % When Finality is Gaming and Budget Type is High - used to find define ideal storage, RAM, CPU and GPU
 rule "r5h14" priorityGroup 1
         when
 	[finality("GAMING") and budgetType("ALTO")]
 	then
-        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minStorage_minRAMPreferred(32)), insert_fact(minStorage_minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(200))].
+        [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(200))].
 
 % System doesn't need a Dedicated GPU but user prefers having one
 rule "r7bf1a" priorityGroup 2
@@ -413,14 +413,14 @@ rule "r7bf1b" priorityGroup 2
         then
         [insert_fact(prefersDedicatedGPU(false))].
 
-% User needs dedicated GPU has manufacturer preference, answer INTEL
+% User needs dedicated GPU has manufacturer preference, answer NVIDIA
 rule "r8a1a" priorityGroup 2
         when
         [needsDedicatedGPU(true) and evalQuestion(askQuestion(choose_gpu_manufacturer, 1))]
         then
         [insert_fact(gpuManufacturerPreferred("NVIDIA"))].
 
-% User prefers dedicated GPU and has manufacturer preference, answer INTEL
+% User prefers dedicated GPU and has manufacturer preference, answer NVIDIA
 rule "r8a1b" priorityGroup 2
         when
         [prefersDedicatedGPU(true) and evalQuestion(askQuestion(choose_gpu_manufacturer, 1))]
@@ -517,14 +517,14 @@ rule "r12a1" priorityGroup 5
         when
         [evalQuestion(askQuestion(choose_optional_case_color, 1)) and evalQuestion(askQuestion(choose_case_color, 1))]
 	then
-        [insert_fact(caseColorPreferred("black"))].
+        [insert_fact(caseColorPreferred("Black"))].
 
 % Choose Case Color, answer White
 rule "r12a2" priorityGroup 5
         when
         [evalQuestion(askQuestion(choose_optional_case_color, 1)) and evalQuestion(askQuestion(choose_case_color, 2))]
 	then
-        [insert_fact(caseColorPreferred("white"))].
+        [insert_fact(caseColorPreferred("White"))].
 
 % Choose Case Size, answer Micro-ATX
 rule "r12a1" priorityGroup 5
