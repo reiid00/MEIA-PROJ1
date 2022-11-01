@@ -12,6 +12,9 @@ public class Hypothesis {
     public int minBudget = 0; // opcional
     public int maxBudget = 0;
     public BudgetType budgetType = BudgetType.NA;
+
+
+
     public Finality finality = Finality.NA;
 
     public int durationDayChoice = 0;
@@ -48,6 +51,99 @@ public class Hypothesis {
     public EnergyEfficiency minEnergyEfficiencyNeeded = EnergyEfficiency.NA;
 
     public Hypothesis() {
+    }
+
+    public void setMinBudget(int minBudget) {
+        this.minBudget = minBudget;
+        Conclusion c = new Conclusion("budget was set");
+    }
+
+    public void setMaxBudget(int maxBudget) {
+        this.maxBudget = maxBudget;
+    }
+
+    public void setBudgetType(BudgetType budgetType) {
+        this.budgetType = budgetType;
+    }
+
+    public void setFinality(Finality finality) {
+        this.finality = finality;
+    }
+
+    public void setDurationDayChoice(int durationDayChoice) {
+        this.durationDayChoice = durationDayChoice;
+    }
+
+    public void setMinStorage(Storage minStorage) {
+        this.minStorage = minStorage;
+    }
+
+    public void setMinScndStorage(Storage minScndStorage) {
+        this.minScndStorage = minScndStorage;
+    }
+
+    public void setFinalityEstimatedDurationTime(int finalityEstimatedDurationTime) {
+        this.finalityEstimatedDurationTime = finalityEstimatedDurationTime;
+    }
+
+    public void setMinRAM(int minRAM) {
+        this.minRAM = minRAM;
+    }
+
+    public void setMinRAMSpeed(int minRAMSpeed) {
+        this.minRAMSpeed = minRAMSpeed;
+    }
+
+    public void setMinRAMPreferred(int minRAMPreferred) {
+        this.minRAMPreferred = minRAMPreferred;
+    }
+
+    public void setNeedsDedicatedGPU(boolean needsDedicatedGPU) {
+        this.needsDedicatedGPU = needsDedicatedGPU;
+    }
+
+    public void setPrefersDedicatedGPU(boolean prefersDedicatedGPU) {
+        this.prefersDedicatedGPU = prefersDedicatedGPU;
+    }
+
+    public void setGpuBrandPreferred(GPUBrand gpuBrandPreferred) {
+        this.gpuBrandPreferred = gpuBrandPreferred;
+    }
+
+    public void setCpuManufacturerPreferred(String cpuManufacturerPreferred) {
+        this.cpuManufacturerPreferred = cpuManufacturerPreferred;
+    }
+
+    public void setNeedsCPUCooler(boolean needsCPUCooler) {
+        this.needsCPUCooler = needsCPUCooler;
+    }
+
+    public void setCpuCooler(CPUCooler cpuCooler) {
+        this.cpuCooler = cpuCooler;
+    }
+
+    public void setPreferredGPUBrand(String preferredGPUBrand) {
+        this.preferredGPUBrand = preferredGPUBrand;
+    }
+
+    public void setAdequateMinCPUBenchmark(int adequateMinCPUBenchmark) {
+        this.adequateMinCPUBenchmark = adequateMinCPUBenchmark;
+    }
+
+    public void setAdequateMinGPUBenchmark(int adequateMinGPUBenchmark) {
+        this.adequateMinGPUBenchmark = adequateMinGPUBenchmark;
+    }
+
+    public void setCaseColorPreferred(String caseColorPreferred) {
+        this.caseColorPreferred = caseColorPreferred;
+    }
+
+    public void setCaseSizePreferred(TowerSizeType caseSizePreferred) {
+        this.caseSizePreferred = caseSizePreferred;
+    }
+
+    public void setMinEnergyEfficiencyNeeded(EnergyEfficiency minEnergyEfficiencyNeeded) {
+        this.minEnergyEfficiencyNeeded = minEnergyEfficiencyNeeded;
     }
 
     public enum Finality{
