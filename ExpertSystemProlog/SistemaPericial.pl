@@ -71,5 +71,43 @@ insert_fact(F, RuleID, LHSFacts):-
 	assert(fact(FactID, F)),
 	write('Foi concluído o Facto nº '), write(FactID), write(' -> '), write(F), nl,!.
 
-% Teste!!!
-% verify_conditions([not budgetType(NA)and not budgetType(BAIXO)and evalQuestion(askQuestion(choose_finality_non_low_budget,2))and evalQuestion(askQuestion(choose_finality_aplicacoes_office,1))],L). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Visualização da base de factos
+
+show_all_facts:-
+	findall(N, fact(N, _), LFacts),
+	print_facts(LFacts).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Explanation Module <----> How
+
+how(FactID):-
+	justifica(FactID, RuleID, LHSFacts),
+	fact(FactID, Fact), !,
+	write('Concluído o facto nº '), write(FactID), write(' -> '), write(Fact), nl,
+	write('pela regra '), write(RuleID), nl,
+	write('por se ter verificado que:'), nl,
+	print_facts(LHSFacts),
+	write('********************************************************'), nl,
+	explain(LHSFacts).
+how(_):- write('Esse facto não foi concluído.'), nl.
+
+print_facts([FactID|LFacts]):-
+	fact(FactID, Fact), !,
+	write('O facto nº '), write(FactID), write(' -> '), write(Fact), write(' é verdadeiro'), nl,
+	print_facts(LFacts).
+print_facts([Condition|LFacts]):-
+	write('A condição '), write(Condition), write(' é verdadeira'), nl,
+	print_facts(LFacts).
+print_facts([]).
+
+explain([Condition|LFacts]):- 
+	\+ integer(Condition), !,
+	explain(LFacts).
+explain([FactID|LFacts]):-
+	how(FactID),
+	explain(LFacts).
+explain([]):- write('********************************************************'), nl.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
