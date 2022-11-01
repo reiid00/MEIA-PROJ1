@@ -18,7 +18,7 @@ question(choose_optional_case_color, 'Tem preferência na cor da caixa? \n 1. Si
 question(choose_case_color, 'Qual das cores prefere?\n 1. Preto \n 2. Branco \n ', [1, 2]).
 question(choose_case_size, 'Pretende que tamanho de caixa?\n 1. Normal \n 2. Pequena \n 3. Muito pequena \n', [1, 2, 3]).
 question(choose_environment_energy_efficiency_instability, 'Considera o ambiente (casa/trabalho) onde pretende utilizar o PC como sendo instável/ineficiente energeticamente? \n 1. Não \n 2. Sim, um pouco problemático \n 3. Sim, é um problema muito grave',[1, 2, 3]).
-question(choose_gpu_manufacturer, 'Que fabricante de placas gráficas prefere? 1. Nvidia \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
+question(choose_gpu_manufacturer, 'Que fabricante de placas gráficas prefere? \n 1. Nvidia \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
 question(choose_if_wants_dedicated_graphics_card, 'Pretende realizar trabalhos mais pesados a nível gráfico (jogos, sistemas 3D)? \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_if_wants_preferred_gpu_brand, 'Tem preferência na marca da placa gráfica? \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_preferred_gpu_brand, 'Indique a marca pretendida \n',[]).
@@ -35,8 +35,8 @@ question(choose_cpu_oc, 'Pretende fazer OverClock ao CPU? \n 1. Sim \n 2. Nao \n
 question(choose_cooler_type, 'Que tipo de CPU Cooler pretende? \n 1. Water Cooling \n 2. Fanless \n 3. Normal \n 4. Indiferente \n',[1, 2, 3, 4]).
 
 askQuestion(QuestionID, Value) :- 
-    answer(QuestionID, Answer),!,
-    Answer == Value.
+    answer(QuestionID, Answer), !,
+    Answer = Value.
 askQuestion(QuestionID, Value) :- 
     question(QuestionID, Question, ListValidAnswers),
     write(Question), nl,
@@ -44,7 +44,7 @@ askQuestion(QuestionID, Value) :-
     (member(Answer, ListValidAnswers), !
     ; write('Resposta inválida, por favor tente novamente.'), nl, askQuestion(QuestionID, Value)),
     assert(answer(QuestionID, Answer)),
-    Answer == Value.
+    Answer = Value.
 
 askBudgetQuestion(MinValue, MaxValue) :- 
     answer(choose_budget, Answer),!,

@@ -15,9 +15,10 @@
 % Sistema Pericial
 
 arranca_motor():-	
-        loadBC(),
-        setof((ID, LHS, RHS), rule ID when LHS then RHS, LRegras),
-		dispara_regras(LRegras).
+	loadBC(),
+	setof((ID, LHS, RHS), rule ID when LHS then RHS, LRegras),
+	length(LRegras, N), write(N), write('  <--> Total de Regras'),nl,
+	dispara_regras(LRegras).
 
 dispara_regras([(ID, LHS, RHS)|LRegras]):-
 	verifica_condicoes(LHS, LHSFactos),
