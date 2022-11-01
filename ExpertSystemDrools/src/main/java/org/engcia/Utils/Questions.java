@@ -78,8 +78,12 @@ public class Questions {
                                                                         "2. Nao \n";
 
     public static final String CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND = "Tem preferência na marca da placa gráfica? \n" +
-                                                                    "1. Sim \n" +
-                                                                    "2. Nao \n";
+                                                                    "1. Sim, pretendo ASUS \n" +
+                                                                    "2. Sim, pretendo EVGA \n" +
+                                                                    "3. Sim, pretendo Gigabyte \n" +
+                                                                    "4. Sim, pretendo MSI \n" +
+                                                                    "5. Sim, pretendo Sapphire \n" +
+                                                                    "6. Nao \n";
 
     public static final String CHOOSE_GPU_BRAND = "Qual a marca que prefere? \n";
 
@@ -108,7 +112,7 @@ public class Questions {
 
 
     public static final String CHOOSE_CPU_OC = "Pretende fazer OverClock ao CPU? \n"+
-                                                "1. Sim, 32GB \n" +
+                                                "1. Sim \n" +
                                                 "2. Nao \n";
 
     public static final String CHOOSE_COOLER_TYPE = "Que tipo de CPU Cooler pretende? \n"+
