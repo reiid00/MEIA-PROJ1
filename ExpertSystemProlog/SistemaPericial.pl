@@ -9,62 +9,105 @@
 % Utils
 
 :-dynamic justifica/3.
-% justifica(FactID, RuleID, LHSFactos)
+% justifica(FactID, RuleID, LHSFacts)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sistema Pericial
 
-arranca_motor():-	
+start_engine():-	
 	loadBC(),
-	setof((ID, LHS, RHS), rule ID when LHS then RHS, LRegras),
-	length(LRegras, N), write(N), write('  <--> Total de Regras'),nl,
-	dispara_regras(LRegras).
+	getListOfUniqueRulesPriorityGroups(LRPGs),
+	fire_all_rules(LRPGs).
 
-dispara_regras([(ID, LHS, RHS)|LRegras]):-
-	verifica_condicoes(LHS, LHSFactos),
-	concluir(RHS, ID, LHSFactos),
+fire_all_rules([RPG|LRPGs]):- 
+	setof((ID, LHS, RHS), rule ID priorityGroup RPG when LHS then RHS, LRules),
+	length(LRules, N), write(N), write('  <--> Total de Regras do grupo '), write(RPG), nl,
+	fire_rules(LRules), fire_all_rules(LRPGs).
+fire_all_rules([]).
+
+fire_rules([(ID, LHS, RHS)|LRules]):-
+	verify_conditions(LHS, LHSFacts),
+	conclude(RHS, ID, LHSFacts),
 	!,
-	dispara_regras(LRegras).
-dispara_regras([_|LRegras]):- dispara_regras(LRegras).
-dispara_regras([]).
+	fire_rules(LRules).
+fire_rules([_|LRules]):- fire_rules(LRules).
+fire_rules([]).
 
-verifica_condicoes([not evalQuestion(X) and Y], [not X|LF]):- 
+verify_conditions([not evalQuestion(X) and Y], [not X|LF]):- 
     !,
 	\+ evalQuestion(X),
-	verifica_condicoes([Y],LF).
-verifica_condicoes([evalQuestion(X) and Y], [X|LF]):- 
+	verify_conditions([Y],LF).
+verify_conditions([evalQuestion(X) and Y], [X|LF]):- 
     !,
 	evalQuestion(X),
-	verifica_condicoes([Y],LF).
-verifica_condicoes([not X and Y], [not X|LF]):- 
+	verify_conditions([Y],LF).
+verify_conditions([not X and Y], [not X|LF]):- 
     !,
 	\+ fact(_, X),
-	verifica_condicoes([Y], LF).
-verifica_condicoes([X and Y], [N|LF]):- 
+	verify_conditions([Y], LF).
+verify_conditions([X and Y], [N|LF]):- 
     !,
 	fact(N, X),
-	verifica_condicoes([Y], LF).
-verifica_condicoes([not evalQuestion(X)],[not X]):- !, \+ evalQuestion(X).
-verifica_condicoes([evalQuestion(X)],[X]):- !, evalQuestion(X).
-verifica_condicoes([not X], [not X]):- !, \+ fact(_, X).
-verifica_condicoes([X], [N]):- fact(N, X).
+	verify_conditions([Y], LF).
+verify_conditions([not evalQuestion(X)],[not X]):- !, \+ evalQuestion(X).
+verify_conditions([evalQuestion(X)],[X]):- !, evalQuestion(X).
+verify_conditions([not X], [not X]):- !, \+ fact(_, X).
+verify_conditions([X], [N]):- fact(N, X).
 
 evalQuestion(AskQuestion):- AskQuestion.
 
-concluir([cria_facto(F)|Y], ID, LHSFactos):-
+conclude([insert_fact(F)|Y], ID, LHSFacts):-
 	!,
-	cria_facto(F, ID, LHSFactos),
-	concluir(Y, ID, LHSFactos).
-concluir([], _, _):-!.
+	insert_fact(F, ID, LHSFacts),
+	conclude(Y, ID, LHSFacts).
+conclude([], _, _):-!.
 
-cria_facto(F, _ , _):-
+insert_fact(F, _ , _):-
 	fact(_, F), !.
-cria_facto(F, RuleID, LHSFactos):-
+insert_fact(F, RuleID, LHSFacts):-
     (F =.. [Functor, _], abolish(Functor/1); true),
     getNextFactID(FactID),
-	assert(justifica(FactID, RuleID, LHSFactos)),
+	assert(justifica(FactID, RuleID, LHSFacts)),
 	assert(fact(FactID, F)),
-	write('Foi concluído o facto nº '),write(FactID),write(' -> '),write(F),nl,!.
+	write('Foi concluído o Facto nº '), write(FactID), write(' -> '), write(F), nl,!.
 
-% Teste!!!
-% verifica_condicoes([not budgetType(NA)and not budgetType(BAIXO)and evalQuestion(askQuestion(choose_finality_non_low_budget,2))and evalQuestion(askQuestion(choose_finality_aplicacoes_office,1))],L). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Visualização da base de factos
+
+show_all_facts:-
+	findall(N, fact(N, _), LFacts),
+	print_facts(LFacts).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Explanation Module <----> How
+
+how(FactID):-
+	justifica(FactID, RuleID, LHSFacts),
+	fact(FactID, Fact), !,
+	write('Concluído o facto nº '), write(FactID), write(' -> '), write(Fact), nl,
+	write('pela regra '), write(RuleID), nl,
+	write('por se ter verificado que:'), nl,
+	print_facts(LHSFacts),
+	write('********************************************************'), nl,
+	explain(LHSFacts).
+how(_):- write('Esse facto não foi concluído.'), nl.
+
+print_facts([FactID|LFacts]):-
+	fact(FactID, Fact), !,
+	write('O facto nº '), write(FactID), write(' -> '), write(Fact), write(' é verdadeiro'), nl,
+	print_facts(LFacts).
+print_facts([Condition|LFacts]):-
+	write('A condição '), write(Condition), write(' é verdadeira'), nl,
+	print_facts(LFacts).
+print_facts([]).
+
+explain([Condition|LFacts]):- 
+	\+ integer(Condition), !,
+	explain(LFacts).
+explain([FactID|LFacts]):-
+	how(FactID),
+	explain(LFacts).
+explain([]):- write('********************************************************'), nl.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
