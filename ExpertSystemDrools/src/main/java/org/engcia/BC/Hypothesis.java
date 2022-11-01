@@ -140,22 +140,28 @@ public class Hypothesis {
     }
 
     public void setAdequateMinCPUBenchmark(int adequateMinCPUBenchmark) {
+        Conclusion c = new Conclusion("Minimum CPU benchmark of  " + adequateMinCPUBenchmark);
         this.adequateMinCPUBenchmark = adequateMinCPUBenchmark;
     }
 
     public void setAdequateMinGPUBenchmark(int adequateMinGPUBenchmark) {
+        Conclusion c = new Conclusion("Minimum GPU benchmark of  " + adequateMinGPUBenchmark);
         this.adequateMinGPUBenchmark = adequateMinGPUBenchmark;
     }
 
     public void setCaseColorPreferred(String caseColorPreferred) {
+        Conclusion c = new Conclusion("User chose case color  " + caseColorPreferred);
         this.caseColorPreferred = caseColorPreferred;
     }
 
     public void setCaseSizePreferred(TowerSizeType caseSizePreferred) {
+
+        Conclusion c = new Conclusion("User chose case size  " + caseSizePreferred);
         this.caseSizePreferred = caseSizePreferred;
     }
 
     public void setMinEnergyEfficiencyNeeded(EnergyEfficiency minEnergyEfficiencyNeeded) {
+        Conclusion c = new Conclusion("User needs power supply with minimum energy efficiency of " + minEnergyEfficiencyNeeded);
         this.minEnergyEfficiencyNeeded = minEnergyEfficiencyNeeded;
     }
 
