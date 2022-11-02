@@ -1,6 +1,6 @@
 
 % Utiliza CLP
-use_module(library(clpfd)).
+:-use_module(library(clpfd)).
 
 % Procura o melhor computador possível respeitando todas as regras de compatibilidade e com base no estado atual da base de conhecimento,
 % isto é, após o sistema pericial já ter adquirido conhecimento, idealmente considerado suficiente de forma a atingir uma solução não genérica
@@ -13,21 +13,73 @@ findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase(PC):-
     getValidSSDStoragesListFromKnowledgeBase(ValidSSDStoragesList),
     getValidHDDStoragesListFromKnowledgeBase(ValidHDDStoragesList),
     getValidPowerSuppliesListFromKnowledgeBase(ValidPowerSuppliesList),
-    getValidCasesFromKnowledgeBase(ValidCasesList).
-%    PC = [ChosenGPU, ChosenCPU, ChosenMotherboard, ChosenMemoryRAM, ChosenSSDStorage, ChosenHDDStorage, ChosenPowerSupply],
-%    ChosenGPU = ValidGPUsList,
-%    ChosenCPU = ValidCPUsList,
-%    isCompatible(ComputadorIdeal), // O que este método faria, como neste momento ainda só foi escolhido o GPU e o CPU, seria, por exemplo "ChosenCPU.brand = ChosenGPU.brand",
-%    ChosenMotherboard = ValidMotherboardsList,
-%    isCompatible(ComputadorIdeal), // verifica se a motherboard é compatível com o GPU e CPU escolhidos
-%    ChosenMemoryRAM = ValidMemoryRAMsList,
-%    ChosenStorage = ValidStoragesList,
-%    ChosenPowerSupply = ValidPowerSuppliesList,
-%    isCompatible(PC), // verifica se os restantes componentes escolhidos também são compatíveis com os já previamente escolhidos,
-%
-%    labeling(PC). // Devolve a primeira solução possível, se existir alguma.
+    getValidCasesFromKnowledgeBase(ValidCasesList),
+    answer(choose_budget, MaxBudget),
 
+    length(ValidGPUsList, NGPUs),
+    GPUIndex in 1..NGPUs,
+    nth1(GPUIndex, ValidGPUsList, GPU),
+    GPU = gpu(_, _, GPUName, GPUBasePrice, _, GPUBrand, GPUMemory, GPUMemoryType, GPUMaxClock, GPUVoltage, GPUFansCount, GPUATXCompatibilityList, GPUBenchmarkScore),
 
+    length(ValidCPUsList, NCPUs),
+    CPUIndex in 1..NCPUs,
+    nth1(CPUIndex, ValidCPUsList, CPU),
+    CPU = cpu(_, _, CPUName, CPUBasePrice, _, CPUCoreCount, CPUThreadsCount, CPUBoostClock, CPUVoltage, CPUBenchmarkScore, CPUSocket, CPUHasIntegratedGPU),
+
+    length(ValidMotherboardsList, NMotherboards),
+    MotherboardIndex in 1..NMotherboards,
+    nth1(MotherboardIndex, ValidMotherboardsList, Motherboard),
+    Motherboard = motherboard(_, _, MotherboardName, MotherboardBasePrice, _, MotherboardSocketCompatibilityList, MotherboardATXType, MotherboardMaxMemoryRam, MotherboardRAMType, MotherboardRAMSlots, MotherboardRAMSpeedList),
+
+    length(ValidCPUCoolersList, NCPUCoolers),
+    CPUCoolerIndex in 1..NCPUCoolers,
+    nth1(CPUCoolerIndex, ValidCPUCoolersList, CPUCooler),
+    CPUCooler = cpuCooler(_, _, CPUCoolerName, CPUCoolerBasePrice, _, CPUCoolerVoltage, CPUCoolerIsWaterCooled, CPUCoolerIsFanless, CPUCoolerSocketCompatibilityList),
+
+    length(ValidMemoryRAMsList, NRAMs),
+    RAMIndex in 1..NRAMs,
+    nth1(RAMIndex, ValidMemoryRAMsList, RAM),
+    RAM = ram(_, _, RAMName, RAMBasePrice, RAMLaunchDate, RAMSpeed, RAMCapacity, RAMSlotsCount, RAMRamType, RAMVoltage),
+
+    length(ValidSSDStoragesList, NSSDs),
+    SSDIndex in 1..NSSDs,
+    nth1(SSDIndex, ValidSSDStoragesList, SSD),
+    SSD = storage(_, _, SSDName, SSDBasePrice, _, _, _, SSDCapacity, SSDCache, SSDBenchmarkScore),
+
+    length(ValidHDDStoragesList, NHDDs),
+    HDDIndex in 1..NHDDs,
+    nth1(HDDIndex, ValidHDDStoragesList, HDD),
+    HDD = storage(_, _, HDDName, HDDBasePrice, _, _, _, HDDCapacity, HDDCache, HDDBenchmarkScore),
+
+    length(ValidPowerSuppliesList, NPowerSupplys),
+    PowerSupplyIndex in 1..NPowerSupplys,
+    nth1(PowerSupplyIndex, ValidPowerSuppliesList, PowerSupply),
+    PowerSupply = powerSupply(_, _, PowerSupplyName, PowerSupplyBasePrice, _, PowerSupplyCapacity, PowerSupplyEnergyEfficiency, PowerSupplyModular, PowerSupplyATXCompatibilityList),
+
+    length(ValidCasesList, NCases),
+    CaseIndex in 1..NCases,
+    nth1(CaseIndex, ValidCasesList, Case),
+    Case = case(_, _, _, CaseBasePrice, _, CaseSizeType, CaseATXCompatibilityList, CaseColor), 
+
+    PCCost #= GPUBasePrice + CPUBasePrice + MotherboardBasePrice + CPUCoolerBasePrice + RAMBasePrice + SSDBasePrice + HDDBasePrice + PowerSupplyBasePrice + CaseBasePrice,
+    PCCost #=< MaxBudget,
+
+    labeling(
+        [max(GPUBenchmarkScore), max(CPUBenchmarkScore)], 
+        [GPUIndex, CPUIndex, MotherboardIndex, CPUCoolerIndex, RAMIndex, SSDIndex, HDDIndex, PowerSupplyIndex, CaseIndex]
+        ),
+    PC = [GPU, CPU, CPUCooler, Motherboard, RAM, SSD, HDD, PowerSupply, Case],
+    nl, write('********************************************************'), nl,
+    write('Foi concluído o seguinte PC feito à medida com um custo total de '), write(PCCost), write('€ :'), nl,
+    write('GPU: '), write(GPUName), write(' , '), write(GPUBasePrice), write('€'), nl,
+    write('CPU: '), write(CPUName), write(' , '), write(CPUBasePrice), write('€'), nl,
+    write('CPU Cooler: '), write(CPUCoolerName), write(' , '), write(CPUCoolerBasePrice), write('€'), nl,
+    write('Motherboard: '), write(MotherboardName), write(' , '), write(MotherboardBasePrice), write('€'), nl,
+    write('1ª Disco, SSD: '), write(SSDName), write(' , '), write(SSDBasePrice), write('€'), nl,
+    write('2ª Disco, HDD: '), write(HDDName), write(' , '), write(HDDBasePrice), write('€'), nl,
+    write('Fonte de Alimentação: '), write(PowerSupplyName), write(' , '), write(PowerSupplyBasePrice), write('€'), nl,
+    write('Caixa: '), write(CaseName), write(' , '), write(CaseBasePrice), write('€'), nl,
+    write('********************************************************'), nl.
 
 % Devolve a lista de GPUs válidos com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidGPUsFromKnowledgeBase(ValidGPUsList):- 
@@ -161,14 +213,3 @@ getValidCasesFromKnowledgeBase(ValidCasesList):-
         (CaseSizePreferred = SizeType; (CaseSizePreferred = "MID_TOWER", SizeType = "FULL_TOWER"))
         ),
         ValidCasesList).
-
-
-
-
-%exactly(List):- length(List, 4), List ins 1..4, exactly(3, List, 2), label(List).
-
-%exactly(_, [], 0).
-%exactly(X, [Y|L], N) :-
-%B #<==> (X #= Y),
-%N #= M+B,
-%exactly(X, L, M).
