@@ -24,11 +24,11 @@ public class GPU extends Component {
     }
 
     public boolean isAMD(){
-        return this.brand.equals(GPUBrand.AMD);
+        return this.manufacturer.equals("AMD");
     }
 
     public boolean isNVIDIA(){
-        return this.brand.equals(GPUBrand.NVIDIA);
+        return this.manufacturer.equals("NVIDIA");
     }
 
     public enum GPUMemoryType{
@@ -39,10 +39,15 @@ public class GPU extends Component {
         GDDR6X
     }
 
+
+
     public enum GPUBrand{
         NA,
-        NVIDIA,
-        AMD,
+        EVGA,
+        ASUS,
+        GIGABYTE,
+        MSI,
+        SAPPHIRE
     }
 }
 

@@ -2,6 +2,7 @@ package org.engcia.BC;
 
 import org.engcia.BD.CPUCooler;
 import org.engcia.BD.Case.TowerSizeType;
+import org.engcia.BD.GPU;
 import org.engcia.BD.GPU.GPUBrand;
 import org.engcia.BD.PowerSupply.EnergyEfficiency;
 import org.engcia.BD.Storage;
@@ -26,7 +27,7 @@ public class Hypothesis {
 
     public boolean needsDedicatedGPU = false;
     public boolean prefersDedicatedGPU = false;
-    public GPUBrand gpuBrandPreferred = GPUBrand.NA;
+    public String gpuManufacturerPreferred = "";
 
     public String cpuManufacturerPreferred = "";
 
@@ -35,7 +36,7 @@ public class Hypothesis {
     public CPUCooler cpuCooler = new CPUCooler();
 
 
-    public String preferredGPUManufacturer = "";
+    public GPUBrand preferredGPUBrand = GPU.GPUBrand.NA;
 
 
     public int adequateMinCPUBenchmark = 0;
@@ -114,15 +115,16 @@ public class Hypothesis {
         this.prefersDedicatedGPU = prefersDedicatedGPU;
     }
 
-    public void setGpuBrandPreferred(GPUBrand gpuBrandPreferred) {
-        Conclusion c = new Conclusion("User prefers GPUs of brand " + gpuBrandPreferred);
-        this.gpuBrandPreferred = gpuBrandPreferred;
+    public void setGpuManufacturerPreferred(String gpuManufacturerPreferred) {
+        Conclusion c = new Conclusion("User prefers GPUs of brand " + gpuManufacturerPreferred);
+        this.gpuManufacturerPreferred = gpuManufacturerPreferred;
     }
 
     public void setCpuManufacturerPreferred(String cpuManufacturerPreferred) {
         Conclusion c = new Conclusion("User prefers CPUs of manufacturer " + cpuManufacturerPreferred);
         this.cpuManufacturerPreferred = cpuManufacturerPreferred;
     }
+
 
     public void setNeedsCPUCooler(boolean needsCPUCooler) {
         Conclusion c = new Conclusion("User wants CPU cooler");
@@ -134,9 +136,9 @@ public class Hypothesis {
         this.cpuCooler = cpuCooler;
     }
 
-    public void setPreferredGPUManufacturer(String preferredGPUManufacturer) {
-        Conclusion c = new Conclusion("User prefers GPUs of manufacturer " + preferredGPUManufacturer);
-        this.preferredGPUManufacturer = preferredGPUManufacturer;
+    public void setPreferredGPUBrand(String preferredGPUBrand) {
+        Conclusion c = new Conclusion("User prefers GPUs of manufacturer " + preferredGPUBrand);
+        this.preferredGPUBrand = GPU.GPUBrand.valueOf(preferredGPUBrand.toUpperCase());
     }
 
     public void setAdequateMinCPUBenchmark(int adequateMinCPUBenchmark) {
