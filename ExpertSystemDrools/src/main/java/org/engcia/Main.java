@@ -1,11 +1,9 @@
 package org.engcia;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.engcia.BC.Hypothesis;
 import org.engcia.Listeners.TrackingAgendaEventListener;
 import org.engcia.Utils.Boostrap;
 import org.kie.api.KieServices;
@@ -72,11 +70,13 @@ public class Main {
 
             LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
 
-            kSession.fireAllRules();
+     //       kSession.fireAllRules();
 
-//           kSession.fireUntilHalt();
+          kSession.fireUntilHalt();
 
             query.close();
+
+
 
         } catch (Throwable t) {
             t.printStackTrace();

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.engcia.BC.Fact;
 import org.engcia.BC.Justification;
-import org.engcia.BC.Hypothesis;
 
 public class How {
     private Map<Integer, Justification> justifications;
