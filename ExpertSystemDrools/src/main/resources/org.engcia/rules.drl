@@ -480,7 +480,7 @@ rule "r5a2 - File Type and Daily use question when Finality is Simple Web Naviga
     no-loop
     salience 180
     when
-	    Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
+	    Hypothesis( finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
         eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
@@ -500,7 +500,7 @@ rule "r5a3 - File Type and Daily use question when Finality is Simple Web Naviga
     no-loop
     salience 180
     when
-	    Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
+	    Hypothesis(finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
         eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
 	then
@@ -520,7 +520,7 @@ rule "r5a4 - File Type and Daily use question when Finality is Simple Web Naviga
     no-loop
     salience 180
     when
-	    Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
+	    Hypothesis(finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_SIMPLES )
         eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "2"))
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
@@ -539,7 +539,7 @@ rule "r5b1 - File Type and Daily use question when Finality is Complex Web Navig
     no-loop
     salience 180
     when
-	    Hypothesis(budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+	    Hypothesis(finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_COMPLEXO )
         eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "1"))
 	then
@@ -559,7 +559,7 @@ rule "r5b2 - File Type and Daily use question when Finality is Complex Web Navig
     no-loop
     salience 180
     when
-	    Hypothesis( budgetType!=null && finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_COMPLEXO )
+	    Hypothesis(finality!= finality.NA && finality == Finality.NAVEGACAO_WEB_COMPLEXO )
         eval(UI.answer(Questions.CHOOSE_FILE_TYPE, "1"))
         eval(UI.answer(Questions.CHOOSE_DURATION_PER_DAY, "2"))
 	then
@@ -954,7 +954,8 @@ rule "r5h11 - When Finality is Gaming and Budget Type is Medium Low  - used to f
     no-loop
     salience 180
     when
-	    Hypothesis( finality == Finality.GAMING  && budgetType == BudgetType.MEDIO_BAIXO)
+	    Hypothesis( finality == Finality.GAMING)
+	    Hypothesis (budgetType == BudgetType.MEDIO_BAIXO)
 	then
 	  Hypothesis h = new Hypothesis();
 	   h.minStorage.isSSD = true;
@@ -972,7 +973,8 @@ rule "r5h12 - When Finality is Gaming and Budget Type is Medium - used to find d
     no-loop
     salience 180
     when
-	    Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.MEDIO)
+	    Hypothesis( finality == Finality.GAMING)
+	    Hypothesis (budgetType == BudgetType.MEDIO)
 	then
 	  Hypothesis h = new Hypothesis();
 	   h.minStorage.isSSD = true;
@@ -990,7 +992,8 @@ rule "r5h13 - When Finality is Gaming and Budget Type is Medium High - used to f
     no-loop
     salience 180
     when
-	    Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.MEDIO_ALTO)
+	    Hypothesis( finality == Finality.GAMING )
+	    Hypothesis (budgetType == BudgetType.MEDIO_ALTO)
 	then
 	  Hypothesis h = new Hypothesis();
 	   h.minStorage.isSSD = true;
@@ -1008,7 +1011,8 @@ rule "r5h14 - When Finality is Gaming and Budget Type is High - used to find def
     no-loop
     salience 180
     when
-	    Hypothesis( finality == Finality.GAMING && budgetType == BudgetType.ALTO)
+	    Hypothesis( finality == Finality.GAMING)
+	    Hypothesis (budgetType == BudgetType.ALTO)
 	then
 	  Hypothesis h = new Hypothesis();
 	   h.minStorage.isSSD = true;
@@ -1122,7 +1126,7 @@ rule "r8a1 - Choose GPU Manufacturer, answer NVIDIA"
     no-loop
     salience 140
     when
-        Hypothesis(durationDayChoice!=0 && (needsDedicatedGPU == true || prefersDedicatedGPU == true))
+        Hypothesis(durationDayChoice!=0 && needsDedicatedGPU == true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
     then
 	  Hypothesis h = new Hypothesis();
@@ -1131,13 +1135,26 @@ rule "r8a1 - Choose GPU Manufacturer, answer NVIDIA"
 end
 
 
+rule "r8a1a - Choose GPU Manufacturer, answer NVIDIA"
+
+    no-loop
+    salience 140
+    when
+        Hypothesis(durationDayChoice!=0)
+        Hypothesis(prefersDedicatedGPU == true)
+        eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
+    then
+	  Hypothesis h = new Hypothesis();
+    h.setGpuManufacturerPreferred("NVIDIA");
+    insert(h);
+end
 
 rule "r8a2 - Choose GPU Manufacturer, answer AMD"
 
     no-loop
     salience 140
     when
-        Hypothesis(durationDayChoice!=0 &&(needsDedicatedGPU == true || prefersDedicatedGPU == true))
+        Hypothesis(durationDayChoice!=0 && needsDedicatedGPU == true)
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
     then
 	  Hypothesis h = new Hypothesis();
@@ -1145,7 +1162,19 @@ rule "r8a2 - Choose GPU Manufacturer, answer AMD"
     insert(h);
 end
 
+rule "r8a2a - Choose GPU Manufacturer, answer AMD"
 
+    no-loop
+    salience 140
+    when
+        Hypothesis(durationDayChoice!=0)
+        Hypothesis(prefersDedicatedGPU == true)
+        eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
+    then
+	  Hypothesis h = new Hypothesis();
+    h.setGpuManufacturerPreferred("AMD");
+    insert(h);
+end
 // Question Brand GPU preference
 
 rule "r8b1 - Finality is Gaming, user has GPU brand preference of ASUS"
@@ -1153,7 +1182,8 @@ rule "r8b1 - Finality is Gaming, user has GPU brand preference of ASUS"
     no-loop
     salience 130
     when
-        Hypothesis(durationDayChoice!=0 && finality == Finality.GAMING)
+        Hypothesis(durationDayChoice!=0 )
+        Hypothesis(finality == Finality.GAMING)
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "1"))
     then
 	  Hypothesis h = new Hypothesis();
@@ -1166,7 +1196,8 @@ rule "r8b2 - Finality is Gaming, user has GPU brand preference of EVGA"
     no-loop
     salience 130
     when
-        Hypothesis(durationDayChoice!=0 && finality == Finality.GAMING)
+        Hypothesis(durationDayChoice!=0)
+        Hypothesis(finality == Finality.GAMING)
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "2"))
     then
 	  Hypothesis h = new Hypothesis();
@@ -1179,7 +1210,8 @@ rule "r8b3 - Finality is Gaming, user has GPU brand preference of GigaByte"
     no-loop
     salience 130
     when
-        Hypothesis(durationDayChoice!=0 && finality == Finality.GAMING)
+        Hypothesis(durationDayChoice!=0)
+        Hypothesis(finality == Finality.GAMING)
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "3"))
     then
 	  Hypothesis h = new Hypothesis();
@@ -1192,7 +1224,8 @@ rule "r8b4 - Finality is Gaming, user has GPU brand preference of MSI"
     no-loop
     salience 130
     when
-        Hypothesis(durationDayChoice!=0 && finality == Finality.GAMING)
+        Hypothesis(durationDayChoice!=0)
+        Hypothesis(finality == Finality.GAMING)
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "4"))
     then
 	  Hypothesis h = new Hypothesis();

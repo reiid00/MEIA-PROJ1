@@ -79,14 +79,14 @@ public class Hypothesis {
         this.minStorage.isSSD = true;
         this.minStorage.isSATA = false;
         this.minStorage.capacity = capacity;
-        Conclusion c = new Conclusion("Storage " + minStorage);
+        Conclusion c = new Conclusion("Storage with capacity" + capacity);
     }
 
     public void setMinScndStorage(int capacity ) {
         this.minScndStorage.isSATA = true;
         this.minScndStorage.isSSD = false;
         this.minScndStorage.capacity = capacity;
-        Conclusion c = new Conclusion("Secondary Storage " + minStorage);
+        Conclusion c = new Conclusion("Secondary Storage with capacity " + capacity);
     }
 
 
