@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.engcia.BC.KnowledgeBase;
 import org.engcia.Listeners.TrackingAgendaEventListener;
 import org.engcia.Utils.Boostrap;
 import org.kie.api.KieServices;
@@ -50,33 +51,38 @@ public class Main {
 
                 @Override
                 public void rowInserted(Row row) {
-                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
-                    System.out.println(">>>" + conclusion.toString());
-
-                    //System.out.println(Haemorrhage.justifications);
-                    How how = new How(Main.justifications);
-                    System.out.println(how.getHowExplanation(conclusion.getId()));
-
-                    // stop inference engine after as soon as got a conclusion
-                    kSession.halt();
+                    System.out.println("insert!!!");
+//                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
+//                    System.out.println(">>>" + conclusion.toString());
+//
+//                    //System.out.println(Haemorrhage.justifications);
+//                    How how = new How(Main.justifications);
+//                    System.out.println(how.getHowExplanation(conclusion.getId()));
+//
+//                    // stop inference engine after as soon as got a conclusion
+//                    kSession.halt();
 
                 }
 
                 @Override
                 public void rowUpdated(Row row) {
+                    System.out.println("ENTREI NO UPDATE!!!");
                 }
 
             };
 
-            LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
+//            LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
 
-     //       kSession.fireAllRules();
+            KnowledgeBase kb = new KnowledgeBase();
+            kSession.setGlobal("$kb", kb);
+            kSession.fireAllRules();
 
-          kSession.fireUntilHalt();
+//          kSession.fireUntilHalt();
 
-            query.close();
+//            query.close();
 
 
+            System.out.println( Main.justifications.size());
 
         } catch (Throwable t) {
             t.printStackTrace();
