@@ -7,7 +7,7 @@ import org.engcia.BD.GPU.GPUBrand;
 import org.engcia.BD.PowerSupply.EnergyEfficiency;
 import org.engcia.BD.Storage;
 
-public class Hypothesis {
+public class Hypothesis extends Fact{
 
 
     public int minBudget = 0; // opcional

@@ -54,7 +54,6 @@ rule "r1a - Budget question between 300 and 600"
         eval(UI.answerBudget(Questions.CHOOSE_BUDGET,300,600))
     then
 	  Hypothesis h = new Hypothesis();
-        
         h.setBudgetType(Hypothesis.BudgetType.BAIXO);
         insert(h);
 end
