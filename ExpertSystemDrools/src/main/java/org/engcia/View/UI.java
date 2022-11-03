@@ -34,8 +34,6 @@ public class UI {
         Evidence evidence = null;
         for (Evidence e: evidences) {
             if (e.getEvidence().compareTo(ev) == 0) {
-                System.out.println("-------900");
-                System.out.println(ev);
                 questionFound = true;
                 evidence = e;
                 break;
