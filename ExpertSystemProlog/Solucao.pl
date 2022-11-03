@@ -5,7 +5,7 @@
 % Procura o melhor computador possível respeitando todas as regras de compatibilidade e com base no estado atual da base de conhecimento,
 % isto é, após o sistema pericial já ter adquirido conhecimento, idealmente considerado suficiente de forma a atingir uma solução não genérica
 findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase(PC):-
-    getValidGPUsFromKnowledgeBase(ValidGPUsList),
+    getValidGPUsListFromKnowledgeBase(ValidGPUsList),
     getValidCPUsListFromKnowledgeBase(ValidCPUsList),
     getValidCPUCoolersListFromKnowledgeBase(ValidCPUCoolersList),
     getValidMotherboardsListFromKnowledgeBase(ValidMotherboardsList),
@@ -13,76 +13,88 @@ findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase(PC):-
     getValidSSDStoragesListFromKnowledgeBase(ValidSSDStoragesList),
     getValidHDDStoragesListFromKnowledgeBase(ValidHDDStoragesList),
     getValidPowerSuppliesListFromKnowledgeBase(ValidPowerSuppliesList),
-    getValidCasesFromKnowledgeBase(ValidCasesList),
+    getValidCasesListFromKnowledgeBase(ValidCasesList),
     answer(choose_budget, MaxBudget),
 
     length(ValidGPUsList, NGPUs),
     GPUIndex in 1..NGPUs,
     nth1(GPUIndex, ValidGPUsList, GPU),
-    GPU = gpu(_, _, GPUName, GPUBasePrice, _, GPUBrand, GPUMemory, GPUMemoryType, GPUMaxClock, GPUVoltage, GPUFansCount, GPUATXCompatibilityList, GPUBenchmarkScore),
+    GPU = gpu(_, GPUManufacturer, GPUName, GPUBasePrice, _, _, GPUMemory, GPUMemoryType, _, GPUVoltage, _, GPUATXCompatibilityList, GPUBenchmarkScore),
+
+    GPUBasePrice #=< ((MaxBudget * 5) // 10),
 
     length(ValidCPUsList, NCPUs),
     CPUIndex in 1..NCPUs,
     nth1(CPUIndex, ValidCPUsList, CPU),
-    CPU = cpu(_, _, CPUName, CPUBasePrice, _, CPUCoreCount, CPUThreadsCount, CPUBoostClock, CPUVoltage, CPUBenchmarkScore, CPUSocket, CPUHasIntegratedGPU),
+    CPU = cpu(_, CPUManufacturer, CPUName, CPUBasePrice, _, _, _, CPUBoostClock, CPUVoltage, CPUBenchmarkScore, CPUSocket, CPUHasIntegratedGPU),
+
+    GPUBasePrice + CPUBasePrice #=< ((MaxBudget * 75) // 100),
 
     length(ValidMotherboardsList, NMotherboards),
     MotherboardIndex in 1..NMotherboards,
     nth1(MotherboardIndex, ValidMotherboardsList, Motherboard),
-    Motherboard = motherboard(_, _, MotherboardName, MotherboardBasePrice, _, MotherboardSocketCompatibilityList, MotherboardATXType, MotherboardMaxMemoryRam, MotherboardRAMType, MotherboardRAMSlots, MotherboardRAMSpeedList),
+    Motherboard = motherboard(_, MotherboardManufacturer, MotherboardName, MotherboardBasePrice, _, MotherboardSocketCompatibilityList, MotherboardATXType, MotherboardMaxMemoryRam, MotherboardRAMType, MotherboardRAMSlots, MotherboardRAMSpeedList),
 
     length(ValidCPUCoolersList, NCPUCoolers),
     CPUCoolerIndex in 1..NCPUCoolers,
     nth1(CPUCoolerIndex, ValidCPUCoolersList, CPUCooler),
-    CPUCooler = cpuCooler(_, _, CPUCoolerName, CPUCoolerBasePrice, _, CPUCoolerVoltage, CPUCoolerIsWaterCooled, CPUCoolerIsFanless, CPUCoolerSocketCompatibilityList),
+    CPUCooler = cpuCooler(_, CPUCoolerManufacturer, CPUCoolerName, CPUCoolerBasePrice, _, CPUCoolerVoltage, _, _, CPUCoolerSocketCompatibilityList),
 
     length(ValidMemoryRAMsList, NRAMs),
     RAMIndex in 1..NRAMs,
     nth1(RAMIndex, ValidMemoryRAMsList, RAM),
-    RAM = ram(_, _, RAMName, RAMBasePrice, RAMLaunchDate, RAMSpeed, RAMCapacity, RAMSlotsCount, RAMRamType, RAMVoltage),
+    RAM = ram(_, RAMManufacturer, RAMName, RAMBasePrice, _, RAMSpeed, RAMCapacity, RAMSlotsCount, RAMRamType, _),
+
+    RAMSlotsCount #=< MotherboardRAMSlots,
+    RAMCapacity #=< MotherboardMaxMemoryRam,
 
     length(ValidSSDStoragesList, NSSDs),
     SSDIndex in 1..NSSDs,
     nth1(SSDIndex, ValidSSDStoragesList, SSD),
-    SSD = storage(_, _, SSDName, SSDBasePrice, _, _, _, SSDCapacity, SSDCache, SSDBenchmarkScore),
+    SSD = storage(_, SSDManufacturer, SSDName, SSDBasePrice, _, _, _, _, _, _),
 
     length(ValidHDDStoragesList, NHDDs),
     HDDIndex in 1..NHDDs,
     nth1(HDDIndex, ValidHDDStoragesList, HDD),
-    HDD = storage(_, _, HDDName, HDDBasePrice, _, _, _, HDDCapacity, HDDCache, HDDBenchmarkScore),
+    HDD = storage(_, HDDManufacturer, HDDName, HDDBasePrice, _, _, _, _, _, _),
 
     length(ValidPowerSuppliesList, NPowerSupplys),
     PowerSupplyIndex in 1..NPowerSupplys,
     nth1(PowerSupplyIndex, ValidPowerSuppliesList, PowerSupply),
-    PowerSupply = powerSupply(_, _, PowerSupplyName, PowerSupplyBasePrice, _, PowerSupplyCapacity, PowerSupplyEnergyEfficiency, PowerSupplyModular, PowerSupplyATXCompatibilityList),
+    PowerSupply = powerSupply(_, PowerSupplyManufacturer, PowerSupplyName, PowerSupplyBasePrice, _, PowerSupplyCapacity, PowerSupplyEnergyEfficiency, PowerSupplyModular, PowerSupplyATXCompatibilityList),
+
+    PCVoltage #= GPUVoltage + CPUVoltage + CPUCoolerVoltage,
+    MinPCVoltageCapacity #= ((PCVoltage * 15) // 10),
+    MinPCVoltageCapacity #=< PowerSupplyCapacity,
 
     length(ValidCasesList, NCases),
     CaseIndex in 1..NCases,
     nth1(CaseIndex, ValidCasesList, Case),
-    Case = case(_, _, _, CaseBasePrice, _, CaseSizeType, CaseATXCompatibilityList, CaseColor), 
+    Case = case(_, CaseManufacturer, CaseName, CaseBasePrice, _, CaseSizeType, CaseATXCompatibilityList, CaseColor), 
 
     PCCost #= GPUBasePrice + CPUBasePrice + MotherboardBasePrice + CPUCoolerBasePrice + RAMBasePrice + SSDBasePrice + HDDBasePrice + PowerSupplyBasePrice + CaseBasePrice,
     PCCost #=< MaxBudget,
 
-    labeling(
-        [max(GPUBenchmarkScore), max(CPUBenchmarkScore)], 
+    once(labeling(
+        [], 
         [GPUIndex, CPUIndex, MotherboardIndex, CPUCoolerIndex, RAMIndex, SSDIndex, HDDIndex, PowerSupplyIndex, CaseIndex]
-        ),
+        )),
     PC = [GPU, CPU, CPUCooler, Motherboard, RAM, SSD, HDD, PowerSupply, Case],
     nl, write('********************************************************'), nl,
     write('Foi concluído o seguinte PC feito à medida com um custo total de '), write(PCCost), write('€ :'), nl,
-    write('GPU: '), write(GPUName), write(' , '), write(GPUBasePrice), write('€'), nl,
-    write('CPU: '), write(CPUName), write(' , '), write(CPUBasePrice), write('€'), nl,
-    write('CPU Cooler: '), write(CPUCoolerName), write(' , '), write(CPUCoolerBasePrice), write('€'), nl,
-    write('Motherboard: '), write(MotherboardName), write(' , '), write(MotherboardBasePrice), write('€'), nl,
-    write('1ª Disco, SSD: '), write(SSDName), write(' , '), write(SSDBasePrice), write('€'), nl,
-    write('2ª Disco, HDD: '), write(HDDName), write(' , '), write(HDDBasePrice), write('€'), nl,
-    write('Fonte de Alimentação: '), write(PowerSupplyName), write(' , '), write(PowerSupplyBasePrice), write('€'), nl,
-    write('Caixa: '), write(CaseName), write(' , '), write(CaseBasePrice), write('€'), nl,
+    write('GPU: '), write(GPUManufacturer), write(' '), write(GPUName), write(' --> '), write(GPUBasePrice), write('€'), nl,
+    write('CPU: '), write(CPUManufacturer), write(' '), write(CPUName), write(' --> '), write(CPUBasePrice), write('€'), nl,
+    write('CPU Cooler: '), write(CPUCoolerManufacturer), write(' '), write(CPUCoolerName), write(' --> '), write(CPUCoolerBasePrice), write('€'), nl,
+    write('Motherboard: '), write(MotherboardManufacturer), write(' '), write(MotherboardName), write(' --> '), write(MotherboardBasePrice), write('€'), nl,
+    write('RAM: '), write(RAMManufacturer), write(' '), write(RAMName), write(' --> '), write(RAMBasePrice), write('€'), nl,
+    write('1ª Disco, SSD: '), write(SSDManufacturer), write(' '), write(SSDName), write(' --> '), write(SSDBasePrice), write('€'), nl,
+    write('2ª Disco, HDD: '), write(HDDManufacturer), write(' '), write(HDDName), write(' --> '), write(HDDBasePrice), write('€'), nl,
+    write('Fonte de Alimentação: '), write(PowerSupplyManufacturer), write(' '), write(PowerSupplyName), write(' --> '), write(PowerSupplyBasePrice), write('€'), nl,
+    write('Caixa: '), write(CaseManufacturer), write(' '), write(CaseName), write(' --> '), write(CaseBasePrice), write('€'), nl,
     write('********************************************************'), nl.
 
 % Devolve a lista de GPUs válidos com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
-getValidGPUsFromKnowledgeBase(ValidGPUsList):- 
+getValidGPUsListFromKnowledgeBase(ValidGPUsList):- 
     answer(choose_budget, MaxBudget),
     fact(_, caseSizePreferred(CaseSizePreferred)),
     (fact(_, adequateMinGPUBenchmark(MinGPUBenchmark)), !; MinGPUBenchmark = 0),
@@ -101,7 +113,8 @@ getValidGPUsFromKnowledgeBase(ValidGPUsList):-
         FansCount =< MaxFansCount,
         member(ATXCompatibility, ATXCompatibilityList)
         ),
-        ValidGPUsList).
+        ValidGPUsList1),
+    sort(13, @>=, ValidGPUsList1, ValidGPUsList).
 
 % Devolve a lista de CPUs válidos com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidCPUsListFromKnowledgeBase(ValidCPUsList):-
@@ -115,7 +128,8 @@ getValidCPUsListFromKnowledgeBase(ValidCPUsList):-
         Manufacturer = CPUManufacturerPreferred,
         BenchmarkScore >= MinCPUBenchmark
         ),
-        ValidCPUsList).
+        ValidCPUsList1),
+    sort(10, @>=, ValidCPUsList1, ValidCPUsList).
 
 % Devolve a lista de CPU Coolers válidos com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidCPUCoolersListFromKnowledgeBase(ValidCPUCoolersList):-
@@ -127,7 +141,8 @@ getValidCPUCoolersListFromKnowledgeBase(ValidCPUCoolersList):-
         IsFanless = CPUCooler_isFanless,
         IsWaterCooled = CPUCooler_isWaterCooled
         ),
-        ValidCPUCoolersList).
+        ValidCPUCoolersList1),
+    sort(4, @=<, ValidCPUCoolersList1, ValidCPUCoolersList).
     
 % Devolve a lista de motherboards válidas com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidMotherboardsListFromKnowledgeBase(ValidMotherboardsList):-
@@ -144,7 +159,8 @@ getValidMotherboardsListFromKnowledgeBase(ValidMotherboardsList):-
         MaxMemoryRam >= MinMaxRAM,
         member(ATXType, ATXCompatibilityList)
         ),
-        ValidMotherboardsList).
+        ValidMotherboardsList1),
+    sort(4, @=<, ValidMotherboardsList1, ValidMotherboardsList).
 
 % Devolve a lista de memórias RAM válidas com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidMemoryRAMsListFromKnowledgeBase(ValidMemoryRAMsList):-
@@ -156,7 +172,8 @@ getValidMemoryRAMsListFromKnowledgeBase(ValidMemoryRAMsList):-
         Capacity >= MinRAM,
         Speed >= MinRAMSpeed
         ),
-        ValidMemoryRAMsList).
+        ValidMemoryRAMsList1),
+    sort(4, @=<, ValidMemoryRAMsList1, ValidMemoryRAMsList).
 
 % Devolve a lista de Discos SSD/Principais válidos com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidSSDStoragesListFromKnowledgeBase(ValidSSDStoragesList):-
@@ -167,7 +184,8 @@ getValidSSDStoragesListFromKnowledgeBase(ValidSSDStoragesList):-
         IsSSD = true,
         Capacity >= MinSSDCapacity
         ),
-        ValidSSDStoragesList).
+        ValidSSDStoragesList1),
+    sort(10, @>=, ValidSSDStoragesList1, ValidSSDStoragesList).
 
 % Devolve a lista de Discos HDD/Secundários válidos com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidHDDStoragesListFromKnowledgeBase(ValidHDDStoragesList):-
@@ -178,7 +196,8 @@ getValidHDDStoragesListFromKnowledgeBase(ValidHDDStoragesList):-
         IsSSD = false,
         Capacity >= MinHDDCapacity
         ),
-        ValidHDDStoragesList).
+        ValidHDDStoragesList1),
+    sort(10, @>=, ValidHDDStoragesList1, ValidHDDStoragesList).
 
 % Devolve a lista de Fontes de Alimentação válidas com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidPowerSuppliesListFromKnowledgeBase(ValidPowerSuppliesList):-
@@ -200,10 +219,11 @@ getValidPowerSuppliesListFromKnowledgeBase(ValidPowerSuppliesList):-
         member(EnergyEfficiency, ValidEnergyEfficiencyList),
         member(ATXCompatibility, ATXCompatibilityList)
         ),
-        ValidPowerSuppliesList).
+        ValidPowerSuppliesList1),
+    sort(4, @=<, ValidPowerSuppliesList1, ValidPowerSuppliesList).
 
 % Devolve a lista de Caixas válidas com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
-getValidCasesFromKnowledgeBase(ValidCasesList):-
+getValidCasesListFromKnowledgeBase(ValidCasesList):-
     fact(_, caseSizePreferred(CaseSizePreferred)),
     (fact(_, caseColorPreferred(CaseColorPreferred)), !; CaseColorPreferred = "ANY"),
     findall(case(ID, Manufacturer, Name, BasePrice, LaunchDate, SizeType, ATXCompatibilityList, Color),
@@ -212,4 +232,5 @@ getValidCasesFromKnowledgeBase(ValidCasesList):-
         (CaseColorPreferred = "ANY"; Color = CaseColorPreferred),
         (CaseSizePreferred = SizeType; (CaseSizePreferred = "MID_TOWER", SizeType = "FULL_TOWER"))
         ),
-        ValidCasesList).
+        ValidCasesList1),
+    sort(4, @=<, ValidCasesList1, ValidCasesList).
