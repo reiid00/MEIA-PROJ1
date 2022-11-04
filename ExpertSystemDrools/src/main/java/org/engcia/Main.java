@@ -52,15 +52,15 @@ public class Main {
                 @Override
                 public void rowInserted(Row row) {
                     System.out.println("insert!!!");
-//                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
-//                    System.out.println(">>>" + conclusion.toString());
-//
-//                    //System.out.println(Haemorrhage.justifications);
-//                    How how = new How(Main.justifications);
-//                    System.out.println(how.getHowExplanation(conclusion.getId()));
-//
-//                    // stop inference engine after as soon as got a conclusion
-//                    kSession.halt();
+                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
+                    System.out.println(">>>" + conclusion.toString());
+
+                    //System.out.println(Haemorrhage.justifications);
+                    How how = new How(Main.justifications);
+                    System.out.println(how.getHowExplanation(conclusion.getId()));
+
+                    // stop inference engine after as soon as got a conclusion
+                    kSession.halt();
 
                 }
 

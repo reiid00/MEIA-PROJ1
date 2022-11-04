@@ -55,18 +55,19 @@ public class KnowledgeBase extends Fact{
         this.maxBudget = maxBudget;
     }
 
-    public Hypothesis setBudgetType(BudgetType budgetType) {
+    public void setBudgetType(BudgetType budgetType) {
         this.budgetType = budgetType;
-        return new Hypothesis("budgetType",budgetType.toString(), "");
+        new Hypothesis("Orcamento",budgetType.toString(), "");
     }
 
-    public Hypothesis setFinality(Finality finality) {
+    public void setFinality(Finality finality) {
         this.finality = finality;
-        return new Hypothesis("finality",finality.toString(), "");
+        new Hypothesis("Finalidade",finality.toString(), "");
     }
 
     public void setDurationDayChoice(int durationDayChoice) {
-        Conclusion c = new Conclusion("Uses the computer more than  " + durationDayChoice + " hours");
+        if (durationDayChoice == 1) new Hypothesis("Horas passadas no computador ","entre 2 e 4 horas", "");
+        else if (durationDayChoice == 2) new Hypothesis("Horas passadas no computador ","mais de 4 horas", "");
         this.durationDayChoice = durationDayChoice;
     }
 
@@ -74,91 +75,98 @@ public class KnowledgeBase extends Fact{
         this.minStorage.isSSD = true;
         this.minStorage.isSATA = false;
         this.minStorage.capacity = capacity;
-        Conclusion c = new Conclusion("Storage with capacity" + capacity);
+        new Hypothesis("Capacidade mínima para o disco principal (SSD) ",String.valueOf(capacity), "");
     }
 
     public void setMinScndStorage(int capacity ) {
         this.minScndStorage.isSATA = true;
         this.minScndStorage.isSSD = false;
         this.minScndStorage.capacity = capacity;
-        Conclusion c = new Conclusion("Secondary Storage with capacity " + capacity);
+        new Hypothesis("Capacidade mínima para o disco principal (HDD) ",String.valueOf(capacity), "");
     }
 
 
     public void setMinRAM(int minRAM) {
-        Conclusion c = new Conclusion("RAM preferred by user " + minRAM);
+        new Hypothesis("Mínimo de RAM sugerida pelo sistema ",String.valueOf(minRAM), "");
         this.minRAM = minRAM;
     }
 
     public void setMinRAMSpeed(int minRAMSpeed) {
-        Conclusion c = new Conclusion("Minimum RAM speed required " + minRAMSpeed);
+        new Hypothesis("Mínimo da velocidade da RAM sugerida pelo sistema ",String.valueOf(minRAMSpeed), "");
         this.minRAMSpeed = minRAMSpeed;
     }
 
     public void setMinRAMPreferred(int minRAMPreferred) {
-        Conclusion c = new Conclusion("Minimum RAM required " + minRAMPreferred);
+        new Hypothesis("Quantidade de RAM escolhida pelo utilizador ",String.valueOf(minRAMPreferred), "");
         this.minRAMPreferred = minRAMPreferred;
     }
 
     public void setNeedsDedicatedGPU(boolean needsDedicatedGPU) {
-        Conclusion c = new Conclusion("Needs dedicated GPU");
+        if (needsDedicatedGPU) new Hypothesis("Dada a finalidade o sistema concluiu que ","precisa de placa gráfica", "");
+        if (!needsDedicatedGPU) new Hypothesis("Dada a finalidade o sistema concluiu que ","não precisa de placa gráfica", "");
         this.needsDedicatedGPU = needsDedicatedGPU;
     }
 
     public void setPrefersDedicatedGPU(boolean prefersDedicatedGPU) {
-        Conclusion c = new Conclusion("User prefers dedicated GPU");
+        if (prefersDedicatedGPU) new Hypothesis("O utilizador ","preferiu ter placa gráfica", "");
+        if (!prefersDedicatedGPU) new Hypothesis("O utilizador ","não preferiu ter placa gráfica", "");
         this.prefersDedicatedGPU = prefersDedicatedGPU;
     }
 
     public void setGpuManufacturerPreferred(String gpuManufacturerPreferred) {
-        Conclusion c = new Conclusion("User prefers GPUs of brand " + gpuManufacturerPreferred);
+        new Hypothesis("O utilizador preferiu placa gráfica do fabricante  ",gpuManufacturerPreferred, "");
         this.gpuManufacturerPreferred = gpuManufacturerPreferred;
     }
 
     public void setCpuManufacturerPreferred(String cpuManufacturerPreferred) {
-        Conclusion c = new Conclusion("User prefers CPUs of manufacturer " + cpuManufacturerPreferred);
+        new Hypothesis("O utilizador preferiu processador do fabricante  ",cpuManufacturerPreferred, "");
         this.cpuManufacturerPreferred = cpuManufacturerPreferred;
     }
 
 
-    public void setNeedsCPUCooler(boolean needsCPUCooler) {
-        Conclusion c = new Conclusion("User wants CPU cooler");
+    public void setNeedsCPUCooler(boolean needsCPUCooler){
+        if (needsCPUCooler) new Hypothesis("O sistema concluiu que  ","precisa de um CPU Cooler", "");
+        if (!needsCPUCooler) new Hypothesis("O sistema concluiu que  ","não precisa de um CPU Cooler", "");
         this.needsCPUCooler = needsCPUCooler;
     }
 
-    public void setCpuCooler(CPUCooler cpuCooler) {
-        Conclusion c = new Conclusion("User chooses CPU cooler");
-        this.cpuCooler = cpuCooler;
+    public void setCpuCooler(String cpuCooler) {
+        if (cpuCooler.toUpperCase() == "waterCooled".toUpperCase()){
+            new Hypothesis("O utilizador preferiu um CPU cooler  ","Water Cooled", "");
+            this.cpuCooler.isWaterCooled = true;
+        } else if (cpuCooler.toUpperCase() == "fanless".toUpperCase()){
+            new Hypothesis("O utilizador preferiu um CPU cooler  ","Fanless", "");
+            this.cpuCooler.isFanless = true;
+        }
     }
 
     public void setPreferredGPUBrand(String preferredGPUBrand) {
-        Conclusion c = new Conclusion("User prefers GPUs of manufacturer " + preferredGPUBrand);
+        new Hypothesis("O utilizador preferiu placa gráfica da marca  ",preferredGPUBrand, "");
         this.preferredGPUBrand = GPU.GPUBrand.valueOf(preferredGPUBrand.toUpperCase());
     }
 
     public void setAdequateMinCPUBenchmark(int adequateMinCPUBenchmark) {
-        Conclusion c = new Conclusion("Minimum CPU benchmark of  " + adequateMinCPUBenchmark);
+        new Hypothesis("O sistema concluiu que o processador deve ter um mínimo benchmark de  ",String.valueOf(adequateMinCPUBenchmark), "");
         this.adequateMinCPUBenchmark = adequateMinCPUBenchmark;
     }
 
     public void setAdequateMinGPUBenchmark(int adequateMinGPUBenchmark) {
-        Conclusion c = new Conclusion("Minimum GPU benchmark of  " + adequateMinGPUBenchmark);
+        new Hypothesis("O sistema concluiu que a placa gráfica deve ter um mínimo benchmark de  ",String.valueOf(adequateMinGPUBenchmark), "");
         this.adequateMinGPUBenchmark = adequateMinGPUBenchmark;
     }
 
     public void setCaseColorPreferred(String caseColorPreferred) {
-        Conclusion c = new Conclusion("User chose case color  " + caseColorPreferred);
+        new Hypothesis("O utilizador preferiu a caixa da cor ",caseColorPreferred, "");
         this.caseColorPreferred = caseColorPreferred;
     }
 
     public void setCaseSizePreferred(TowerSizeType caseSizePreferred) {
-
-        Conclusion c = new Conclusion("User chose case size  " + caseSizePreferred);
+        new Hypothesis("O utilizador preferiu a caixa do tamanha ",caseSizePreferred.toString(), "");
         this.caseSizePreferred = caseSizePreferred;
     }
 
     public void setMinEnergyEfficiencyNeeded(EnergyEfficiency minEnergyEfficiencyNeeded) {
-        Conclusion c = new Conclusion("User needs power supply with minimum energy efficiency of " + minEnergyEfficiencyNeeded);
+        new Hypothesis("O sistema concluiu que a fonte de energia deve ser de eficiência mínima ",minEnergyEfficiencyNeeded.toString(), "");
         this.minEnergyEfficiencyNeeded = minEnergyEfficiencyNeeded;
     }
 
