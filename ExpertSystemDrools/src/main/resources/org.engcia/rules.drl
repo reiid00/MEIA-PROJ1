@@ -941,19 +941,5 @@ rule "r12a3 - Choose Case Size, answer MID Tower"
 end
 
 
-rule "r13 - All choices were made, Conclusion"
-    when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
-        Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
-	then
-	  System.out.println($kb.caseColorPreferred);
-	  System.out.println($kb.gpuManufacturerPreferred);
-	  System.out.println($kb.cpuCooler.cooler);
-	  System.out.println($kb.budgetType);
-	  System.out.println("teste");
-end
-
-
 
 
