@@ -9,7 +9,6 @@ import org.engcia.Utils.Boostrap;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.LiveQuery;
 import org.kie.api.runtime.rule.Row;
 import org.kie.api.runtime.rule.ViewChangedEventListener;
 
@@ -33,6 +32,7 @@ public class Main {
         try {
             Main.justifications = new TreeMap<Integer, Justification>();
 
+           /* DroolsWithWhyNot drools = DroolsWithWhyNot.init("org.dei.facts");*/
             // load up the knowledge base
             KieServices ks = KieServices.Factory.get();
             KieContainer kContainer = ks.getKieClasspathContainer();
@@ -98,16 +98,20 @@ public class Main {
             while (selected!=0)
             {
                 Scanner sc = new Scanner(System.in);
-                System.out.println("Escolha a justificação!");
+                System.out.println("Escolha a justificação:");
                 for (int i = 0; i < id.size(); i++) {
                     System.out.println((i+1) +  "-" + Main.justifications.get(id.get(i)).getConclusion());
                 }
                 System.out.println("0. Sair");
 
-                selected = sc.nextInt();
-                System.out.println(how.getHowExplanation(id.get(selected-1)));
+                if(selected>0) System.out.println(how.getHowExplanation(id.get(selected-1)));
+
             }
 
+         /*   // Getting a WhyNot explanation:
+            String explanationText = drools.getWhyNotExplanation("Fruit(Values.WATERMELON)");
+            System.out.println("Explanation:");
+            System.out.println(explanationText);*/
 
             System.out.println( Main.justifications.size());
 
