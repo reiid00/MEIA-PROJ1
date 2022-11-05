@@ -131,10 +131,10 @@ public class KnowledgeBase extends Fact{
     }
 
     public void setCpuCooler(String cpuCooler) {
-        if (cpuCooler.toUpperCase() == "waterCooled".toUpperCase()){
+        if (cpuCooler.equalsIgnoreCase("waterCooled")){
             new Hypothesis("O utilizador preferiu um CPU cooler  ","Water Cooled", "");
             this.cpuCooler.isWaterCooled = true;
-        } else if (cpuCooler.toUpperCase() == "fanless".toUpperCase()){
+        } else if (cpuCooler.equalsIgnoreCase("fanless")){
             new Hypothesis("O utilizador preferiu um CPU cooler  ","Fanless", "");
             this.cpuCooler.isFanless = true;
         }
