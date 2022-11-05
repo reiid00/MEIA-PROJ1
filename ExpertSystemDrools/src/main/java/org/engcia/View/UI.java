@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
 
+import org.engcia.BC.KnowledgeBase;
 import org.kie.api.runtime.ClassObjectFilter;
 
 import org.engcia.Main;
@@ -100,6 +101,8 @@ public class UI {
 
         Evidence e = new Evidence(ev, value);
         Main.KS.insert(e);
+        KnowledgeBase kb = (KnowledgeBase) Main.KS.getGlobal("$kb");
+        kb.setMaxBudget(Integer.parseInt(value));
         if (compare(value,intMin,intMax)) {
             Main.agendaEventListener.addLhs(e);
             return true;
