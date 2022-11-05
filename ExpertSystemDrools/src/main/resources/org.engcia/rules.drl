@@ -168,7 +168,7 @@ end
 
 rule "r3a1 - Finality question when Budget type is not low and answer is Simple Web Navigation"
 	when
-	    Hypothesis( description == "Orcamento", value != "NA")
+/*	    Hypothesis( description == "Orcamento", value != "NA")*/
 	    Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "1"))
@@ -181,7 +181,7 @@ end
 
 rule "r3a2 - Finality question when Budget type isn't low and answer is Complex Web Navigation"
 	when
-	    Hypothesis( description == "Orcamento", value != "NA")
+	 /*   Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "1"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_NAVEGACAO_WEB, "2"))
@@ -194,7 +194,7 @@ end
 
 rule "r3b1 - Finality question when Budget type isn't low and answer is Simple Office Applications"
 	when
-        Hypothesis( description == "Orcamento", value != "NA")
+       /* Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "2"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "1"))
@@ -207,7 +207,7 @@ end
 
 rule "r3b2 - Finality question when Budget type isn't low and answer is Professional Office Applications"
 	when
-	   	Hypothesis( description == "Orcamento", value != "NA")
+	   	/*Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "2"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_OFFICE, "2"))
@@ -220,7 +220,7 @@ end
 
 rule "r3c11 - Finality question when Budget type isn't low and answer is Professional Applications with Local DB"
     when
-	   	Hypothesis( description == "Orcamento", value != "NA")
+	   /*	Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "1"))
@@ -234,7 +234,7 @@ end
 
 rule "r3c12 - Finality question when Budget type isn't low and answer is Professional Applications with Remote DB"
     when
-	   	Hypothesis( description == "Orcamento", value != "NA")
+	  /* 	Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "1"))
@@ -247,7 +247,7 @@ end
 
 rule "r3c2 - Finality question when Budget type isn't low and answer is Professional Applications without DB"
     when
-	   	Hypothesis( description == "Orcamento", value != "NA")
+	/*   	Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "3"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_APLICACOES_PROFISSIONAIS, "2"))
@@ -259,7 +259,7 @@ end
 
 rule "r3d1 - Finality question when Budget type isn't low and answer is Basic Games"
     when
-        Hypothesis( description == "Orcamento", value != "NA")
+ /*       Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "4"))
 	then
@@ -271,7 +271,7 @@ end
 
 rule "r3e1 - Finality question when Budget type isn't low and answer is Advanced Programs of 3d Modelation"
     when
-	    Hypothesis( description == "Orcamento", value != "NA")
+/*	    Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANCADOS, "1"))
@@ -283,7 +283,7 @@ end
 
 rule "r3e2 - Finality question when Budget type isn't low and answer is Advanced Programs of Graphic Design"
     when
-	    Hypothesis( description == "Orcamento", value != "NA")
+	  /*  Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANCADOS, "2"))
@@ -295,7 +295,7 @@ end
 
 rule "r3e3 - Finality question when Budget type isn't low and answer is Advanced Programs of Mathematic Calculus"
     when
-        Hypothesis( description == "Orcamento", value != "NA")
+    /*    Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "5"))
         eval(UI.answer(Questions.CHOOSE_FINALITY_PROGRAMAS_AVANCADOS, "3"))
@@ -307,7 +307,7 @@ end
 
 rule "r3f1 - Finality question when Budget type isn't low and answer is Gaming"
     when
-        Hypothesis( description == "Orcamento", value != "NA")
+    /*    Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "6"))
 	then
@@ -320,7 +320,7 @@ end
 
 rule "r3g1 - Finality question when Budget type isn't low and answer is Basic Image Treatment"
     when
-        Hypothesis( description == "Orcamento", value != "NA")
+    /*    Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "7"))
         eval(UI.answer(Questions.CHOOSE_IMAGE_TREATMENT_TYPE, "1"))
@@ -332,7 +332,7 @@ end
 
 rule "r3g1 - Finality question when Budget type isn't low and answer is Professional Image Treatment"
     when
-	    Hypothesis( description == "Orcamento", value != "NA")
+	/*    Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "7"))
         eval(UI.answer(Questions.CHOOSE_IMAGE_TREATMENT_TYPE, "2"))
@@ -343,7 +343,7 @@ rule "r3g1 - Finality question when Budget type isn't low and answer is Professi
 end
 
 rule "r3h1 - Finality question when Budget type isn't low and answer is Video Edition 4K/8K"when
-        Hypothesis( description == "Orcamento", value != "NA")
+       /* Hypothesis( description == "Orcamento", value != "NA")*/
         Hypothesis( description == "Orcamento", value != "BAIXO")
         eval(UI.answer(Questions.CHOOSE_FINALITY_NON_LOW_BUDGET, "8"))
 	then
@@ -825,8 +825,8 @@ end
 
 rule "r6b2.1 - When System sugests minimum storage of 480 and user wants to change it"
     when
-        Hypothesis( description == "Finalidade", value != "NA")
-        Hypothesis( description == "Orcamento", value != "NA")
+     /*   Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Orcamento", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_INITIAL_STORAGE.replace("XXX",String.valueOf($kb.minStorage.capacity)), "1"))
     then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -838,7 +838,7 @@ end
 
 rule "r6b1 - When user wants to add or insert a 2nd storage (HDD), adding a storage of 1TB"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "1"))
     then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -849,7 +849,7 @@ end
 
 rule "r6b1 - When user wants to add or insert a 2nd storage (HDD), adding a storage of 2TB"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "2"))
     then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -860,7 +860,7 @@ end
 
 rule "r6b1 - When user wants to add or insert a 2nd storage (HDD), adding a storage of 4TB"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+       /* Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "3"))
     then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -873,7 +873,7 @@ end
 
 rule "r7a3 - When user wants to change RAM Storage"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+       /* Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_RAM.replace("XXX",String.valueOf($kb.minRAMPreferred)), "1"))
     then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -890,9 +890,9 @@ end
 rule "r7bf1 - System doesn't need a Dedicated GPU but user wants one"
 
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+       /* Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Orcamento", value != "BAIXO")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         Hypothesis( description == "Finalidade", value != "GAMING")
         Hypothesis( description == "Finalidade", value != "JOGOS_BASICOS")
         Hypothesis( description == "Finalidade", value != "EDICAO_DE_VIDEO_4k_8K")
@@ -909,7 +909,7 @@ end
 
 rule "r8a1a - Choose GPU Manufacturer, answer NVIDIA"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "O utilizador ", value == "preferiu ter placa gráfica")
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
     then
@@ -920,7 +920,7 @@ end
 
 rule "r8a1b - Choose GPU Manufacturer, answer NVIDIA"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "Dada a finalidade o sistema concluiu que ", value == "precisa de placa gráfica")
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
     then
@@ -931,7 +931,7 @@ end
 
 rule "r8a2a - Choose GPU Manufacturer, answer AMD"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "O utilizador ", value == "preferiu ter placa gráfica")
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
     then
@@ -941,7 +941,7 @@ $kb.setGpuManufacturerPreferred("AMD");
 end
 rule "r8a2b - Choose GPU Manufacturer, answer AMD"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "Dada a finalidade o sistema concluiu que ", value == "precisa de placa gráfica")
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
     then
@@ -953,7 +953,7 @@ end
 
 rule "r8b1 - Finality is Gaming, user has GPU brand preference of ASUS"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "1"))
     then
@@ -964,7 +964,7 @@ end
 
 rule "r8b2 - Finality is Gaming, user has GPU brand preference of EVGA"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+      /*  Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "2"))
     then
@@ -975,7 +975,7 @@ end
 
 rule "r8b3 - Finality is Gaming, user has GPU brand preference of GigaByte"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "3"))
     then
@@ -986,7 +986,7 @@ end
 
 rule "r8b4 - Finality is Gaming, user has GPU brand preference of MSI"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "4"))
     then
@@ -997,7 +997,7 @@ end
 
 rule "r8b5 - Finality is Gaming, user has GPU brand preference of Sapphire"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "6"))
     then
@@ -1010,8 +1010,8 @@ end
 rule "r9a1 - User has CPU manufacturer preference, INTEL "
 
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+      /*  Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_CPU_MANUFACTURER, "1"))
     then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -1021,8 +1021,8 @@ end
 
 rule "r9a2 - User has CPU manufacturer preference, AMD "
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_CPU_MANUFACTURER, "2"))
     then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -1032,8 +1032,8 @@ end
 
 rule "r10a1 - Finality is Gaming, user wants to do OC and prefers WaterCooling "
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
         eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "1"))
@@ -1045,8 +1045,8 @@ end
 
 rule "r10a2 - Finality is Gaming, user wants to do OC and prefers Fanless "
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
         eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "2"))
@@ -1059,8 +1059,8 @@ end
 
 rule "r10a3 - Finality is Gaming, user wants to do OC and prefers Normal or doesnt have preference "
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+      /*  Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_CPU_OC, "1"))
         eval(UI.answer(Questions.CHOOSE_COOLER_TYPE, "3") || UI.answer(Questions.CHOOSE_COOLER_TYPE, "4"))
@@ -1074,9 +1074,9 @@ end
 
 rule "r11a1 - Choose Environment Energy Efficiency Instability, answer Negative"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "1"))
 	then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -1086,9 +1086,9 @@ end
 
 rule "r11a2 - Choose Environment Energy Efficiency, answer Positive, a bit problematic"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "2"))
 	then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -1099,9 +1099,9 @@ end
 
 rule "r11a3 - Choose Environment Energy Efficiency, answer Positive, serious issue"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_ENVIRONMENT_ENERGY_EFFICIENCY_INSTABILITY, "3"))
 	then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -1112,9 +1112,9 @@ end
 
 rule "r12a1 - Choose Case Color, answer Black"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+       /* Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_OPTIONAL_CASE_COLOR, "1"))
         eval(UI.answer(Questions.CHOOSE_CASE_COLOR, "1"))
 	then
@@ -1127,9 +1127,9 @@ end
 
 rule "r12a2 - Choose Case Color, answer White"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+     /*   Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_OPTIONAL_CASE_COLOR, "1"))
         eval(UI.answer(Questions.CHOOSE_CASE_COLOR, "2"))
 	then
@@ -1141,9 +1141,9 @@ $kb.setCaseColorPreferred("white");
 
 rule "r12a1 - Choose Case Size, answer Micro-ATX "
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+/*        Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "1"))
 	then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -1154,9 +1154,9 @@ end
 
 rule "r12a2 - Choose Case Size, answer Mini-ATX"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+/*        Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "2"))
 	then
 // 	  KnowledgeBase h = new KnowledgeBase();
@@ -1167,9 +1167,9 @@ end
 
 rule "r12a3 - Choose Case Size, answer MID Tower"
     when
-        Hypothesis( description == "Horas passadas no computador ", value != "NA")
+/*        Hypothesis( description == "Horas passadas no computador ", value != "NA")
         Hypothesis( description == "Capacidade mínima para o disco principal (SSD) ", value != "NA")
-        Hypothesis( description == "Finalidade", value != "NA")
+        Hypothesis( description == "Finalidade", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_CASE_SIZE, "3"))
 	then
 // 	  KnowledgeBase h = new KnowledgeBase();
