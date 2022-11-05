@@ -1,12 +1,15 @@
 package org.engcia;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import org.engcia.BC.KnowledgeBase;
 import org.engcia.Listeners.TrackingAgendaEventListener;
 import org.engcia.Utils.Boostrap;
-
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -64,32 +67,49 @@ public class Main {
 
             KnowledgeBase kb = new KnowledgeBase();
             kSession.setGlobal("$kb", kb);
+//
+//            Stack<Integer> keys = new Stack<>();
+//            How how = new How(Main.justifications);
+//            kSession.fireAllRules();
+//
+//            for (int key : Main.justifications.keySet()) {
+//                keys.push(key);
+//
+//            }
+//            List<Integer> id = new ArrayList<>();
+//            for (int js = keys.size() - 1; js >= 0; js--) {
+//
+//                id.add(keys.get(js));
+//            }
+//            int selected = -1;
+//            while (selected != 0) {
+//                Scanner sc = new Scanner(System.in);
+//                System.out.println("Escolha a justificação:");
+//                for (int i = 0; i < id.size(); i++) {
+//                    System.out.println((i + 1) + "-" + Main.justifications.get(id.get(i)).getConclusion());
+//                }
+//                System.out.println("0. Sair");
+//
+//                selected = sc.nextInt();
+//                if (selected > 0) System.out.println(how.getHowExplanation(id.get(selected - 1)));
+//            }
 
-            Stack<Integer> keys = new Stack<>();
-            How how = new How(Main.justifications);
-            kSession.fireAllRules();
-
-            for (int key : Main.justifications.keySet()) {
-                keys.push(key);
-
+            // Criar json e meter no post body.
+            String urlParameters  = "{}";
+            byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+            int    postDataLength = postData.length;
+            String request        = "http://localhost:5110/findBestPC";
+            URL url            = new URL( request );
+            HttpURLConnection conn= (HttpURLConnection) url.openConnection();
+            conn.setDoOutput( true );
+            conn.setInstanceFollowRedirects( false );
+            conn.setRequestMethod( "POST" );
+            conn.setRequestProperty( "Content-Type", "application/json");
+            conn.setRequestProperty( "Content-Length", Integer.toString( postDataLength ));
+            try( DataOutputStream wr = new DataOutputStream( conn.getOutputStream())) {
+                wr.write( postData );
             }
-            List<Integer> id = new ArrayList<>();
-            for (int js = keys.size() - 1; js >= 0; js--) {
-
-                id.add(keys.get(js));
-            }
-            int selected = -1;
-            while (selected != 0) {
-                Scanner sc = new Scanner(System.in);
-                System.out.println("Escolha a justificação:");
-                for (int i = 0; i < id.size(); i++) {
-                    System.out.println((i + 1) + "-" + Main.justifications.get(id.get(i)).getConclusion());
-                }
-                System.out.println("0. Sair");
-
-                selected = sc.nextInt();
-                if (selected > 0) System.out.println(how.getHowExplanation(id.get(selected - 1)));
-            }
+            conn.getResponseMessage();
         } catch (Throwable t) {
             t.printStackTrace();
         }
