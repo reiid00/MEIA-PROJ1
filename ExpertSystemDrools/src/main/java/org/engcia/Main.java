@@ -87,7 +87,6 @@ public class Main {
             for ( int key : Main.justifications.keySet() ) {
                 keys.push(key);
 
-                System.out.println( key );
             }
            List<Integer> id = new ArrayList<>();
             for (int js= keys.size()-1;js>=0;js--){
@@ -104,7 +103,10 @@ public class Main {
                 }
                 System.out.println("0. Sair");
 
+
+                selected = sc.nextInt();
                 if(selected>0) System.out.println(how.getHowExplanation(id.get(selected-1)));
+
 
             }
 
@@ -113,7 +115,7 @@ public class Main {
             System.out.println("Explanation:");
             System.out.println(explanationText);*/
 
-            System.out.println( Main.justifications.size());
+
 
 
         } catch (Throwable t) {
