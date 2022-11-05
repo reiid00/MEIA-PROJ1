@@ -1,7 +1,9 @@
 package org.engcia;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Stack;
 import java.util.TreeMap;
 
 import org.engcia.BC.KnowledgeBase;
@@ -75,14 +77,30 @@ public class Main {
 
             KnowledgeBase kb = new KnowledgeBase();
             kSession.setGlobal("$kb", kb);
-            kSession.fireAllRules();
+
 
 //          kSession.fireUntilHalt();
 
 //            query.close();
 
+            Stack<Integer> keys= new Stack<>();
+            How how = new How(Main.justifications);
+            kSession.fireAllRules();
+
+            for ( int key : Main.justifications.keySet() ) {
+                keys.push(key);
+
+                System.out.println( key );
+            }
+            for (int js= keys.size()-1;js>=0;js--){
+
+                int id=keys.get(js);
+                System.out.println(how.getHowExplanation(id));
+            }
+
 
             System.out.println( Main.justifications.size());
+
 
         } catch (Throwable t) {
             t.printStackTrace();
