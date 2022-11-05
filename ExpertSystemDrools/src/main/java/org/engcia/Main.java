@@ -1,11 +1,21 @@
 package org.engcia;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
+import org.drools.compiler.compiler.DrlParser;
+import org.drools.compiler.compiler.DroolsParserException;
+import org.drools.compiler.lang.descr.PackageDescr;
+import org.drools.compiler.lang.descr.RuleDescr;
 import org.engcia.BC.KnowledgeBase;
 import org.engcia.Listeners.TrackingAgendaEventListener;
 import org.engcia.Utils.Boostrap;
+
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -15,12 +25,13 @@ import org.kie.api.runtime.rule.ViewChangedEventListener;
 import org.engcia.BC.Conclusion;
 import org.engcia.BC.Justification;
 import org.engcia.View.UI;
+import org.kie.internal.builder.conf.LanguageLevelOption;
 
 public class Main {
     public static KieSession KS;
     public static TrackingAgendaEventListener agendaEventListener;
     public static Map<Integer, Justification> justifications;
-
+    private static final List<String> drlPaths=findDrlFiles();
     public static final void main(String[] args) throws IOException {
         UI.uiInit();
         Boostrap.loadBD();
@@ -32,7 +43,7 @@ public class Main {
         try {
             Main.justifications = new TreeMap<Integer, Justification>();
 
-           /* DroolsWithWhyNot drools = DroolsWithWhyNot.init("org.dei.facts");*/
+            //DroolsWithWhyNot drools = DroolsWithWhyNot.init("org.dei.facts");
             // load up the knowledge base
             KieServices ks = KieServices.Factory.get();
             KieContainer kContainer = ks.getKieClasspathContainer();
@@ -109,19 +120,76 @@ public class Main {
 
 
             }
-
-         /*   // Getting a WhyNot explanation:
+        /*    // Getting a WhyNot explanation:
             String explanationText = drools.getWhyNotExplanation("Fruit(Values.WATERMELON)");
             System.out.println("Explanation:");
             System.out.println(explanationText);*/
-
-
+            List<RuleDescr>  ob=getRulesDescriptionFromDRL();
+            System.out.println(ob.size());
 
 
         } catch (Throwable t) {
             t.printStackTrace();
         }
     }
+    private static List<String> findDrlFiles() {
+        String baseDir = System.getProperty("user.dir");
+        File fileDir = new File(baseDir + "/src");
+        ArrayList<String> lst = new ArrayList<String>();
+        findFile(fileDir, lst);
+        return lst;
 
+    }
+    /**
+     * Recursive method to search files with drl extension
+     * @param file Search base file
+     * @param lst List of files found with drl extension
+     */
+    private static void findFile(File file, List<String> lst) {
+        final String name = "drl";
+        File[] list = file.listFiles();
+        if(list!=null)
+            for (File fil : list) {
+                if (fil.isDirectory()) {
+                    findFile(fil, lst);
+                }
+                else if (fil.getName().endsWith(name.toLowerCase())) {
+                    lst.add(fil.getParentFile() + "/" + fil.getName());
+                }
+            }
+    }
+
+    /**
+     * Get List containing rules description
+     * @return list containing rules description
+     */
+    private static List<RuleDescr> getRulesDescriptionFromDRL() {
+        String drl;
+        StringBuffer drlBuffer = new StringBuffer();
+
+        try {
+            for (String path: Main.drlPaths) {
+                drlBuffer.append(new String(Files.readAllBytes(Paths.get(path)), Charset.defaultCharset()));
+            }
+            drl = drlBuffer.toString();
+        } catch (IOException e) {
+            throw new RuntimeException("File not found", e);
+        }
+
+        DrlParser parser = new DrlParser(LanguageLevelOption.DRL6);
+        PackageDescr pkgDescr;
+        try {
+            pkgDescr = parser.parse(null, drl);
+        } catch (DroolsParserException e) {
+            throw new RuntimeException("DRL parse error", e);
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Path incorrectly defined: ", e);
+        }
+
+        if (pkgDescr == null) {
+            throw new RuntimeException("Path incorrectly defined");
+        }
+        return pkgDescr.getRules();
+    }
 }
 
