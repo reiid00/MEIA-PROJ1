@@ -11,6 +11,7 @@ question(choose_finality_non_low_budget, 'Qual é a sua finalidade? \n 1. Navega
 question(choose_finality_navegacao_web, 'Pretende ter uma utilização com muitas ou poucas janelas? \n 1. Poucas janelas. \n 2. Muitas janelas. \n', [1, 2]).
 question(choose_finality_aplicacoes_office, 'Pretende utilizar o Office de forma básica ou profissional estas aplicações? \n 1. Forma Básica. \n 2. Profissional. \n', [1, 2]).
 question(choose_finality_aplicacoes_profissionais, 'Pretende realizar regularmente operações de pesquisa e modificação à base de dados? \n 1. Vou utilizar Base de Dados. \n 2. Não vou utilizar Base de Dados. \n', [1, 2]).
+question(choose_finality_type_of_database, 'Que tipo de Base de Dados irá utilizar? \n 1. Base de Dados Local \n 2. Base de Dados Remotas \n 3. Ambas \n', [1, 2, 3]).
 question(choose_finality_programas_avancados, 'Que tipo de programas pretende utilizar? \n 1. Modelação 3D. \n 2. Design Gráfico. \n 3. Calculo Matemático. \n', [1, 2, 3]).
 question(choose_file_type, 'Que tipo de ficheiros irão ser mais utilizados? \n 1. Word/excel/PowerPoint \n 2. Imagens \n', [1, 2]).
 question(choose_duration_per_day, 'Quanto tempo, em média, irá utilizar o computador por dia? \n 1. 2 a 4 horas \n 2. Mais de 4 horas \n', [1, 2]).
@@ -20,8 +21,7 @@ question(choose_case_size, 'Pretende que tamanho de caixa?\n 1. Normal \n 2. Peq
 question(choose_environment_energy_efficiency_instability, 'Considera o ambiente (casa/trabalho) onde pretende utilizar o PC como sendo instável/ineficiente energeticamente? \n 1. Não \n 2. Sim, um pouco problemático \n 3. Sim, é um problema muito grave',[1, 2, 3]).
 question(choose_gpu_manufacturer, 'Que fabricante de placas gráficas prefere? \n 1. Nvidia \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
 question(choose_if_wants_dedicated_graphics_card, 'Pretende realizar trabalhos mais pesados a nível gráfico (jogos, sistemas 3D)? \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_if_wants_preferred_gpu_brand, 'Tem preferência na marca da placa gráfica? \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_preferred_gpu_brand, 'Indique a marca pretendida \n',[]).
+question(choose_if_wants_preferred_gpu_brand, 'Tem preferência na marca da placa gráfica? \n 1. Sim, pretendo ASUS \n 2. Sim, pretendo EVGA \n 3. Sim, pretendo Gigabyte \n 4. Sim, pretendo MSI \n 5. Sim, pretendo Sapphire \n 6. Nao \n',[1, 2, 3, 4, 5, 6]).
 question(choose_image_treatment_type, 'Pretende utilizar estas aplicações de forma básica ou profissional? \n 1. Forma Básica. \n 2. Profissional. \n',[1, 2]).
 question(choose_initial_storage_240, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 240 GB  \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_initial_storage_480, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 480 GB  \n 1. Sim \n 2. Não \n',[1, 2]).

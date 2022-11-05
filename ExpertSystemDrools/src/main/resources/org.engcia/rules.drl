@@ -635,139 +635,98 @@ rule "r5h12 - When Finality is Gaming and Budget Type is Medium - used to find d
         Hypothesis( description == "Finalidade", value == "GAMING")
         Hypothesis( description == "Orcamento", value == "MEDIO")
 	then
-// 	  KnowledgeBase h = new KnowledgeBase();	   $kb.minStorage.isSSD = true;
        $kb.setMinStorage(240);
        $kb.setMinRAMPreferred(32);
        $kb.setMinRAMSpeed(2600);
        $kb.setAdequateMinCPUBenchmark(170);
        $kb.setAdequateMinGPUBenchmark(120);
-        $kb.setDurationDayChoice(2);
-       // 	insert(h);
+       $kb.setDurationDayChoice(2);
 end
 
 rule "r5h13 - When Finality is Gaming and Budget Type is Medium High - used to find define ideal storage, RAM, CPU and GPU"
     when
-        Hypothesis( description == "Finalidade", value == "GAMING")
-        Hypothesis( description == "Orcamento", value == "MEDIO_ALTO")
+       Hypothesis( description == "Finalidade", value == "GAMING")
+       Hypothesis( description == "Orcamento", value == "MEDIO_ALTO")
 	then
-// 	  KnowledgeBase h = new KnowledgeBase();	   $kb.minStorage.isSSD = true;
        $kb.setMinStorage(240);
        $kb.setMinRAMPreferred(32);
        $kb.setMinRAMSpeed(2600);
        $kb.setAdequateMinCPUBenchmark(170);
        $kb.setAdequateMinGPUBenchmark(170);
-        $kb.setDurationDayChoice(2);
-       // 	insert(h);
+       $kb.setDurationDayChoice(2);
 end
 
 rule "r5h14 - When Finality is Gaming and Budget Type is High - used to find define ideal storage, RAM, CPU and GPU"
     when
-        Hypothesis( description == "Finalidade", value == "GAMING")
-        Hypothesis( description == "Orcamento", value == "ALTO")
+       Hypothesis( description == "Finalidade", value == "GAMING")
+       Hypothesis( description == "Orcamento", value == "ALTO")
 	then
-// 	  KnowledgeBase h = new KnowledgeBase();	   $kb.minStorage.isSSD = true;
        $kb.setMinStorage(240);
        $kb.setMinRAMPreferred(32);
        $kb.setMinRAMSpeed(2600);
        $kb.setAdequateMinCPUBenchmark(170);
        $kb.setAdequateMinGPUBenchmark(200);
-        $kb.setDurationDayChoice(2);
-       // 	insert(h);
+       $kb.setDurationDayChoice(2);
 end
-
 
 rule "r6a - When System sugests minimum storage of 480 and user wants to change it"
     when
-     /*   Hypothesis( description == "Finalidade", value != "NA")
-        Hypothesis( description == "Orcamento", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_INITIAL_STORAGE.replace("XXX",String.valueOf($kb.minStorage.capacity)), "1"))
     then
-// 	  KnowledgeBase h = new KnowledgeBase();
-    $kb.minStorage.capacity *=2 ;
-      // 	insert(h);
+        $kb.minStorage.capacity *=2 ;
 end
-
-
 
 rule "r6b1 - When user wants to add or insert a 2nd storage (HDD), adding a storage of 1TB"
     when
-        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "1"))
     then
-// 	  KnowledgeBase h = new KnowledgeBase();
         $kb.setMinScndStorage(1000);
         $kb.minScndStorage.isSATA = true;
-        // 	insert(h);
 end
 
 rule "r6b2 - When user wants to add or insert a 2nd storage (HDD), adding a storage of 2TB"
     when
-        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "2"))
     then
-// 	  KnowledgeBase h = new KnowledgeBase();
         $kb.setMinScndStorage(2000);
         $kb.minScndStorage.isSATA = true;
-        // 	insert(h);
 end
 
 rule "r6b3 - When user wants to add or insert a 2nd storage (HDD), adding a storage of 4TB"
     when
-       /* Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_2ND_STORAGE, "3"))
     then
-// 	  KnowledgeBase h = new KnowledgeBase();
         $kb.setMinScndStorage(4000);
         $kb.minScndStorage.isSATA = true;
-        // 	insert(h);
 end
-
 
 rule "r6c - When user wants to change RAM Storage"
     when
-       /* Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         eval(UI.answer(Questions.CHOOSE_RAM.replace("XXX",String.valueOf($kb.minRAMPreferred)), "1"))
     then
-// 	  KnowledgeBase h = new KnowledgeBase();
         $kb.setMinRAM($kb.minRAMPreferred *2);
-        // 	insert(h);
 end
-
-
-
-
 
 // USER DOESNT NEED GPU BUT WANTS ONE
 
 rule "r7bf1 - System doesn't need a Dedicated GPU but user wants one"
-
     when
-       /* Hypothesis( description == "Horas passadas no computador ", value != "NA")
-        Hypothesis( description == "Orcamento", value != "BAIXO")
-        Hypothesis( description == "Finalidade", value != "NA")*/
         Hypothesis( description == "Finalidade", value != "GAMING")
         Hypothesis( description == "Finalidade", value != "JOGOS_BASICOS")
         Hypothesis( description == "Finalidade", value != "EDICAO_DE_VIDEO_4k_8K")
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_DEDICATED_GRAPHICS_CARD, "1"))
     then
-	 //   KnowledgeBase h = new KnowledgeBase();
         $kb.setPrefersDedicatedGPU(true);
-        // 	insert(h);
 end
-
-
 
 // CHOOSING DEDICATED GRAPHICS CARD
 
 rule "r8a1a - Choose GPU Manufacturer, answer NVIDIA"
     when
-        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "O utilizador ", value == "preferiu ter placa gráfica")
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
     then
-// 	  KnowledgeBase h = new KnowledgeBase();
-    $kb.setGpuManufacturerPreferred("NVIDIA");
-    // 	insert(h);
+        $kb.setGpuManufacturerPreferred("NVIDIA");
 end
 
 rule "r8a1b - Choose GPU Manufacturer, answer NVIDIA"
@@ -775,7 +734,7 @@ rule "r8a1b - Choose GPU Manufacturer, answer NVIDIA"
         Hypothesis( description == "Dada a finalidade o sistema concluiu que ", value == "precisa de placa gráfica")
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "1"))
     then
-    $kb.setGpuManufacturerPreferred("NVIDIA");
+        $kb.setGpuManufacturerPreferred("NVIDIA");
 end
 
 rule "r8a2a - Choose GPU Manufacturer, answer AMD"
@@ -783,26 +742,24 @@ rule "r8a2a - Choose GPU Manufacturer, answer AMD"
         Hypothesis( description == "O utilizador ", value == "preferiu ter placa gráfica")
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
     then
-    $kb.setGpuManufacturerPreferred("AMD");
+        $kb.setGpuManufacturerPreferred("AMD");
 end
 rule "r8a2b - Choose GPU Manufacturer, answer AMD"
     when
         Hypothesis( description == "Dada a finalidade o sistema concluiu que ", value == "precisa de placa gráfica")
         eval(UI.answer(Questions.CHOOSE_GPU_MANUFACTURER, "2"))
     then
-    $kb.setGpuManufacturerPreferred("AMD");
+        $kb.setGpuManufacturerPreferred("AMD");
 end
 
 // Question Brand GPU preference
 
 rule "r8b1 - Finality is Gaming, user has GPU brand preference of ASUS"
     when
-        /*Hypothesis( description == "Horas passadas no computador ", value != "NA")*/
         Hypothesis( description == "Finalidade", value == "GAMING")
         eval(UI.answer(Questions.CHOOSE_IF_WANTS_PREFERRED_GPU_BRAND, "1"))
     then
-    $kb.setPreferredGPUBrand("ASUS");
-        
+        $kb.setPreferredGPUBrand("ASUS");
 end
 
 rule "r8b2 - Finality is Gaming, user has GPU brand preference of EVGA"
