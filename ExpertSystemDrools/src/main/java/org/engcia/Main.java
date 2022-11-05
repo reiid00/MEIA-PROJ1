@@ -55,8 +55,8 @@ public class Main {
                     System.out.println(">>>" + conclusion.toString());
 
                     //System.out.println(Haemorrhage.justifications);
-                    How how = new How(Main.justifications);
-                    System.out.println(how.getHowExplanation(conclusion.getId()));
+                   /* How how = new How(Main.justifications);
+                    System.out.println(how.getHowExplanation(conclusion.getId()));*/
 
                     // stop inference engine after as soon as got a conclusion
                     kSession.halt();
@@ -100,11 +100,12 @@ public class Main {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Escolha a justificação!");
                 for (int i = 0; i < id.size(); i++) {
-                    System.out.println(i +  "-" + Main.justifications.get(id.get(i)).getConclusion());
+                    System.out.println((i+1) +  "-" + Main.justifications.get(id.get(i)).getConclusion());
                 }
                 System.out.println("0. Sair");
+
                 selected = sc.nextInt();
-                System.out.println(how.getHowExplanation(id.get(selected)));
+                System.out.println(how.getHowExplanation(id.get(selected-1)));
             }
 
 

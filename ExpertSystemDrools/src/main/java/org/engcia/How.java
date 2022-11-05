@@ -31,7 +31,7 @@ public class How {
                 sb.append('\n');
                 if (f instanceof Hypothesis) {
                     String s = getHowExplanation(f.getId(), l + 1);
-                    sb.append(s);
+                   sb.append(s);
                 }
             }
         }
