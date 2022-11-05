@@ -16,15 +16,15 @@ question(choose_finality_programas_avancados, 'Que tipo de programas pretende ut
 question(choose_file_type, 'Que tipo de ficheiros irão ser mais utilizados? \n 1. Word/excel/PowerPoint \n 2. Imagens \n', [1, 2]).
 question(choose_duration_per_day, 'Quanto tempo, em média, irá utilizar o computador por dia? \n 1. 2 a 4 horas \n 2. Mais de 4 horas \n', [1, 2]).
 question(choose_optional_case_color, 'Tem preferência na cor da caixa? \n 1. Sim \n 2. Não \n', [1, 2]).
-question(choose_case_color, 'Qual das cores prefere?\n 1. Preto \n 2. Branco \n ', [1, 2]).
+question(choose_case_color, 'Qual das cores prefere? \n 1. Preto \n 2. Branco \n ', [1, 2]).
 question(choose_case_size, 'Pretende que tamanho de caixa?\n 1. Normal \n 2. Pequena \n 3. Muito pequena \n', [1, 2, 3]).
 question(choose_environment_energy_efficiency_instability, 'Considera o ambiente (casa/trabalho) onde pretende utilizar o PC como sendo instável/ineficiente energeticamente? \n 1. Não \n 2. Sim, um pouco problemático \n 3. Sim, é um problema muito grave',[1, 2, 3]).
 question(choose_gpu_manufacturer, 'Que fabricante de placas gráficas prefere? \n 1. Nvidia \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
 question(choose_if_wants_dedicated_graphics_card, 'Pretende realizar trabalhos mais pesados a nível gráfico (jogos, sistemas 3D)? \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_if_wants_preferred_gpu_brand, 'Tem preferência na marca da placa gráfica? \n 1. Sim, pretendo ASUS \n 2. Sim, pretendo EVGA \n 3. Sim, pretendo Gigabyte \n 4. Sim, pretendo MSI \n 5. Sim, pretendo Sapphire \n 6. Nao \n',[1, 2, 3, 4, 5, 6]).
 question(choose_image_treatment_type, 'Pretende utilizar estas aplicações de forma básica ou profissional? \n 1. Forma Básica. \n 2. Profissional. \n',[1, 2]).
-question(choose_initial_storage, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de XXX GB \n 1. Sim, aumentar para o dobro da capacidade \n 2. Nao \n',[1, 2]).
-question(choose_2nd_storage, 'Pretende adicionar/modificar um segundo local de armazenamento? (HDD) 1. Sim, pretendo adicionar um disco rígido de 1TB \n 2. Sim, pretendo adicionar um disco rígido de 2TB  \n 3. Sim, pretendo adicionar um disco rígido de 4TB \n 4. Nao \n',[1, 2, 3, 4]).
+question(choose_initial_storage, 'Pretende modificar o tamanho de armazenamento ?(SSD) Atualmente o Sistema sugeriu o tamanho ideal de XXX GB \n 1. Sim, aumentar para o dobro da capacidade \n 2. Nao \n',[1, 2]).
+question(choose_2nd_storage, 'Pretende adicionar/modificar um segundo local de armazenamento? (HDD) \n 1. Sim, pretendo adicionar um disco rígido de 1TB \n 2. Sim, pretendo adicionar um disco rígido de 2TB  \n 3. Sim, pretendo adicionar um disco rígido de 4TB \n 4. Nao \n',[1, 2, 3, 4]).
 question(choose_ram, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de XXX GB \n 1. Sim, pretendo aumento para o dobro da capacidade \n 2. Nao \n',[1, 2]).
 question(choose_cpu_manufacturer, 'Que fabricante de processador prefere? \n 1. Intel \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
 question(choose_cpu_oc, 'Pretende fazer OverClock ao CPU? \n 1. Sim \n 2. Nao \n',[1, 2]).

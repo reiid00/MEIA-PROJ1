@@ -5,81 +5,18 @@
 % Procura o melhor computador possível respeitando todas as regras de compatibilidade e com base no estado atual da base de conhecimento,
 % isto é, após o sistema pericial já ter adquirido conhecimento, idealmente considerado suficiente de forma a atingir uma solução não genérica
 findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase(PC):-
-    getValidGPUsListFromKnowledgeBase(ValidGPUsList),
-    getValidCPUsListFromKnowledgeBase(ValidCPUsList),
-    getValidCPUCoolersListFromKnowledgeBase(ValidCPUCoolersList),
-    getValidMotherboardsListFromKnowledgeBase(ValidMotherboardsList),
-    getValidMemoryRAMsListFromKnowledgeBase(ValidMemoryRAMsList),
-    getValidSSDStoragesListFromKnowledgeBase(ValidSSDStoragesList),
-    getValidHDDStoragesListFromKnowledgeBase(ValidHDDStoragesList),
-    getValidPowerSuppliesListFromKnowledgeBase(ValidPowerSuppliesList),
-    getValidCasesListFromKnowledgeBase(ValidCasesList),
-    answer(choose_budget, MaxBudget),
-
-    length(ValidGPUsList, NGPUs),
-    GPUIndex in 1..NGPUs,
-    nth1(GPUIndex, ValidGPUsList, GPU),
-    GPU = gpu(_, GPUManufacturer, GPUName, GPUBasePrice, _, _, GPUMemory, GPUMemoryType, _, GPUVoltage, _, GPUATXCompatibilityList, GPUBenchmarkScore),
-
-    GPUBasePrice #=< ((MaxBudget * 5) // 10),
-
-    length(ValidCPUsList, NCPUs),
-    CPUIndex in 1..NCPUs,
-    nth1(CPUIndex, ValidCPUsList, CPU),
-    CPU = cpu(_, CPUManufacturer, CPUName, CPUBasePrice, _, _, _, CPUBoostClock, CPUVoltage, CPUBenchmarkScore, CPUSocket, CPUHasIntegratedGPU),
-
-    GPUBasePrice + CPUBasePrice #=< ((MaxBudget * 75) // 100),
-
-    length(ValidMotherboardsList, NMotherboards),
-    MotherboardIndex in 1..NMotherboards,
-    nth1(MotherboardIndex, ValidMotherboardsList, Motherboard),
-    Motherboard = motherboard(_, MotherboardManufacturer, MotherboardName, MotherboardBasePrice, _, MotherboardSocketCompatibilityList, MotherboardATXType, MotherboardMaxMemoryRam, MotherboardRAMType, MotherboardRAMSlots, MotherboardRAMSpeedList),
-
-    length(ValidCPUCoolersList, NCPUCoolers),
-    CPUCoolerIndex in 1..NCPUCoolers,
-    nth1(CPUCoolerIndex, ValidCPUCoolersList, CPUCooler),
-    CPUCooler = cpuCooler(_, CPUCoolerManufacturer, CPUCoolerName, CPUCoolerBasePrice, _, CPUCoolerVoltage, _, _, CPUCoolerSocketCompatibilityList),
-
-    length(ValidMemoryRAMsList, NRAMs),
-    RAMIndex in 1..NRAMs,
-    nth1(RAMIndex, ValidMemoryRAMsList, RAM),
-    RAM = ram(_, RAMManufacturer, RAMName, RAMBasePrice, _, RAMSpeed, RAMCapacity, RAMSlotsCount, RAMRamType, _),
-
-    RAMSlotsCount #=< MotherboardRAMSlots,
-    RAMCapacity #=< MotherboardMaxMemoryRam,
-
-    length(ValidSSDStoragesList, NSSDs),
-    SSDIndex in 1..NSSDs,
-    nth1(SSDIndex, ValidSSDStoragesList, SSD),
-    SSD = storage(_, SSDManufacturer, SSDName, SSDBasePrice, _, _, _, _, _, _),
-
-    length(ValidHDDStoragesList, NHDDs),
-    HDDIndex in 1..NHDDs,
-    nth1(HDDIndex, ValidHDDStoragesList, HDD),
-    HDD = storage(_, HDDManufacturer, HDDName, HDDBasePrice, _, _, _, _, _, _),
-
-    length(ValidPowerSuppliesList, NPowerSupplys),
-    PowerSupplyIndex in 1..NPowerSupplys,
-    nth1(PowerSupplyIndex, ValidPowerSuppliesList, PowerSupply),
-    PowerSupply = powerSupply(_, PowerSupplyManufacturer, PowerSupplyName, PowerSupplyBasePrice, _, PowerSupplyCapacity, PowerSupplyEnergyEfficiency, PowerSupplyModular, PowerSupplyATXCompatibilityList),
-
-    PCVoltage #= GPUVoltage + CPUVoltage + CPUCoolerVoltage,
-    MinPCVoltageCapacity #= ((PCVoltage * 15) // 10),
-    MinPCVoltageCapacity #=< PowerSupplyCapacity,
-
-    length(ValidCasesList, NCases),
-    CaseIndex in 1..NCases,
-    nth1(CaseIndex, ValidCasesList, Case),
-    Case = case(_, CaseManufacturer, CaseName, CaseBasePrice, _, CaseSizeType, CaseATXCompatibilityList, CaseColor), 
-
-    PCCost #= GPUBasePrice + CPUBasePrice + MotherboardBasePrice + CPUCoolerBasePrice + RAMBasePrice + SSDBasePrice + HDDBasePrice + PowerSupplyBasePrice + CaseBasePrice,
-    PCCost #=< MaxBudget,
-
-    once(labeling(
-        [], 
-        [GPUIndex, CPUIndex, MotherboardIndex, CPUCoolerIndex, RAMIndex, SSDIndex, HDDIndex, PowerSupplyIndex, CaseIndex]
-        )),
+    writeln("A montar o PC..."),
+    findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase1(PC, PCCost),
     PC = [GPU, CPU, CPUCooler, Motherboard, RAM, SSD, HDD, PowerSupply, Case],
+    GPU = gpu(_, GPUManufacturer, GPUName, GPUBasePrice, _, _, _, _, _, _, _, _, _),
+    CPU = cpu(_, CPUManufacturer, CPUName, CPUBasePrice, _, _, _, _, _, _, _, _),
+    Motherboard = motherboard(_, MotherboardManufacturer, MotherboardName, MotherboardBasePrice, _, _, _, _, _, _, _),
+    CPUCooler = cpuCooler(_, CPUCoolerManufacturer, CPUCoolerName, CPUCoolerBasePrice, _, _, _, _, _),
+    RAM = ram(_, RAMManufacturer, RAMName, RAMBasePrice, _, _, _, _, _, _),
+    SSD = storage(_, SSDManufacturer, SSDName, SSDBasePrice, _, _, _, _, _, _),
+    HDD = storage(_, HDDManufacturer, HDDName, HDDBasePrice, _, _, _, _, _, _),
+    PowerSupply = powerSupply(_, PowerSupplyManufacturer, PowerSupplyName, PowerSupplyBasePrice, _, _, _, _, _),
+    Case = case(_, CaseManufacturer, CaseName, CaseBasePrice, _, _, _, _), 
     nl, write('********************************************************'), nl,
     write('Foi concluído o seguinte PC feito à medida com um custo total de '), write(PCCost), write('€ :'), nl,
     write('GPU: '), write(GPUManufacturer), write(' '), write(GPUName), write(' --> '), write(GPUBasePrice), write('€'), nl,
@@ -96,6 +33,83 @@ findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase([]):-
     nl, write('********************************************************'), nl,
     write('Não foi possível montar um PC consoante as necessidades apresentadas.'), nl,
     write('********************************************************'), nl.
+
+findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase1(PC, PCCost):-
+    getValidGPUsListFromKnowledgeBase(ValidGPUsList),
+    getValidCPUsListFromKnowledgeBase(ValidCPUsList),
+    getValidCPUCoolersListFromKnowledgeBase(ValidCPUCoolersList),
+    getValidMotherboardsListFromKnowledgeBase(ValidMotherboardsList),
+    getValidMemoryRAMsListFromKnowledgeBase(ValidMemoryRAMsList),
+    getValidSSDStoragesListFromKnowledgeBase(ValidSSDStoragesList),
+    getValidHDDStoragesListFromKnowledgeBase(ValidHDDStoragesList),
+    getValidPowerSuppliesListFromKnowledgeBase(ValidPowerSuppliesList),
+    getValidCasesListFromKnowledgeBase(ValidCasesList),
+    answer(choose_budget, MaxBudget),
+
+    length(ValidGPUsList, NGPUs),
+    GPUIndex in 1..NGPUs,
+    nth1(GPUIndex, ValidGPUsList, GPU),
+    GPU = gpu(_, _, _, GPUBasePrice, _, _, _, _, _, GPUVoltage, _, _, _),
+
+    GPUBasePrice #=< ((MaxBudget * 5) // 10),
+
+    length(ValidCPUsList, NCPUs),
+    CPUIndex in 1..NCPUs,
+    nth1(CPUIndex, ValidCPUsList, CPU),
+    CPU = cpu(_, _, _, CPUBasePrice, _, _, _, _, CPUVoltage, _, _, _),
+
+    GPUBasePrice + CPUBasePrice #=< ((MaxBudget * 75) // 100),
+
+    length(ValidMotherboardsList, NMotherboards),
+    MotherboardIndex in 1..NMotherboards,
+    nth1(MotherboardIndex, ValidMotherboardsList, Motherboard),
+    Motherboard = motherboard(_, _, _, MotherboardBasePrice, _, _, _, MotherboardMaxMemoryRam, _, MotherboardRAMSlots, _),
+
+    length(ValidCPUCoolersList, NCPUCoolers),
+    CPUCoolerIndex in 1..NCPUCoolers,
+    nth1(CPUCoolerIndex, ValidCPUCoolersList, CPUCooler),
+    CPUCooler = cpuCooler(_, _, _, CPUCoolerBasePrice, _, CPUCoolerVoltage, _, _, _),
+
+    length(ValidMemoryRAMsList, NRAMs),
+    RAMIndex in 1..NRAMs,
+    nth1(RAMIndex, ValidMemoryRAMsList, RAM),
+    RAM = ram(_, _, _, RAMBasePrice, _, _, RAMCapacity, RAMSlotsCount, _, _),
+
+    RAMSlotsCount #=< MotherboardRAMSlots,
+    RAMCapacity #=< MotherboardMaxMemoryRam,
+
+    length(ValidSSDStoragesList, NSSDs),
+    SSDIndex in 1..NSSDs,
+    nth1(SSDIndex, ValidSSDStoragesList, SSD),
+    SSD = storage(_, _, _, SSDBasePrice, _, _, _, _, _, _),
+
+    length(ValidHDDStoragesList, NHDDs),
+    HDDIndex in 1..NHDDs,
+    nth1(HDDIndex, ValidHDDStoragesList, HDD),
+    HDD = storage(_, _, _, HDDBasePrice, _, _, _, _, _, _),
+
+    length(ValidPowerSuppliesList, NPowerSupplys),
+    PowerSupplyIndex in 1..NPowerSupplys,
+    nth1(PowerSupplyIndex, ValidPowerSuppliesList, PowerSupply),
+    PowerSupply = powerSupply(_, _, _, PowerSupplyBasePrice, _, PowerSupplyCapacity, _, _, _),
+
+    PCVoltage #= GPUVoltage + CPUVoltage + CPUCoolerVoltage,
+    MinPCVoltageCapacity #= ((PCVoltage * 15) // 10),
+    MinPCVoltageCapacity #=< PowerSupplyCapacity,
+
+    length(ValidCasesList, NCases),
+    CaseIndex in 1..NCases,
+    nth1(CaseIndex, ValidCasesList, Case),
+    Case = case(_, _, _, CaseBasePrice, _, _, _, _), 
+
+    PCCost #= GPUBasePrice + CPUBasePrice + MotherboardBasePrice + CPUCoolerBasePrice + RAMBasePrice + SSDBasePrice + HDDBasePrice + PowerSupplyBasePrice + CaseBasePrice,
+    PCCost #=< MaxBudget,
+
+    once(labeling(
+        [], 
+        [GPUIndex, CPUIndex, MotherboardIndex, CPUCoolerIndex, RAMIndex, SSDIndex, HDDIndex, PowerSupplyIndex, CaseIndex]
+        )),
+    PC = [GPU, CPU, CPUCooler, Motherboard, RAM, SSD, HDD, PowerSupply, Case].
 
 % Devolve a lista de GPUs válidos com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidGPUsListFromKnowledgeBase(ValidGPUsList):- 
