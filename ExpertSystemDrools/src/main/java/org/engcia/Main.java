@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.util.*;
 
 import org.engcia.BC.KnowledgeBase;
+import org.engcia.BD.Case;
+import org.engcia.BD.PowerSupply;
 import org.engcia.Listeners.TrackingAgendaEventListener;
 import org.engcia.Utils.Boostrap;
 
+import org.engcia.Utils.JSON;
+import org.json.JSONObject;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -22,6 +26,8 @@ public class Main {
     public static TrackingAgendaEventListener agendaEventListener;
     public static Map<Integer, Justification> justifications;
 
+    public static KnowledgeBase kb = new KnowledgeBase();
+
     public static final void main(String[] args) throws IOException {
         UI.uiInit();
         Boostrap.loadBD();
@@ -30,69 +36,88 @@ public class Main {
     }
 
     private static void runEngine() {
-        try {
-            Main.justifications = new TreeMap<Integer, Justification>();
+//        try {
+//            Main.justifications = new TreeMap<Integer, Justification>();
+//
+//            KieServices ks = KieServices.Factory.get();
+//            KieContainer kContainer = ks.getKieClasspathContainer();
+//            final KieSession kSession = kContainer.newKieSession("ksession-rules");
+//            Main.KS = kSession;
+//            Main.agendaEventListener = new TrackingAgendaEventListener();
+//
+//            kSession.addEventListener(agendaEventListener);
+//
+//            // Query listener
+//            ViewChangedEventListener listener = new ViewChangedEventListener() {
+//                @Override
+//                public void rowDeleted(Row row) {
+//                }
+//
+//                @Override
+//                public void rowInserted(Row row) {
+//                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
+//                    System.out.println(">>>" + conclusion.toString());
+//
+//                    // stop inference engine after as soon as got a conclusion
+//                    kSession.halt();
+//                }
+//
+//                @Override
+//                public void rowUpdated(Row row) {
+//                }
+//
+//            };
+//
+//            kSession.setGlobal("$kb", kb);
+//
+//            Stack<Integer> keys = new Stack<>();
+//            How how = new How(Main.justifications);
+//            kSession.fireAllRules();
+//
+//            for (int key : Main.justifications.keySet()) {
+//                keys.push(key);
+//
+//            }
+//            List<Integer> id = new ArrayList<>();
+//            for (int js = keys.size() - 1; js >= 0; js--) {
+//
+//                id.add(keys.get(js));
+//            }
+//            int selected = -1;
+//            while (selected != 0) {
+//                Scanner sc = new Scanner(System.in);
+//                System.out.println("Escolha a justificação:");
+//                for (int i = 0; i < id.size(); i++) {
+//                    System.out.println((i + 1) + "-" + Main.justifications.get(id.get(i)).getConclusion());
+//                }
+//                System.out.println("0. Sair");
+//
+//                selected = sc.nextInt();
+//                if (selected > 0) System.out.println(how.getHowExplanation(id.get(selected - 1)));
+//            }
+//        } catch (Throwable t) {
+//            t.printStackTrace();
+//        }
+        kb.adequateMinGPUBenchmark = 110;
+        kb.adequateMinCPUBenchmark = 110;
+        kb.gpuManufacturerPreferred = "NVIDIA";
+        kb.cpuManufacturerPreferred = "INTEL";
+        kb.cpuCooler.isFanless = false;
+        kb.cpuCooler.isWaterCooled = false;
+        kb.minRAMPreferred = 32;
+        kb.minEnergyEfficiencyNeeded = PowerSupply.EnergyEfficiency._80PLUS;
+        kb.minStorage.capacity = 240;
+        kb.minScndStorage.capacity = 1000;
+        kb.caseColorPreferred = "black";
+        kb.caseSizePreferred = Case.TowerSizeType.FULL_TOWER;
+        kb.maxBudget = 1600;
 
-            KieServices ks = KieServices.Factory.get();
-            KieContainer kContainer = ks.getKieClasspathContainer();
-            final KieSession kSession = kContainer.newKieSession("ksession-rules");
-            Main.KS = kSession;
-            Main.agendaEventListener = new TrackingAgendaEventListener();
+        JSONObject json = JSON.generateJSON(kb);
 
-            kSession.addEventListener(agendaEventListener);
+        JSONObject jsonReceived = JSON.communicateWithProlog(json);
 
-            // Query listener
-            ViewChangedEventListener listener = new ViewChangedEventListener() {
-                @Override
-                public void rowDeleted(Row row) {
-                }
+        System.out.println(jsonReceived);
 
-                @Override
-                public void rowInserted(Row row) {
-                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
-                    System.out.println(">>>" + conclusion.toString());
-
-                    // stop inference engine after as soon as got a conclusion
-                    kSession.halt();
-                }
-
-                @Override
-                public void rowUpdated(Row row) {
-                }
-
-            };
-
-            KnowledgeBase kb = new KnowledgeBase();
-            kSession.setGlobal("$kb", kb);
-
-            Stack<Integer> keys = new Stack<>();
-            How how = new How(Main.justifications);
-            kSession.fireAllRules();
-
-            for (int key : Main.justifications.keySet()) {
-                keys.push(key);
-
-            }
-            List<Integer> id = new ArrayList<>();
-            for (int js = keys.size() - 1; js >= 0; js--) {
-
-                id.add(keys.get(js));
-            }
-            int selected = -1;
-            while (selected != 0) {
-                Scanner sc = new Scanner(System.in);
-                System.out.println("Escolha a justificação:");
-                for (int i = 0; i < id.size(); i++) {
-                    System.out.println((i + 1) + "-" + Main.justifications.get(id.get(i)).getConclusion());
-                }
-                System.out.println("0. Sair");
-
-                selected = sc.nextInt();
-                if (selected > 0) System.out.println(how.getHowExplanation(id.get(selected - 1)));
-            }
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
     }
 }
 

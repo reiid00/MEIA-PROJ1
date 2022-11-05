@@ -97,6 +97,7 @@ public class UI {
         System.out.print(ev + " ");
         String value = readLine();
         System.out.println(value);
+        Main.kb.maxBudget = Integer.parseInt(value);
 
         Evidence e = new Evidence(ev, value);
         Main.KS.insert(e);

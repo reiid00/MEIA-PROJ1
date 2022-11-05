@@ -19,7 +19,6 @@
     <orderEntry type="library" name="Maven: org.drools:drools-core-dynamic:7.44.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.kie.soup:kie-soup-project-datamodel-commons:7.44.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.kie.soup:kie-soup-project-datamodel-api:7.44.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
     <orderEntry type="library" name="Maven: org.kie:kie-internal:7.44.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.kie.soup:kie-soup-maven-support:7.44.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.kie.soup:kie-soup-commons:7.44.0.Final" level="project" />
@@ -38,5 +37,10 @@
     <orderEntry type="library" name="Maven: org.reflections:reflections:0.9.11" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:20.0" level="project" />
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.21.0-GA" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.13" level="project" />
+    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
   </component>
 </module>
