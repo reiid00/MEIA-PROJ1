@@ -1,14 +1,15 @@
 package org.engcia.BC;
 
+import org.engcia.BC.Conclusion;
+import org.engcia.BC.Hypothesis;
 import org.engcia.BD.CPUCooler;
 import org.engcia.BD.Case.TowerSizeType;
 import org.engcia.BD.GPU;
 import org.engcia.BD.GPU.GPUBrand;
 import org.engcia.BD.PowerSupply.EnergyEfficiency;
 import org.engcia.BD.Storage;
-import org.engcia.Main;
 
-public class KnowledgeBase extends Fact{
+public class KnowledgeBase{
 
     public int minBudget = 0; // opcional
     public int maxBudget = 0;

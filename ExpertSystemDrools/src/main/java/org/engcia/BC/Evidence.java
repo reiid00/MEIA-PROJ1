@@ -1,5 +1,7 @@
 package org.engcia.BC;
 
+import java.util.Arrays;
+
 public class Evidence extends Fact{
     private String evidence;
     private String value;
@@ -18,7 +20,17 @@ public class Evidence extends Fact{
     }
 
     public String toString() {
-        return (evidence + " = " + value);
+        String[] evidenceSplit = evidence.split("\n");
+        String question = evidenceSplit[0];
+        String answer = value;
+        for (String possibleAnswer: evidenceSplit) {
+            if(!possibleAnswer.equalsIgnoreCase(question) && possibleAnswer.substring(0,1).equalsIgnoreCase(value)){
+                answer = possibleAnswer.substring(2).trim();
+                break;
+            }
+        }
+
+        return ("respondeu "+ answer + " à questão '" + question.trim() + "'");
     }
 
 }

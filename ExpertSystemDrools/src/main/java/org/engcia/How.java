@@ -22,7 +22,7 @@ public class How {
         Justification j = justifications.get(factNumber);
         if (j != null) { // justification for Fact factNumber was found
             sb.append(getIdentation(level));
-            sb.append(j.getConclusion() + " was obtained by rule " + j.getRuleName() + " because");
+            sb.append(j.getConclusion() + " foi obtido pela regra " + j.getRuleName().split((" - "))[0] + " porque");
             sb.append('\n');
             int l = level + 1;
             for (Fact f : j.getLhs()) {
