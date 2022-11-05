@@ -1,4 +1,3 @@
-/*
 package org.engcia.whynot;
 
 import org.kie.api.runtime.KieSession;
@@ -13,66 +12,50 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
-*/
 /**
  * Class CheckWorkingMemory is used to verify why a conclusion is false,
  * searching for the causes that that prevented a conclusion to be obtained
- *//*
-
+ */
 public class CheckWorkingMemory {
-    */
-/**
+    /**
      * Singleton object reference
-     *//*
-
+     */
     private static CheckWorkingMemory singleton = null;
 
-    */
-/**
+    /**
      * logger reference
-     *//*
-
+     */
     private final Logger LOG = LoggerFactory.getLogger(CheckWorkingMemory.class);
-    */
-/**
+    /**
      * Drools session
-     *//*
-
+     */
     private final KieSession session;
-    */
-/**
+    /**
      * Map containing queries created dynamically used to validate rule conditions;
      * key: drl condition; value: query name
-     *//*
-
+     */
     private final Map<String,String> dynamicQueries;
-    */
-/**
+    /**
      * Reference to a KnowledgeBase object containing a representation in memory of DRL file contents,
      * and utils' methods
-     *//*
+     */
+    private final org.engcia.whynot.KnowledgeBase kb;
 
-    private final KnowledgeBase kb;
-
-    */
-/**
+    /**
      * Constructor for class CheckWorkingMemory responsible for defining the mechanisms used to validate rule conditions
      * @param session Drools session
      * @param kb KnowledgeBase object containing a representation of the Knowledge Base
-     *//*
-
-    private CheckWorkingMemory(KieSession session, KnowledgeBase kb) {
+     */
+    private CheckWorkingMemory(KieSession session, org.engcia.whynot.KnowledgeBase kb) {
         this.session = session;
         this.kb = kb;
         this.dynamicQueries = kb.getDynamicQueries();
     }
 
-    */
-/**
+    /**
      * Returns the singleton object
      * @return CheckWorkingMemory instance
-     *//*
-
+     */
     public static CheckWorkingMemory getInstance() {
         if(singleton == null) {
             throw new AssertionError("You have to call init first");
@@ -81,15 +64,13 @@ public class CheckWorkingMemory {
         return singleton;
     }
 
-    */
-/**
+    /**
      * Method that ensures the creation of a unique instance of CheckWorkingMemory class
      * @param session Drools session
      * @param kb KnowledgeBase object containing a representation of the Knowledge BAse
      * @return CheckWorkingMemory singleton object
-     *//*
-
-    public synchronized static CheckWorkingMemory init(KieSession session, KnowledgeBase kb) {
+     */
+    public synchronized static CheckWorkingMemory init(KieSession session, org.engcia.whynot.KnowledgeBase kb) {
         if (singleton != null)
         {
             // ensure that we only ever get the same instance when we call getInstance
@@ -100,8 +81,7 @@ public class CheckWorkingMemory {
         return singleton;
     }
 
-    */
-/**
+    /**
      * If rule 'ruleName' was been triggered, a conclusion matching 'DRLConclusion' pattern would be achieved
      * @param ruleName Rule name of a rule that could get DRLConclusion
      * @param functor Object/fact type of the expected conclusion
@@ -109,12 +89,11 @@ public class CheckWorkingMemory {
      * @return Return true if a conclusion from rule's RHS would match 'DRLConclusion' pattern (condition): this
      * means that if rule ruleName had been fired, the conclusion DRLConclusion would have been achieved.
      * @throws Exception If a query to evaluate a condition is not defined
-     *//*
-
+     */
     protected boolean conclusionFromRuleDoesNotExist(String ruleName, String functor, String DRLConclusion) throws Exception {
 
         // get consequence of rule 'ruleName'
-        RuleWM rule = kb.getRuleByName(ruleName);
+        org.engcia.whynot.RuleWM rule = kb.getRuleByName(ruleName);
         String rhs = rule.getRuleConsequence();
         // get conclusion(s) with functor 'functor' from rhs of rule 'ruleName'
         List<String> ruleConclusions = rule.getConclusionFromRhs(functor);
@@ -148,15 +127,13 @@ public class CheckWorkingMemory {
         return exists;
     }
 
-    */
-/**
+    /**
      * Method used to create in runtime an object representing a fact
      * @param functor Fact functor
      * @param conclusion Conclusion in DRL format (constructor format), containing fact's arguments
      * @return Created object in memory
      * @throws Exception
-     *//*
-
+     */
     private Object createObject(String functor, String conclusion) throws Exception {
         String[] conclusionArgs = conclusion.substring(conclusion.indexOf('(')+1, conclusion.indexOf(')')).
                 replaceAll("\\s+","").split(",");
@@ -179,7 +156,7 @@ public class CheckWorkingMemory {
                 } else if (pTypes[i].equals(int.class) || pTypes[i].equals(float.class) || pTypes[i].equals(double.class)) {
                     method = pTypes[i].getDeclaredMethod("valueOf");
                     arguments[i] = method.invoke(conclusionArgs[i]);
-                // } else if (pTypes[i].equals(Values.class)) { // Enum types
+                    // } else if (pTypes[i].equals(Values.class)) { // Enum types
                 } else if (pTypes[i].isEnum() ) { // Enum types
                     method = pTypes[i].getMethod("valueOf", String.class);
                     arguments[i] = method.invoke(null, conclusionArgs[i].substring(conclusionArgs[i].lastIndexOf('.') + 1));
@@ -207,17 +184,14 @@ public class CheckWorkingMemory {
         return object;
     }
 
-    */
-/**
+    /**
      * Check if a rule condition is false calling a query
      * @param drlCondition DRL condition to evaluate
      * @return True if condition is false
-     *//*
-
+     */
     protected boolean conditionIsFalse(String drlCondition) {
         QueryResults q = session.getQueryResults( dynamicQueries.get(drlCondition) );
         return q.size() == 0;
     }
 
 }
-*/

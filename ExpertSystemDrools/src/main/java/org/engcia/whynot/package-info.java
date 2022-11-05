@@ -24,7 +24,7 @@
  * <p>
  * Usage:
  * <ul>
- *     <li>Call static method {@link org.dei.whynot.DroolsWithWhyNot#init(String factsPackage)}:
+ *     <li>Call static method {@link org.dei.whynot.DroolsWithWhyNot#init(java.lang.String factsPackage)}:
  *     <p>
  *     this method creates a {@link org.kie.api.runtime.KieSession}, and builds the knowledge base with rules
  *     from all drl files, and auxiliary queries generated dynamically</li>
@@ -32,7 +32,7 @@
  *     <li>After obtaining a conclusion, an WhyNot explanation can be asked by calling the following method on the {@link org.dei.whynot.DroolsWithWhyNot} object:</li>
  *     <ul>
  *             <li>
- *                 {@link org.dei.whynot.DroolsWithWhyNot#getWhyNotExplanation(String expectedConclusion)}
+ *                 {@link org.dei.whynot.DroolsWithWhyNot#getWhyNotExplanation(java.lang.String expectedConclusion)}
  *             </li>
  *             <ul>
  *                 <li>Where expectedConclusion is a String containing the expected conclusion

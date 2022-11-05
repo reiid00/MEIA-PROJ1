@@ -1,4 +1,3 @@
-/*
 package org.engcia.whynot;
 
 import org.drools.compiler.compiler.DrlParser;
@@ -31,64 +30,46 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-*/
 /**
  * KnowledgeBase class is used to represent in memory the contents of the DRL files included in the project,
  * plus a set of dynamically generated queries to evaluate rule conditions.
- *//*
-
+ */
 class KnowledgeBase {
-    */
-/**
+    /**
      * Package name including all classes used to create Drools Working Memory facts
-     *//*
-
+     */
     private final String factsPackage;
-    */
-/**
+    /**
      * logger reference
-     *//*
-
+     */
     private final Logger LOG = LoggerFactory.getLogger(KnowledgeBase.class);
-    */
-/**
+    /**
      * Reference to KieBase object
-     *//*
-
+     */
     private KieBase kieBase;
-    */
-/**
+    /**
      * List of RuleDescr objects describing each rule parsed from DRL files
-     *//*
-
+     */
     private List<RuleDescr> rulesDescr;
-    */
-/**
+    /**
      * Map containing queries created dynamically used to validate rule conditions;
      * key: drl condition; value: query name
-     *//*
-
+     */
     private Map<String,String> dynamicQueries;
-    */
-/**
+    /**
      * List of DRL paths included in the project
-     *//*
-
+     */
     private final List<String> drlPaths;
-    */
-/**
+    /**
      * Map containing RuleWM objects with description about each rule parsed from DRL files;
      * key: rule name; value: RuleWM reference
-     *//*
-
+     */
     private Map<String,RuleWM> rules;
 
-    */
-/**
+    /**
      * Constructor
      * @param factsPackage Package name including all classes used to create Drools Working Memory facts
-     *//*
-
+     */
     protected KnowledgeBase(String factsPackage) {
         this.factsPackage = factsPackage;
         this.drlPaths = findDrlFiles();
@@ -98,43 +79,35 @@ class KnowledgeBase {
         this.kieBase = createKieBase();
     }
 
-    */
-/**
+    /**
      * Getter method to access factsPackage attribute
      * @return
-     *//*
-
+     */
     protected String getFactsPackage() {
         return factsPackage;
     }
 
-    */
-/**
+    /**
      * Getter method to access reference to KieBase
      * @return
-     *//*
-
+     */
     protected KieBase getKieBase() {
         return this.kieBase;
     }
 
-    */
-/**
+    /**
      * Get Map collection containing queries created dynamically - key: drl condition; value: query name
      * @return map of queries - key: drl condition; value: query name
-     *//*
-
+     */
     protected Map<String,String> getDynamicQueries() {
         return dynamicQueries;
     }
 
-    */
-/**
+    /**
      * Returns rule description from rules Map given rule name
      * @param ruleName Rule name
      * @return RuleWM from rules Map containing rule description
-     *//*
-
+     */
     protected RuleWM getRuleByName(String ruleName) {
         RuleWM rule = rules.get(ruleName);
         if (rule == null) {
@@ -143,12 +116,10 @@ class KnowledgeBase {
         return rule;
     }
 
-    */
-/**
+    /**
      * Creates a KieBase with the contents from DRL files and with queries created dynamically
      * @return KieBase object
-     *//*
-
+     */
     private KieBase createKieBase() {
         KieServices ks = KieServices.Factory.get();
         KieRepository kr = ks.getRepository();
@@ -179,27 +150,24 @@ class KnowledgeBase {
 
     }
 
-    */
-/**
+    /**
      * Find paths of DRL files included in the project
      * @return List of paths
-     *//*
-
+     */
     private List<String> findDrlFiles() {
         String baseDir = System.getProperty("user.dir");
-        File fileDir = new File(baseDir + "/src");
+        File fileDir = new File(baseDir + "/ExpertSystemDrools/src");
         ArrayList<String> lst = new ArrayList<String>();
         findFile(fileDir, lst);
         return lst;
+
     }
 
-    */
-/**
+    /**
      * Recursive method to search files with drl extension
      * @param file Search base file
      * @param lst List of files found with drl extension
-     *//*
-
+     */
     private void findFile(File file, List<String> lst) {
         final String name = "drl";
         File[] list = file.listFiles();
@@ -214,12 +182,10 @@ class KnowledgeBase {
             }
     }
 
-    */
-/**
+    /**
      * Get List containing rules description
      * @return list containing rules description
-     *//*
-
+     */
     private List<RuleDescr> getRulesDescriptionFromDRL() {
         String drl;
         StringBuffer drlBuffer = new StringBuffer();
@@ -249,12 +215,10 @@ class KnowledgeBase {
         return pkgDescr.getRules();
     }
 
-    */
-/**
+    /**
      * Creates HashMap with RuleWM objects containing description of rules from parsed DRL files
      * @return HashMap with rules' description
-     *//*
-
+     */
     private Map<String,RuleWM> getRulesWM() {
         this.rules = new HashMap<>();
         for (RuleDescr rule: rulesDescr) {
@@ -264,12 +228,10 @@ class KnowledgeBase {
         return rules;
     }
 
-    */
-/**
+    /**
      * Get all queries in drl format corresponding all conclusions present in all rules
      * @return string containing generated queries
-     *//*
-
+     */
     private String generateQueries() {
         Set<String> condSet = getAllRuleConditionsList();
 
@@ -298,12 +260,10 @@ class KnowledgeBase {
         return drl.toString();
     }
 
-    */
-/**
+    /**
      * Get all conditions present in all rules from DRL files
      * @return Set with rules' conditions
-     *//*
-
+     */
     private Set<String> getAllRuleConditionsList() {
         Set<String> set = rulesDescr.stream().
                 map(RuleDescr::getLhs).
@@ -316,12 +276,10 @@ class KnowledgeBase {
         return set;
     }
 
-    */
-/**
+    /**
      * Get all actions present in all rules from DRL files corresponding to constructor calls
      * @return Set with rules' actions (constructor calls)
-     *//*
-
+     */
     private Set<String> getAllRuleActionsList() {
         Set<String> set = rulesDescr.stream().
                 map(RuleDescr::getConsequence).
@@ -331,13 +289,11 @@ class KnowledgeBase {
         return set;
     }
 
-    */
-/**
+    /**
      * Get constructors' calls from a rule consequent
      * @param consequent Consequent from a RHS rule
      * @return Set of constructor calls
-     *//*
-
+     */
     private Set<String> getConstructorCalls(String consequent) {
         Set<String> set = new HashSet();
         Pattern pattern = Pattern.compile("(?<=new\\s).*?(?=;)");
@@ -349,12 +305,10 @@ class KnowledgeBase {
         return set;
     }
 
-    */
-/**
+    /**
      * Get class import directives to be included in queries file to be generated dynamically
      * @return Import directives
-     *//*
-
+     */
     private String getImportsString() {
         Reflections reflections = new Reflections(this.factsPackage, new SubTypesScanner(false));
         String str1;
@@ -371,14 +325,12 @@ class KnowledgeBase {
         return str1 + str2;
     }
 
-    */
-/**
+    /**
      * Convert class constructor call to drl pattern (condition)
      * @param constructor string with class constructor
      * @return drl pattern (condition)
      * @throws Exception in case of unknown class constructor or undefined class
-     *//*
-
+     */
     protected String convertConstructorToDRL(String constructor) throws Exception {
         String objectType = constructor.substring(0, constructor.indexOf('(')).
                 replaceAll("\\s+","");
@@ -413,14 +365,12 @@ class KnowledgeBase {
         return DRL.toString();
     }
 
-    */
-/**
+    /**
      * Obtain class constructor parameters through reflection
      * @param c Class
      * @return Array with parameters names
      * @throws Exception
-     *//*
-
+     */
     private String[] getConstructorParameters(Class c) throws Exception {
         Constructor[] allConstructors = c.getConstructors();
         if (allConstructors.length == 0) {
@@ -430,13 +380,11 @@ class KnowledgeBase {
         return Arrays.stream(params).map(Parameter::getName).toArray(String[]::new);
     }
 
-    */
-/**
+    /**
      * Check if a object/fact type is a basic fact (a fact that never appears in rules' RHS)
      * @param Fact object/fact type
      * @return true if Fact is a basic fact
-     *//*
-
+     */
     protected boolean isBasicFact(String Fact) {
         // Search 'Fact' in rules' RHS; if none occurrence is found, return true
 
@@ -448,13 +396,11 @@ class KnowledgeBase {
                 anyMatch(s -> s.contains(functor));
     }
 
-    */
-/**
+    /**
      * Get list of rule names containing a given conclusion in RHS
      * @param conclusion string containing a conclusion according class constructor format
      * @return list of rule names
-     *//*
-
+     */
     protected List<String> getRulesObtainingConclusion(String conclusion) {
         String regex = "(?s).*" + conclusion + "\\(" + ".*" + "\\)" + ".*";
         List<String> lst = rulesDescr.stream().
@@ -466,14 +412,12 @@ class KnowledgeBase {
 
     }
 
-    */
-/**
+    /**
      * Convert drl pattern (condition) to class constructor format
      * @param patt drl pattern (condition)
      * @return condition converted to class constructor format
      * @throws Exception in case of unknown class constructor
-     *//*
-
+     */
     protected String convertDRLPatternToConstructor(PatternDescr patt) throws Exception {
         final String objectType = patt.getObjectType();
         StringBuilder conclusion = new StringBuilder(objectType + "(");
@@ -497,4 +441,3 @@ class KnowledgeBase {
     }
 
 }
-*/

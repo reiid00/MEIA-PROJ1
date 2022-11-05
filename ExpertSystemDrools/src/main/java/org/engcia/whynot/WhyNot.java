@@ -1,4 +1,3 @@
-/*
 package org.engcia.whynot;
 
 import org.drools.compiler.lang.descr.BaseDescr;
@@ -12,60 +11,46 @@ import java.util.List;
 
 // Singleton pattern with configurable initialization
 
-*/
 /**
  * WhyNot class implements the singleton pattern to ensure the creation of an unique instance.
  * Used to build whynot explanations in text format
- *//*
-
+ */
 public class WhyNot {
 
     private static WhyNot singleton = null;
-    */
-/**
+    /**
      * Logger reference
-     *//*
-
+     */
     static final Logger LOG = LoggerFactory.getLogger(WhyNot.class);
-    */
-/**
+    /**
      * Drools session reference
-     *//*
-
+     */
     private final KieSession session;
-    */
-/**
+    /**
      * Reference to a KnowledgeBase object containing a representation in memory of DRL file contents,
      * and utils' methods
-     *//*
-
-    private final KnowledgeBase kb;
-    */
-/**
+     */
+    private final org.engcia.whynot.KnowledgeBase kb;
+    /**
      * Reference to a CheckWorkingMemory object providing the mechanisms to check rule conditions
-     *//*
-
+     */
     private final CheckWorkingMemory chkWM;
 
-    */
-/**
+    /**
      * Constructor for class WhyNot used to build whynot explanations
      * @param session Drools session
      * @param kb KnowledgeBase object containing a description of the Knowledge Base
-     *//*
-
-    private WhyNot(KieSession session, KnowledgeBase kb) {
+     */
+    private WhyNot(KieSession session, org.engcia.whynot.KnowledgeBase kb) {
         this.session = session;
         this.kb = kb;
         this.chkWM = CheckWorkingMemory.init(session, kb);
     }
 
-    */
-/**
+    /**
      * Returns the singleton object
      * @return WhyNot instance
-     *//*
-
+     */
     public static WhyNot getInstance() {
         if(singleton == null) {
             throw new AssertionError("You have to call init() first");
@@ -74,14 +59,12 @@ public class WhyNot {
         return singleton;
     }
 
-    */
-/**
+    /**
      * Method that ensures the creation of a unique instance of WhyNot class
      * @param drools DroolsInit object used to create a session with the environment needed to build whynot explanations
      * @return WhyNot singleton object
-     *//*
-
-    public synchronized static WhyNot init(DroolsWithWhyNot drools) {
+     */
+    public synchronized static WhyNot init(org.engcia.whynot.DroolsWithWhyNot drools) {
         if (singleton != null)
         {
             // ensure that we only ever get the same instance when we call getInstance
@@ -92,13 +75,11 @@ public class WhyNot {
         return singleton;
     }
 
-    */
-/**
+    /**
      * Method used to obtain a whynot explanation
      * @param expectedConclusion The expected conclusion in class constructor format
      * @return The whynot explanation text
-     *//*
-
+     */
     public String getWhyNotExplanation(String expectedConclusion) {
         StringBuffer explanation = new StringBuffer();
 
@@ -120,16 +101,14 @@ public class WhyNot {
         return explanation.toString();
     }
 
-    */
-/**
+    /**
      * Auxiliary recursive method to generate whynot explanations
      * @param expectedConclusion The expected conclusion according the constructor format
      * @param DRLConclusion The expected conclusion in DRL format
      * @param explanation Text explanation being formed incrementally across multiple recursive method calls
      * @param level Text explanation indentation level
      * @throws Exception
-     *//*
-
+     */
     private void generateExplanation(String expectedConclusion, String DRLConclusion, StringBuffer explanation, int level) throws Exception {
         String tabs = StringUtils.repeat("\t", level * 2);
 
@@ -146,7 +125,7 @@ public class WhyNot {
         List<String> rules = kb.getRulesObtainingConclusion(functor);
 
         for (String ruleName : rules) {
-            RuleWM rule = kb.getRuleByName(ruleName);
+            org.engcia.whynot.RuleWM rule = kb.getRuleByName(ruleName);
 
             if (chkWM.conclusionFromRuleDoesNotExist(ruleName, functor, DRLConclusion)) {
                 explanation.append(tabs);
@@ -175,4 +154,3 @@ public class WhyNot {
     }
 
 }
-*/

@@ -61,6 +61,13 @@
       <version>7.44.0.Final</version>
       <scope>compile</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+    <dependency>
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>0.9.11</version>
+    </dependency>
+
   </dependencies>
 
   <build>

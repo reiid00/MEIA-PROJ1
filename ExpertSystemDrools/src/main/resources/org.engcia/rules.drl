@@ -711,6 +711,7 @@ end
 
 rule "r7bf1 - System doesn't need a Dedicated GPU but user wants one"
     when
+        Hypothesis( description == "Orcamento", value != "BAIXO")
         Hypothesis( description == "Finalidade", value != "GAMING")
         Hypothesis( description == "Finalidade", value != "JOGOS_BASICOS")
         Hypothesis( description == "Finalidade", value != "EDICAO_DE_VIDEO_4k_8K")
