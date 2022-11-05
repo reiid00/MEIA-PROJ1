@@ -3,6 +3,7 @@ package org.engcia;
 import java.util.Map;
 
 import org.engcia.BC.Fact;
+import org.engcia.BC.Hypothesis;
 import org.engcia.BC.Justification;
 
 public class How {
@@ -28,10 +29,10 @@ public class How {
                 sb.append(getIdentation(l));
                 sb.append(f);
                 sb.append('\n');
-//                if (f instanceof Hypothesis) {
-//                    String s = getHowExplanation(f.getId(), l + 1);
-//                    sb.append(s);
-//                }
+                if (f instanceof Hypothesis) {
+                    String s = getHowExplanation(f.getId(), l + 1);
+                    sb.append(s);
+                }
             }
         }
 

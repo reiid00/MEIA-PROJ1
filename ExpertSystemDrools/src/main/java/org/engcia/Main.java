@@ -1,10 +1,7 @@
 package org.engcia;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Stack;
-import java.util.TreeMap;
+import java.util.*;
 
 import org.engcia.BC.KnowledgeBase;
 import org.engcia.Listeners.TrackingAgendaEventListener;
@@ -92,10 +89,22 @@ public class Main {
 
                 System.out.println( key );
             }
+           List<Integer> id = new ArrayList<>();
             for (int js= keys.size()-1;js>=0;js--){
 
-                int id=keys.get(js);
-                System.out.println(how.getHowExplanation(id));
+                id.add(keys.get(js));
+            }
+            int selected = -1;
+            while (selected!=0)
+            {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Escolha a justificação!");
+                for (int i = 0; i < id.size(); i++) {
+                    System.out.println(i +  "-" + Main.justifications.get(id.get(i)).getConclusion());
+                }
+                System.out.println("0. Sair");
+                selected = sc.nextInt();
+                System.out.println(how.getHowExplanation(id.get(selected)));
             }
 
 
