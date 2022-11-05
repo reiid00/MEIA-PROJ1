@@ -399,6 +399,27 @@ rule "r5h14" priorityGroup 1
 	then
         [insert_fact(minStorage_isSSD(true)), insert_fact(minStorage_capacity(240)), insert_fact(minRAM(32)), insert_fact(minRAMSpeed(2600)), insert_fact(adequateMinCPUBenchmark(170)), insert_fact(adequateMinGPUBenchmark(200))].
 
+% When user wants to add or insert a 2nd storage (HDD), adding a storage of 1TB
+rule "r6b1" priorityGroup 2
+        when
+        [evalQuestion(askQuestion(choose_2nd_storage, 1))]
+        then
+        [insert_fact(minSecondStorage_capacity(1000))].
+
+% When user wants to add or insert a 2nd storage (HDD), adding a storage of 2TB
+rule "r6b2" priorityGroup 2
+        when
+        [evalQuestion(askQuestion(choose_2nd_storage, 2))]
+        then
+        [insert_fact(minSecondStorage_capacity(2000))].
+
+% When user wants to add or insert a 2nd storage (HDD), adding a storage of 4TB
+rule "r6b3" priorityGroup 2
+        when
+        [evalQuestion(askQuestion(choose_2nd_storage, 3))]
+        then
+        [insert_fact(minSecondStorage_capacity(4000))].
+
 % System doesn't need a Dedicated GPU but user prefers having one
 rule "r7bf1a" priorityGroup 2
         when
@@ -441,13 +462,40 @@ rule "r8a2b" priorityGroup 2
         then
         [insert_fact(gpuManufacturerPreferred("AMD"))].
 
-% Finality is Gaming, user has GPU brand preference
-% ANALISAR MELHOR!!!
-%rule "r8b1"
-%        when
-%        [finality("GAMING") and evalQuestion(askQuestion(choose_if_wants_preferred_gpu_brand, 1)) and evalQuestion(askQuestion(choose_preferred_gpu_brand, Preferred_GPU_Brand))]
-%        then
-%        [insert_fact(preferredGPUBrand(Preferred_GPU_Brand))].
+% Finality is Gaming, user has GPU brand preference of Asus
+rule "r8b1" priorityGroup 3
+        when
+        [evalQuestion(askQuestion(choose_if_wants_preferred_gpu_brand, 2))]
+        then
+        [insert_fact(gpuPreferredBrand("Asus"))].
+
+% Finality is Gaming, user has GPU brand preference of EVGA
+rule "r8b2" priorityGroup 3
+        when
+        [evalQuestion(askQuestion(choose_if_wants_preferred_gpu_brand, 3))]
+        then
+        [insert_fact(gpuPreferredBrand("EVGA"))].
+
+% Finality is Gaming, user has GPU brand preference of Gigabyte
+rule "r8b3"  priorityGroup 3
+        when
+        [evalQuestion(askQuestion(choose_if_wants_preferred_gpu_brand, 4))]
+        then
+        [insert_fact(gpuPreferredBrand("Gigabyte"))].
+
+% Finality is Gaming, user has GPU brand preference of MSI
+rule "r8b4"  priorityGroup 3
+        when
+        [evalQuestion(askQuestion(choose_if_wants_preferred_gpu_brand, 5))]
+        then
+        [insert_fact(gpuPreferredBrand("MSI"))].
+
+% Finality is Gaming, user has GPU brand preference of Sapphire
+rule "r8b5"  priorityGroup 3
+        when
+        [evalQuestion(askQuestion(choose_if_wants_preferred_gpu_brand, 6))]
+        then
+        [insert_fact(gpuPreferredBrand("Sapphire"))].
 
 % User has CPU manufacturer preference, INTEL
 rule "r9a1" priorityGroup 3

@@ -92,6 +92,10 @@ findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase(PC):-
     write('Fonte de Alimentação: '), write(PowerSupplyManufacturer), write(' '), write(PowerSupplyName), write(' --> '), write(PowerSupplyBasePrice), write('€'), nl,
     write('Caixa: '), write(CaseManufacturer), write(' '), write(CaseName), write(' --> '), write(CaseBasePrice), write('€'), nl,
     write('********************************************************'), nl.
+findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase([]):-
+    nl, write('********************************************************'), nl,
+    write('Não foi possível montar um PC consoante as necessidades apresentadas.'), nl,
+    write('********************************************************'), nl.
 
 % Devolve a lista de GPUs válidos com base no conhecimento atual (i. e. após as regras já terem descartado diversas opções)
 getValidGPUsListFromKnowledgeBase(ValidGPUsList):- 

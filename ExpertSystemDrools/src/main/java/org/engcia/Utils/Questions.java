@@ -85,8 +85,6 @@ public class Questions {
                                                                     "5. Sim, pretendo Sapphire \n" +
                                                                     "6. Nao \n";
 
-    public static final String CHOOSE_GPU_BRAND = "Qual a marca que prefere? \n";
-
     public static final String CHOOSE_IMAGE_TREATMENT_TYPE = "Pretende utilizar estas aplicações de forma básica ou profissional? \n" +
                                                             "1. Forma Básica. \n" +
                                                             "2. Profissional. \n";
@@ -109,7 +107,6 @@ public class Questions {
                                                             "1. INTEL \n" +
                                                             "2. AMD \n" +
                                                             "3. Indiferente \n";
-
 
     public static final String CHOOSE_CPU_OC = "Pretende fazer OverClock ao CPU? \n"+
                                                 "1. Sim \n" +
