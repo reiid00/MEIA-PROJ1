@@ -23,13 +23,9 @@ question(choose_gpu_manufacturer, 'Que fabricante de placas gráficas prefere? \
 question(choose_if_wants_dedicated_graphics_card, 'Pretende realizar trabalhos mais pesados a nível gráfico (jogos, sistemas 3D)? \n 1. Sim \n 2. Não \n',[1, 2]).
 question(choose_if_wants_preferred_gpu_brand, 'Tem preferência na marca da placa gráfica? \n 1. Sim, pretendo ASUS \n 2. Sim, pretendo EVGA \n 3. Sim, pretendo Gigabyte \n 4. Sim, pretendo MSI \n 5. Sim, pretendo Sapphire \n 6. Nao \n',[1, 2, 3, 4, 5, 6]).
 question(choose_image_treatment_type, 'Pretende utilizar estas aplicações de forma básica ou profissional? \n 1. Forma Básica. \n 2. Profissional. \n',[1, 2]).
-question(choose_initial_storage_240, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 240 GB  \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_initial_storage_480, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de 480 GB  \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_if_wants_2nd_storage, 'Pretende adicionar/modificar um segundo disco de armazenamento? (HDD) \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_storage_min_capacity, 'Indique o mínimo de tamanho pretendido (GB) \n',[]).
-question(choose_ram_8gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 8 GB \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_ram_16gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 16 GB \n 1. Sim \n 2. Não \n',[1, 2]).
-question(choose_ram_32gb, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de 32 GB \n 1. Sim \n 2. Não \n',[1, 2]).
+question(choose_initial_storage, 'Pretende modificar o tamanho de armazenamento ? (SSD) Atualmente o Sistema sugeriu o tamanho ideal de XXX GB \n 1. Sim, aumentar para o dobro da capacidade \n 2. Nao \n',[1, 2]).
+question(choose_2nd_storage, 'Pretende adicionar/modificar um segundo local de armazenamento? (HDD) 1. Sim, pretendo adicionar um disco rígido de 1TB \n 2. Sim, pretendo adicionar um disco rígido de 2TB  \n 3. Sim, pretendo adicionar um disco rígido de 4TB \n 4. Nao \n',[1, 2, 3, 4]).
+question(choose_ram, 'Pretende modificar o tamanho da RAM?  Atualmente o Sistema sugeriu o tamanho ideal de XXX GB \n 1. Sim, pretendo aumento para o dobro da capacidade \n 2. Nao \n',[1, 2]).
 question(choose_cpu_manufacturer, 'Que fabricante de processador prefere? \n 1. Intel \n 2. AMD \n 3. Indiferente \n',[1, 2, 3]).
 question(choose_cpu_oc, 'Pretende fazer OverClock ao CPU? \n 1. Sim \n 2. Nao \n',[1, 2]).
 question(choose_cooler_type, 'Que tipo de CPU Cooler pretende? \n 1. Water Cooling \n 2. Fanless \n 3. Normal \n 4. Indiferente \n',[1, 2, 3, 4]).

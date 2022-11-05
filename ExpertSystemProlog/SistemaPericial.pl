@@ -15,14 +15,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sistema Pericial
 
-start_engine():-	
+start_engine(PC):-	
 	loadBC(),
 	getListOfUniqueRulesPriorityGroups(LRPGs),
-	fire_all_rules(LRPGs).
+	fire_all_rules(LRPGs),
+	findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase(PC).
 
 fire_all_rules([RPG|LRPGs]):- 
 	setof((ID, LHS, RHS), rule ID priorityGroup RPG when LHS then RHS, LRules),
-	length(LRules, N), write(N), write('  <--> Total de Regras do grupo '), write(RPG), nl,
+	%length(LRules, N), write(N), write('  <--> Total de Regras do grupo '), write(RPG), nl,
 	fire_rules(LRules), fire_all_rules(LRPGs).
 fire_all_rules([]).
 

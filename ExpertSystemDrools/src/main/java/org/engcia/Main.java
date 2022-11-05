@@ -103,11 +103,8 @@ public class Main {
                 }
                 System.out.println("0. Sair");
 
-
                 selected = sc.nextInt();
                 if(selected>0) System.out.println(how.getHowExplanation(id.get(selected-1)));
-
-
             }
 
          /*   // Getting a WhyNot explanation:
