@@ -46,11 +46,11 @@ public class Main {
             Main.justifications = new TreeMap<Integer, Justification>();
 
 
+//            DroolsWithWhyNot drools = DroolsWithWhyNot.init("org.engcia.BC");
+//            KieSession session = drools.getKieSession();
             KieServices ks = KieServices.Factory.get();
             KieContainer kContainer = ks.getKieClasspathContainer();
             final KieSession kSession = kContainer.newKieSession("ksession-rules");
-            DroolsWithWhyNot drools = DroolsWithWhyNot.init("org.engcia.BC");
-            KieSession session = drools.getKieSession();
             Main.KS = kSession;
             Main.agendaEventListener = new TrackingAgendaEventListener();
 
@@ -120,9 +120,9 @@ public class Main {
                 if (selected > 0) System.out.println(how.getHowExplanation(id.get(selected - 1)));
             }
             // Getting a WhyNot explanation:
-            String explanationText = drools.getWhyNotExplanation("Hypothesis( description == Finalidade, value != EDICAO_DE_VIDEO_4k_8K)");
-            System.out.println("Explanation:");
-            System.out.println(explanationText);
+//            String explanationText = drools.getWhyNotExplanation("Hypothesis( description == Finalidade, value != EDICAO_DE_VIDEO_4k_8K)");
+//            System.out.println("Explanation:");
+//            System.out.println(explanationText);
 
         } catch (Throwable t) {
             t.printStackTrace();
