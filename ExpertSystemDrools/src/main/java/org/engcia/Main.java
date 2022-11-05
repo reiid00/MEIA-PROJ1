@@ -117,7 +117,7 @@ public class Main {
         kb.caseSizePreferred = Case.TowerSizeType.MID_TOWER;
         kb.maxBudget = 1500;
 
-        JSONObject json = JSON.generateJSON(kb);
+        String json = JSON.generateJSON(kb);
 
         JSONObject jsonReceived = JSON.communicateWithProlog(json);
 
