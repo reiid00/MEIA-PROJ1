@@ -1,6 +1,7 @@
 package org.engcia.Utils;
 
 import org.engcia.BD.*;
+import org.engcia.Main;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -59,7 +60,7 @@ public class Boostrap {
             }
             line = bufReader.readLine();
         }
-
+        Main.gpus = listGPUs;
         // Load GPUs...
     }
 
@@ -91,7 +92,7 @@ public class Boostrap {
             }
             line = bufReader.readLine();
         }
-        // Load CPUs...
+        Main.cpus = listCPUs;
     }
 
     private static void loadCPUCoolers() throws IOException {
@@ -123,6 +124,7 @@ public class Boostrap {
             }
             line = bufReader.readLine();
         }
+        Main.cpuCoolers = listCPUCoolers;
     }
 
 
@@ -159,6 +161,7 @@ public class Boostrap {
             }
             line = bufReader.readLine();
         }
+        Main.motherboards = listMotherboards;
     }
 
     private static void loadRAMs() throws IOException {
@@ -188,6 +191,7 @@ public class Boostrap {
             }
             line = bufReader.readLine();
         }
+        Main.rams = listRAMs;
     }
 
     private static void loadPowerSupplies() throws IOException {
@@ -220,6 +224,7 @@ public class Boostrap {
             }
             line = bufReader.readLine();
         }
+        Main.powerSupplies = listPowerSupplies;
     }
 
     private static void loadStorages() throws IOException {
@@ -249,6 +254,7 @@ public class Boostrap {
             }
             line = bufReader.readLine();
         }
+        Main.storages = listStorages;
     }
 
     private static void loadCases() throws IOException {
@@ -281,5 +287,6 @@ public class Boostrap {
             }
             line = bufReader.readLine();
         }
+        Main.cases = listCases;
     }
 }

@@ -7,9 +7,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import org.engcia.BC.KnowledgeBase;
-import org.engcia.BD.Case;
-import org.engcia.BD.PowerSupply;
+import org.engcia.BD.*;
 import org.engcia.Listeners.TrackingAgendaEventListener;
 import org.engcia.Utils.Boostrap;
 
@@ -29,6 +29,15 @@ public class Main {
     public static KieSession KS;
     public static TrackingAgendaEventListener agendaEventListener;
     public static Map<Integer, Justification> justifications;
+
+    public static List<GPU> gpus;
+    public static List<CPU> cpus;
+    public static List<Motherboard> motherboards;
+    public static List<CPUCooler> cpuCoolers;
+    public static List<RAM> rams;
+    public static List<Storage> storages;
+    public static List<PowerSupply> powerSupplies;
+    public static List<Case> cases;
 
 
     public static final void main(String[] args) throws IOException {
@@ -121,7 +130,7 @@ public class Main {
 
         JSONObject jsonReceived = JSON.communicateWithProlog(json);
 
-        System.out.println(jsonReceived);
+       JSON.createPC(jsonReceived);
 
     }
 }
