@@ -1,6 +1,10 @@
 package org.engcia;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import org.engcia.BC.KnowledgeBase;
@@ -26,7 +30,6 @@ public class Main {
     public static TrackingAgendaEventListener agendaEventListener;
     public static Map<Integer, Justification> justifications;
 
-    public static KnowledgeBase kb = new KnowledgeBase();
 
     public static final void main(String[] args) throws IOException {
         UI.uiInit();
@@ -69,6 +72,7 @@ public class Main {
 //            };
 //
 //            kSession.setGlobal("$kb", kb);
+            KnowledgeBase kb = new KnowledgeBase();
 //
 //            Stack<Integer> keys = new Stack<>();
 //            How how = new How(Main.justifications);
@@ -98,19 +102,20 @@ public class Main {
 //        } catch (Throwable t) {
 //            t.printStackTrace();
 //        }
-        kb.adequateMinGPUBenchmark = 110;
-        kb.adequateMinCPUBenchmark = 110;
-        kb.gpuManufacturerPreferred = "NVIDIA";
-        kb.cpuManufacturerPreferred = "INTEL";
+        kb.adequateMinGPUBenchmark = 170;
+        kb.adequateMinCPUBenchmark = 120;
+        kb.gpuManufacturerPreferred = "AMD";
+        kb.cpuManufacturerPreferred = "AMD";
         kb.cpuCooler.isFanless = false;
-        kb.cpuCooler.isWaterCooled = false;
+        kb.cpuCooler.isWaterCooled = true;
         kb.minRAMPreferred = 32;
-        kb.minEnergyEfficiencyNeeded = PowerSupply.EnergyEfficiency._80PLUS;
+        kb.minRAMSpeed = 2600;
+        kb.minEnergyEfficiencyNeeded = PowerSupply.EnergyEfficiency._80PLUS_GOLD;
         kb.minStorage.capacity = 240;
         kb.minScndStorage.capacity = 1000;
-        kb.caseColorPreferred = "black";
-        kb.caseSizePreferred = Case.TowerSizeType.FULL_TOWER;
-        kb.maxBudget = 1600;
+        kb.caseColorPreferred = "Black";
+        kb.caseSizePreferred = Case.TowerSizeType.MID_TOWER;
+        kb.maxBudget = 1500;
 
         JSONObject json = JSON.generateJSON(kb);
 
