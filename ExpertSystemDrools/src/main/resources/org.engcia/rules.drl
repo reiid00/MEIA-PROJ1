@@ -1053,7 +1053,7 @@ rule "r10a2 - Finality is Gaming, user wants to do OC and prefers Fanless "
     then
 // 	  KnowledgeBase h = new KnowledgeBase();
     $kb.setNeedsCPUCooler(true);
-    $kb.setCpuCooler("Fanless");
+    $kb.setCpuCooler("fanless");
     // 	insert(h);
 end
 
