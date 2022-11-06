@@ -49,7 +49,7 @@ findBestPC(Request):-
 
 insertBCData(JsonProlog):-
     arg(1,JsonProlog,Args),
-    Args=[_=X1,_=X2,_=A3,_=A4,_=X5,_=A6,_=A7,_=X8,_=X9,_=A10, _=X11, _=X12, _=A13, _=A14],
+    Args=[_=X1,_=X2,_=A3,_=A4,_=X5,_=A6,_=A7,_=X8,_=X9,_=A10, _=X11, _=X12, _=A13, _=A14, _=A15, _=A16, _=A17],
     atom_string(A3,X3),
     atom_string(A4,X4),
     atom_string(A6,B6),
@@ -59,11 +59,18 @@ insertBCData(JsonProlog):-
     atom_string(A10,X10),
     atom_string(A13,X13),
     atom_string(A14,X14),
+    atom_string(A15,B15),
+    (B15 == "true", !, X15 = true; X15 = false),
+    atom_string(A16,B16),
+    (B16 == "true", !, X16 = true; X16 = false),
+    atom_string(A17,B17),
+    (B17 == "true", !, X17 = true; X17 = false),
     retractall(fact(_,_)),
     retractall(answer(_,_)),
     assert(fact(1, adequateMinGPUBenchmark(X1))),
     assert(fact(2, adequateMinCPUBenchmark(X2))),
-    assert(fact(3, gpuManufacturerPreferred(X3))),
+    (X3 \= "NA", !, assert(fact(3, gpuManufacturerPreferred(X3))); true),
+    (X4 \= "NA", !, assert(fact(4, cpuManufacturerPreferred(X4))); true),
     assert(fact(4, cpuManufacturerPreferred(X4))),
     assert(answer(choose_budget, X5)),
     assert(fact(6, cpuCooler_isFanless(X6))),
@@ -74,7 +81,10 @@ insertBCData(JsonProlog):-
     assert(fact(11, minStorage_capacity(X11))),
     assert(fact(12, minSecondStorage_capacity(X12))),
     assert(fact(13, caseSizePreferred(X13))),
-    assert(fact(14, caseColorPreferred(X14))).
+    (X14 \= "NA", !, assert(fact(14, caseColorPreferred(X14))); true),
+    assert(fact(15, needsCPUCooler(X15))),
+    assert(fact(16, needsDedicatedGPU(X16))),
+    assert(fact(17, prefersDedicatedGPU(X17))).
 
 findBestPC1(PCJson):-
 	findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase1(PC, _), !,

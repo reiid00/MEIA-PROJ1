@@ -55,7 +55,6 @@ public class Boostrap {
                     gpu.atxCompatibilityTypes.add(ATXCompatibilityType.valueOf(atx.toUpperCase()));
                 }
                 gpu.benchmarkScore = Integer.parseInt(lineArray.get(12));
-                System.out.println(gpu);
                 listGPUs.add(gpu);
             }
             line = bufReader.readLine();
@@ -282,7 +281,6 @@ public class Boostrap {
                 }
                 cases.color = lineArray.get(7);
 
-                System.out.println(cases);
                 listCases.add(cases);
             }
             line = bufReader.readLine();

@@ -11,10 +11,8 @@ import org.engcia.BC.KnowledgeBase;
 import org.engcia.BD.*;
 import org.engcia.Main;
 import org.json.JSONObject;
-import sun.net.www.http.HttpClient;
 
 import java.util.Iterator;
-import java.util.Locale;
 
 public class JSON {
 
@@ -38,7 +36,10 @@ public class JSON {
                 "\",\"minSSD_capacity\":" +  kb.minStorage.capacity +
                 ",\"minHDD_capacity\":" + kb.minScndStorage.capacity +
                 ",\"caseSizePreferred\":\"" + kb.caseSizePreferred.toString() +
-                "\",\"caseColorPreferred\":\"" + kb.caseColorPreferred.toString() + "\"}";
+                "\",\"caseColorPreferred\":\"" + kb.caseColorPreferred.toString() +
+                "\",\"needsCPUCooler\":\"" + String.valueOf(kb.needsCPUCooler) +
+                "\",\"needsDedicatedGPU\":\"" + String.valueOf(kb.needsDedicatedGPU) +
+                "\",\"prefersDedicatedGPU\":\"" + String.valueOf(kb.prefersDedicatedGPU) + "\"}";
 
         return s;
     }
@@ -48,7 +49,7 @@ public class JSON {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         JSONObject jsonObj = new JSONObject();
         try {
-            HttpPost request = new HttpPost("http://localhost:5101/findBestPC");
+            HttpPost request = new HttpPost("http://localhost:5102/findBestPC");
             StringEntity params = new StringEntity(json);
             request.addHeader("content-type", "application/json");
             request.setEntity(params);
@@ -74,6 +75,8 @@ public class JSON {
         Case caseC = new Case();
         for(Iterator iterator = json.keySet().iterator(); iterator.hasNext();) {
             String key = (String) iterator.next();
+            if(json.get(key).equals("NA"))
+                continue;
             switch(key.toUpperCase()) {
                 case "POWERSUPPLY":
                     for (PowerSupply psu : Main.powerSupplies){
@@ -82,6 +85,7 @@ public class JSON {
                             break;
                         }
                     }
+                    break;
                 case "CPUCOOLER":
                     for (CPUCooler cpuC : Main.cpuCoolers){
                         if (cpuC.id.equals(json.get(key))){
@@ -89,6 +93,7 @@ public class JSON {
                             break;
                         }
                     }
+                    break;
                 case "SSD":
                     for (Storage stor : Main.storages){
                         if (stor.id.equals(json.get(key))){
@@ -96,6 +101,7 @@ public class JSON {
                             break;
                         }
                     }
+                    break;
                 case "MOTHERBOARD":
                     for (Motherboard motherboard : Main.motherboards){
                         if (motherboard.id.equals(json.get(key))){
@@ -103,6 +109,7 @@ public class JSON {
                             break;
                         }
                     }
+                    break;
                 case "CPU":
                     for (CPU cpu1 : Main.cpus){
                         if (cpu1.id.equals(json.get(key))){
@@ -110,6 +117,7 @@ public class JSON {
                             break;
                         }
                     }
+                    break;
                 case "HDD":
                     for (Storage stor : Main.storages){
                         if (stor.id.equals(json.get(key))){
@@ -117,6 +125,7 @@ public class JSON {
                             break;
                         }
                     }
+                    break;
                 case "GPU":
                     for (GPU gpu1 : Main.gpus){
                         if (gpu1.id.equals(json.get(key))){
@@ -124,6 +133,7 @@ public class JSON {
                             break;
                         }
                     }
+                    break;
                 case "RAM":
                     for (RAM ram1 : Main.rams){
                         if (ram1.id.equals(json.get(key))){
@@ -131,6 +141,7 @@ public class JSON {
                             break;
                         }
                     }
+                    break;
                 case "CASE":
                     for (Case case1 : Main.cases){
                         if (case1.id.equals(json.get(key))){
@@ -138,7 +149,7 @@ public class JSON {
                             break;
                         }
                     }
-
+                    break;
                 default:
                     // code block
             }

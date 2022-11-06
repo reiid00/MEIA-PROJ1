@@ -864,7 +864,7 @@ rule "r12a1 - Choose Case Color, answer Black"
         eval(UI.answer(Questions.CHOOSE_OPTIONAL_CASE_COLOR, "1"))
         eval(UI.answer(Questions.CHOOSE_CASE_COLOR, "1"))
 	then
-    $kb.setCaseColorPreferred("black");
+    $kb.setCaseColorPreferred("Black");
 end
 
 
@@ -874,7 +874,7 @@ rule "r12a2 - Choose Case Color, answer White"
         eval(UI.answer(Questions.CHOOSE_OPTIONAL_CASE_COLOR, "1"))
         eval(UI.answer(Questions.CHOOSE_CASE_COLOR, "2"))
 	then
-    $kb.setCaseColorPreferred("white");
+    $kb.setCaseColorPreferred("White");
 end
 
 rule "r12a1 - Choose Case Size, answer Micro-ATX "
@@ -897,7 +897,3 @@ rule "r12a3 - Choose Case Size, answer MID Tower"
 	then
     $kb.setCaseSizePreferred(Case.TowerSizeType.MINI_ATX_TOWER);
 end
-
-
-
-

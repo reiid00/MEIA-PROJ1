@@ -1,13 +1,8 @@
 package org.engcia;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-import jdk.nashorn.internal.parser.JSONParser;
 import org.engcia.BC.KnowledgeBase;
 import org.engcia.BD.*;
 import org.engcia.Listeners.TrackingAgendaEventListener;
@@ -48,100 +43,76 @@ public class Main {
     }
 
     private static void runEngine() {
-//        try {
-//            Main.justifications = new TreeMap<Integer, Justification>();
-//
-//            KieServices ks = KieServices.Factory.get();
-//            KieContainer kContainer = ks.getKieClasspathContainer();
-//            final KieSession kSession = kContainer.newKieSession("ksession-rules");
-//            Main.KS = kSession;
-//            Main.agendaEventListener = new TrackingAgendaEventListener();
-//
-//            kSession.addEventListener(agendaEventListener);
-//
-//            // Query listener
-//            ViewChangedEventListener listener = new ViewChangedEventListener() {
-//                @Override
-//                public void rowDeleted(Row row) {
-//                }
-//
-//                @Override
-//                public void rowInserted(Row row) {
-//                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
-//                    System.out.println(">>>" + conclusion.toString());
-//
-//                    // stop inference engine after as soon as got a conclusion
-//                    kSession.halt();
-//                }
-//
-//                @Override
-//                public void rowUpdated(Row row) {
-//                }
-//
-//            };
-//
-//            KnowledgeBase kb = new KnowledgeBase();
-//            kSession.setGlobal("$kb", kb);
-//
-//            Stack<Integer> keys = new Stack<>();
-//            How how = new How(Main.justifications);
-//            kSession.fireAllRules();
-//
-//            for (int key : Main.justifications.keySet()) {
-//                keys.push(key);
-//
-//            }
-//            List<Integer> id = new ArrayList<>();
-//            for (int js = keys.size() - 1; js >= 0; js--) {
-//
-//                id.add(keys.get(js));
-//            }
-//            int selected = -1;
-//            while (selected != 0) {
-//                Scanner sc = new Scanner(System.in);
-//                System.out.println("Escolha a justificação:");
-//                for (int i = 0; i < id.size(); i++) {
-//                    System.out.println((i + 1) + "-" + Main.justifications.get(id.get(i)).getConclusion());
-//                }
-//                System.out.println("0. Sair");
-//
-//                selected = sc.nextInt();
-//                if (selected > 0) System.out.println(how.getHowExplanation(id.get(selected - 1)));
-//            }
-//
-//            String json = JSON.generateJSON(kb);
-//
-//            JSONObject jsonReceived = JSON.communicateWithProlog(json);
-//
-//            JSON.createPC(jsonReceived);
-//
-//        } catch (Throwable t) {
-//            t.printStackTrace();
-//
-//        }
+        try {
+            Main.justifications = new TreeMap<Integer, Justification>();
 
-        KnowledgeBase kb = new KnowledgeBase();
+            KieServices ks = KieServices.Factory.get();
+            KieContainer kContainer = ks.getKieClasspathContainer();
+            final KieSession kSession = kContainer.newKieSession("ksession-rules");
+            Main.KS = kSession;
+            Main.agendaEventListener = new TrackingAgendaEventListener();
 
-        kb.adequateMinGPUBenchmark = 170;
-        kb.adequateMinCPUBenchmark = 120;
-        kb.gpuManufacturerPreferred = "AMD";
-        kb.cpuManufacturerPreferred = "AMD";
-        kb.cpuCooler.isFanless = false;
-        kb.cpuCooler.isWaterCooled = true;
-        kb.minRAMPreferred = 32;
-        kb.minRAMSpeed = 2600;
-        kb.minEnergyEfficiencyNeeded = PowerSupply.EnergyEfficiency._80PLUS_GOLD;
-        kb.minStorage.capacity = 240;
-        kb.minScndStorage.capacity = 1000;
-        kb.caseColorPreferred = "Black";
-        kb.caseSizePreferred = Case.TowerSizeType.MID_TOWER;
-        kb.maxBudget = 1500;
+            kSession.addEventListener(agendaEventListener);
 
-        String json = JSON.generateJSON(kb);
+            // Query listener
+            ViewChangedEventListener listener = new ViewChangedEventListener() {
+                @Override
+                public void rowDeleted(Row row) {
+                }
 
-        JSONObject jsonReceived = JSON.communicateWithProlog(json);
+                @Override
+                public void rowInserted(Row row) {
+                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
+                    System.out.println(">>>" + conclusion.toString());
 
-        JSON.createPC(jsonReceived);
+                    // stop inference engine after as soon as got a conclusion
+                    kSession.halt();
+                }
+
+                @Override
+                public void rowUpdated(Row row) {
+                }
+
+            };
+
+            KnowledgeBase kb = new KnowledgeBase();
+            kSession.setGlobal("$kb", kb);
+
+            Stack<Integer> keys = new Stack<>();
+            How how = new How(Main.justifications);
+            kSession.fireAllRules();
+
+            for (int key : Main.justifications.keySet()) {
+                keys.push(key);
+
+            }
+            List<Integer> id = new ArrayList<>();
+            for (int js = keys.size() - 1; js >= 0; js--) {
+
+                id.add(keys.get(js));
+            }
+            int selected = -1;
+            while (selected != 0) {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Escolha a justificação:");
+                for (int i = 0; i < id.size(); i++) {
+                    System.out.println((i + 1) + "-" + Main.justifications.get(id.get(i)).getConclusion());
+                }
+                System.out.println("0. Sair");
+
+                selected = sc.nextInt();
+                if (selected > 0) System.out.println(how.getHowExplanation(id.get(selected - 1)));
+            }
+
+            String json = JSON.generateJSON(kb);
+
+            JSONObject jsonReceived = JSON.communicateWithProlog(json);
+
+            JSON.createPC(jsonReceived);
+
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 }
 

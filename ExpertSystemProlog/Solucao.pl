@@ -45,19 +45,32 @@ findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase1(PC, PCCost):
     getValidPowerSuppliesListFromKnowledgeBase(ValidPowerSuppliesList),
     getValidCasesListFromKnowledgeBase(ValidCasesList),
     answer(choose_budget, MaxBudget),
+    (fact(_, needsDedicatedGPU(true)), NeedsDedicatedGPU = 1, !; NeedsDedicatedGPU = 0),
+    (fact(_, prefersDedicatedGPU(true)), PrefersDedicatedGPU = 1, !; PrefersDedicatedGPU = 0),
+    (fact(_, needsCPUCooler(true)), NeedsCPUCooler = 1, !; NeedsCPUCooler = 0),
+    (fact(_, minSecondStorage_capacity(MinHDDCapacity)), MinHDDCapacity > 0, NeedsHDD = 1, !; NeedsHDD = 0),
+    ShouldChooseGPU = NeedsDedicatedGPU + PrefersDedicatedGPU,
 
-    length(ValidGPUsList, NGPUs),
-    GPUIndex in 1..NGPUs,
-    nth1(GPUIndex, ValidGPUsList, GPU),
-    GPU = gpu(_, _, _, GPUBasePrice, _, _, _, _, _, GPUVoltage, _, _, _),
+    (ShouldChooseGPU > 0,
+    (
+        length(ValidGPUsList, NGPUs),
+        GPUIndex in 1..NGPUs,
+        nth1(GPUIndex, ValidGPUsList, GPU),
+        GPU = gpu(_, _, _, GPUBasePrice, _, _, _, _, _, GPUVoltage, _, _, _)
+    );
+    (
+        GPUIndex  #= 0, GPU = gpu("NA", "NA", "NA", 0, _, _, _, _, _, _, _, _, _), GPUBasePrice = 0, GPUVoltage = 0
+    )),
 
     GPUBasePrice #=< ((MaxBudget * 5) // 10),
 
     length(ValidCPUsList, NCPUs),
     CPUIndex in 1..NCPUs,
     nth1(CPUIndex, ValidCPUsList, CPU),
-    CPU = cpu(_, _, _, CPUBasePrice, _, _, _, _, CPUVoltage, _, _, _),
+    CPU = cpu(_, _, _, CPUBasePrice, _, _, _, _, CPUVoltage, _, _, HasIntegratedGPU1),
+    (HasIntegratedGPU1 = true, !, HasIntegratedGPU = 1; HasIntegratedGPU = 0),
 
+    (GPUIndex + HasIntegratedGPU) #>= 1,
     GPUBasePrice + CPUBasePrice #=< ((MaxBudget * 75) // 100),
 
     length(ValidMotherboardsList, NMotherboards),
@@ -65,10 +78,18 @@ findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase1(PC, PCCost):
     nth1(MotherboardIndex, ValidMotherboardsList, Motherboard),
     Motherboard = motherboard(_, _, _, MotherboardBasePrice, _, _, _, MotherboardMaxMemoryRam, _, MotherboardRAMSlots, _),
 
-    length(ValidCPUCoolersList, NCPUCoolers),
-    CPUCoolerIndex in 1..NCPUCoolers,
-    nth1(CPUCoolerIndex, ValidCPUCoolersList, CPUCooler),
-    CPUCooler = cpuCooler(_, _, _, CPUCoolerBasePrice, _, CPUCoolerVoltage, _, _, _),
+    (NeedsCPUCooler = 1,
+    (
+        length(ValidCPUCoolersList, NCPUCoolers),
+        CPUCoolerIndex in 1..NCPUCoolers,
+        nth1(CPUCoolerIndex, ValidCPUCoolersList, CPUCooler),
+        CPUCooler = cpuCooler(_, _, _, CPUCoolerBasePrice, _, CPUCoolerVoltage, _, _, _)
+    );
+    (
+        CPUCoolerIndex #= 0, CPUCooler = cpuCooler("NA", "NA", "NA", 0, _, _, _, _, _), CPUCoolerBasePrice = 0, CPUCoolerVoltage = 0
+    )),
+
+    CPUCoolerIndex #>= NeedsCPUCooler,
 
     length(ValidMemoryRAMsList, NRAMs),
     RAMIndex in 1..NRAMs,
@@ -83,10 +104,18 @@ findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase1(PC, PCCost):
     nth1(SSDIndex, ValidSSDStoragesList, SSD),
     SSD = storage(_, _, _, SSDBasePrice, _, _, _, _, _, _),
 
-    length(ValidHDDStoragesList, NHDDs),
-    HDDIndex in 1..NHDDs,
-    nth1(HDDIndex, ValidHDDStoragesList, HDD),
-    HDD = storage(_, _, _, HDDBasePrice, _, _, _, _, _, _),
+    (NeedsHDD = 1,
+    (
+        length(ValidHDDStoragesList, NHDDs),
+        HDDIndex in 1..NHDDs,
+        nth1(HDDIndex, ValidHDDStoragesList, HDD),
+        HDD = storage(_, _, _, HDDBasePrice, _, _, _, _, _, _)
+    );
+    (
+        HDDIndex #= 0, HDD = storage("NA", "NA", "NA", HDDBasePrice, _, _, _, _, _, _), HDDBasePrice = 0
+    )),
+
+    HDDIndex #>= NeedsHDD,
 
     length(ValidPowerSuppliesList, NPowerSupplys),
     PowerSupplyIndex in 1..NPowerSupplys,
@@ -106,7 +135,7 @@ findBestPossibleHandmadeComputerBasedOnCurrentStateOfKnowledgeBase1(PC, PCCost):
     PCCost #=< MaxBudget,
 
     once(labeling(
-        [], 
+        [max(PCCost)], 
         [GPUIndex, CPUIndex, MotherboardIndex, CPUCoolerIndex, RAMIndex, SSDIndex, HDDIndex, PowerSupplyIndex, CaseIndex]
         )),
     PC = [GPU, CPU, CPUCooler, Motherboard, RAM, SSD, HDD, PowerSupply, Case].

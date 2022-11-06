@@ -97,7 +97,6 @@ public class UI {
         }
         System.out.print(ev + " ");
         String value = readLine();
-        System.out.println(value);
         Evidence e = new Evidence(ev, value);
         Main.KS.insert(e);
         KnowledgeBase kb = (KnowledgeBase) Main.KS.getGlobal("$kb");
