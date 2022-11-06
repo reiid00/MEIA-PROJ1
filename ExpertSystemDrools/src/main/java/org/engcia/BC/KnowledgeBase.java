@@ -28,9 +28,9 @@ public class KnowledgeBase{
 
     public boolean needsDedicatedGPU = false;
     public boolean prefersDedicatedGPU = false;
-    public String gpuManufacturerPreferred = "";
+    public String gpuManufacturerPreferred = "NA";
 
-    public String cpuManufacturerPreferred = "";
+    public String cpuManufacturerPreferred = "NA";
 
     public boolean needsCPUCooler = false;
 
@@ -42,7 +42,7 @@ public class KnowledgeBase{
     public int adequateMinCPUBenchmark = 0;
 
     public int adequateMinGPUBenchmark = 0;
-    public String caseColorPreferred = "";
+    public String caseColorPreferred = "NA";
     public TowerSizeType caseSizePreferred = TowerSizeType.NA;
 
     public EnergyEfficiency minEnergyEfficiencyNeeded = EnergyEfficiency.NA;

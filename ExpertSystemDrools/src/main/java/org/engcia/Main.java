@@ -80,8 +80,8 @@ public class Main {
 //
 //            };
 //
+//            KnowledgeBase kb = new KnowledgeBase();
 //            kSession.setGlobal("$kb", kb);
-            KnowledgeBase kb = new KnowledgeBase();
 //
 //            Stack<Integer> keys = new Stack<>();
 //            How how = new How(Main.justifications);
@@ -108,9 +108,20 @@ public class Main {
 //                selected = sc.nextInt();
 //                if (selected > 0) System.out.println(how.getHowExplanation(id.get(selected - 1)));
 //            }
+//
+//            String json = JSON.generateJSON(kb);
+//
+//            JSONObject jsonReceived = JSON.communicateWithProlog(json);
+//
+//            JSON.createPC(jsonReceived);
+//
 //        } catch (Throwable t) {
 //            t.printStackTrace();
+//
 //        }
+
+        KnowledgeBase kb = new KnowledgeBase();
+
         kb.adequateMinGPUBenchmark = 170;
         kb.adequateMinCPUBenchmark = 120;
         kb.gpuManufacturerPreferred = "AMD";
@@ -130,8 +141,7 @@ public class Main {
 
         JSONObject jsonReceived = JSON.communicateWithProlog(json);
 
-       JSON.createPC(jsonReceived);
-
+        JSON.createPC(jsonReceived);
     }
 }
 

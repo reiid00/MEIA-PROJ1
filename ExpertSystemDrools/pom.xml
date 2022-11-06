@@ -70,7 +70,7 @@
     <!-- https://mvnrepository.com/artifact/org.json/json -->
     <dependency>
       <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
+      <artifactId>json</artifactId>A
       <version>20160810</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
