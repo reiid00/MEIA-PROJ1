@@ -21,8 +21,8 @@ public class JSON {
     public static String generateJSON(KnowledgeBase kb){
 
         int ram = 0;
-        if (kb.minRAMPreferred > 0) ram = kb.minRAMPreferred;
-                else ram = kb.minRAM;
+        if (kb.minRAM > 0) ram = kb.minRAM;
+                else ram = kb.minRAMPreferred;
 
 
       String s = " { \"adequateMinGPUBenchmark\":" + kb.adequateMinGPUBenchmark + ",\"adequateMinCPUBenchmark\":" +kb.adequateMinCPUBenchmark + ",\"gpuManufacturerPreferred\":\"" + kb.gpuManufacturerPreferred +
