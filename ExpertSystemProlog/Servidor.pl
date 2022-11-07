@@ -71,7 +71,6 @@ insertBCData(JsonProlog):-
     assert(fact(2, adequateMinCPUBenchmark(X2))),
     (X3 \= "NA", !, assert(fact(3, gpuManufacturerPreferred(X3))); true),
     (X4 \= "NA", !, assert(fact(4, cpuManufacturerPreferred(X4))); true),
-    assert(fact(4, cpuManufacturerPreferred(X4))),
     assert(answer(choose_budget, X5)),
     assert(fact(6, cpuCooler_isFanless(X6))),
     assert(fact(7, cpuCooler_isWaterCooled(X7))),

@@ -145,7 +145,7 @@ getValidGPUsListFromKnowledgeBase(ValidGPUsList):-
     answer(choose_budget, MaxBudget),
     fact(_, caseSizePreferred(CaseSizePreferred)),
     (fact(_, adequateMinGPUBenchmark(MinGPUBenchmark)), !; MinGPUBenchmark = 0),
-    fact(_, gpuManufacturerPreferred(GPUManufacturerPreferred)),
+    (fact(_, gpuManufacturerPreferred(GPUManufacturerPreferred)), !; GPUManufacturerPreferred = "NA"),
     (
     (CaseSizePreferred =  "MICRO_ATX_TOWER", !, ATXCompatibility = "MICRO_ATX", MaxFansCount = 2); 
     (CaseSizePreferred = "MINI_ATX_TOWER", !, ATXCompatibility = "MINI_ATX", MaxFansCount = 2);
@@ -155,7 +155,7 @@ getValidGPUsListFromKnowledgeBase(ValidGPUsList):-
         (
         gpu(ID, Manufacturer, Name, BasePrice, LaunchDate, Brand, Memory, MemoryType, MaxClock, Voltage, FansCount, ATXCompatibilityList, BenchmarkScore),
         BasePrice < MaxBudget, 
-        Manufacturer = GPUManufacturerPreferred,
+        (GPUManufacturerPreferred = "NA"; Manufacturer = GPUManufacturerPreferred),
         BenchmarkScore >= MinGPUBenchmark,
         FansCount =< MaxFansCount,
         member(ATXCompatibility, ATXCompatibilityList)
@@ -167,12 +167,12 @@ getValidGPUsListFromKnowledgeBase(ValidGPUsList):-
 getValidCPUsListFromKnowledgeBase(ValidCPUsList):-
     answer(choose_budget, MaxBudget),
     (fact(_, adequateMinCPUBenchmark(MinCPUBenchmark)), !; MinCPUBenchmark = 0),
-    fact(_, cpuManufacturerPreferred(CPUManufacturerPreferred)),
+    (fact(_, cpuManufacturerPreferred(CPUManufacturerPreferred)), !; CPUManufacturerPreferred = "NA"),
     findall(cpu(ID, Manufacturer, Name, BasePrice, LaunchDate, CoreCount, ThreadsCount, BoostClock, Voltage, BenchmarkScore, Socket, HasIntegratedGPU), 
         (
         cpu(ID, Manufacturer, Name, BasePrice, LaunchDate, CoreCount, ThreadsCount, BoostClock, Voltage, BenchmarkScore, Socket, HasIntegratedGPU),
         BasePrice < MaxBudget, 
-        Manufacturer = CPUManufacturerPreferred,
+        (CPUManufacturerPreferred = "NA"; Manufacturer = CPUManufacturerPreferred),
         BenchmarkScore >= MinCPUBenchmark
         ),
         ValidCPUsList1),
