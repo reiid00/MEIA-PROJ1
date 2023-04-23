@@ -1,4 +1,4 @@
-# Custom-Built Computer Recommendation Expert System (MEIA-PROJ1)
+# MEIA-PROJ1: Custom-Built Computer Recommendation Expert System
 
 This repository contains the source code and resources for a custom-built computer recommendation expert system, which recommends computer configurations based on user preferences. The system utilizes a dynamic dialog to gather user requirements and employs Constraint Logic Programming (CLP) in Prolog to efficiently identify the best computer configurations while considering both user needs and component compatibility rules.
 
